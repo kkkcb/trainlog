@@ -1,0 +1,107 @@
+.calendar-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.calendar-day:not(.calendar-day--other):not(.calendar-day--selected):active {
+  background: var(--color-bg-card-hover);
+  transform: scale(0.9);
+}
+
+.calendar-day__number {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: 1;
+  font-family: var(--font-mono);
+  transition: color var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.calendar-day--other .calendar-day__number {
+  color: var(--color-text-tertiary);
+  opacity: 0.5;
+}
+
+.calendar-day--today .calendar-day__number {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.calendar-day--today:not(.calendar-day--selected) {
+  background: var(--color-accent-surface);
+}
+
+.calendar-day--selected {
+  background: var(--color-accent);
+  box-shadow: 0 2px 12px rgba(61, 214, 140, 0.25);
+  transform: scale(1.05);
+}
+
+.calendar-day--selected .calendar-day__number {
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
+}
+
+.calendar-day--selected:active {
+  transform: scale(0.95);
+  background: var(--color-accent-hover);
+}
+
+.calendar-day__dot {
+  position: absolute;
+  bottom: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 6px rgba(61, 214, 140, 0.4);
+}
+
+.calendar-day--selected .calendar-day__dot {
+  background: var(--color-text-inverse);
+  box-shadow: none;
+}
+
+.calendar-day--other .calendar-day__dot {
+  background: var(--color-text-tertiary);
+  box-shadow: none;
+  opacity: 0.5;
+}
+
+.calendar-day--today.calendar-day--training:not(.calendar-day--selected) .calendar-day__dot {
+  width: 6px;
+  height: 6px;
+  bottom: 4px;
+}
+
+.calendar-day__tags {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 6px);
+  letter-spacing: 0.02em;
+}
+
+.calendar-day--selected .calendar-day__tags {
+  color: var(--color-text-inverse);
+  opacity: 0.85;
+}
+
+.calendar-day--other .calendar-day__tags {
+  color: var(--color-text-tertiary);
+  opacity: 0.4;
+}

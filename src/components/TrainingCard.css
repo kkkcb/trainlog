@@ -1,0 +1,83 @@
+.training-card {
+  background: var(--color-bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-xl);
+  margin-bottom: var(--space-sm);
+  border: 1px solid var(--color-border-light);
+  transition: transform var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo);
+  animation: fade-in-up var(--duration-normal) var(--ease-out-expo) both;
+}
+
+.training-card:active {
+  transform: scale(0.98);
+  border-color: var(--color-border);
+}
+
+.training-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.training-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.training-card__tag {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  background: var(--color-accent-surface);
+  letter-spacing: 0.02em;
+}
+
+.training-card__actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  padding: 2px;
+}
+
+.training-card__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-instant) var(--ease-standard), color var(--duration-instant) var(--ease-standard), transform var(--duration-instant) var(--ease-standard);
+}
+
+.training-card__btn:active {
+  transform: scale(0.88);
+}
+
+.training-card__btn--edit {
+  color: var(--color-text-secondary);
+}
+
+.training-card__btn--edit:active {
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
+}
+
+.training-card__btn--delete {
+  color: var(--color-text-tertiary);
+}
+
+.training-card__btn--delete:active {
+  background: var(--color-danger-dim);
+  color: var(--color-danger);
+}

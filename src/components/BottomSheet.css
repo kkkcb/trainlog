@@ -1,0 +1,101 @@
+.bottom-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: overlay-in var(--duration-normal) var(--ease-out-expo) forwards;
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bottom-sheet {
+  width: 100%;
+  max-width: var(--max-content-width);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  border-top: 1px solid var(--color-border);
+  padding-bottom: var(--safe-area-bottom);
+  animation: sheet-in var(--duration-normal) var(--ease-out-expo) forwards;
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.bottom-sheet__handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: var(--space-md) auto 0;
+}
+
+.bottom-sheet__content {
+  padding: var(--space-2xl);
+}
+
+.bottom-sheet__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: var(--line-height-tight);
+}
+
+.bottom-sheet--danger .bottom-sheet__title {
+  color: var(--color-danger);
+}
+
+.bottom-sheet__actions {
+  padding: var(--space-md) var(--space-2xl) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bottom-sheet__btn {
+  width: 100%;
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  transition: transform var(--duration-fast) var(--ease-out-expo), opacity var(--duration-fast) var(--ease-out-expo);
+  letter-spacing: -0.01em;
+}
+
+.bottom-sheet__btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+.bottom-sheet__btn--confirm {
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 12px rgba(61, 214, 140, 0.2);
+}
+
+.bottom-sheet--danger .bottom-sheet__btn--confirm {
+  background: var(--color-danger);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(255, 69, 58, 0.2);
+}
+
+.bottom-sheet__btn--cancel {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+}

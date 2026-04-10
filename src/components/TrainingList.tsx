@@ -1,0 +1,39 @@
+import type { TrainingRecord } from '../types'
+import { TrainingCard } from './TrainingCard'
+import './TrainingList.css'
+
+interface TrainingListProps {
+  records: TrainingRecord[]
+  onEdit: (record: TrainingRecord) => void
+  onDelete: (record: TrainingRecord) => void
+}
+
+export function TrainingList({ records, onEdit, onDelete }: TrainingListProps) {
+  if (records.length === 0) {
+    return (
+      <div className="training-list-empty">
+        <div className="training-list-empty__icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+            <line x1="7" y1="7" x2="7.01" y2="7" />
+          </svg>
+        </div>
+        <p className="training-list-empty__text">今天还没有记录</p>
+        <p className="training-list-empty__hint">点击右下角 + 添加训练标签</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="training-list">
+      {records.map((record) => (
+        <TrainingCard
+          key={record.id}
+          record={record}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      ))}
+    </div>
+  )
+}
