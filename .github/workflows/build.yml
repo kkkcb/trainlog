@@ -65,6 +65,10 @@ jobs:
           open(path, 'w').write(src)
           PY
 
+      - name: Enable debuggable for data migration
+        run: |
+          sed -i 's/<application/<application android:debuggable="true"/' android/app/src/main/AndroidManifest.xml
+
       - name: Sync Capacitor
         run: npx cap sync android
 
