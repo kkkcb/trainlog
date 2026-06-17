@@ -76,12 +76,13 @@ jobs:
 
       - name: Decode signing keystore
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > $HOME/trainlog-release.keystore
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > "$GITHUB_WORKSPACE/trainlog-release.keystore"
+          echo "KEYSTORE_PATH=$GITHUB_WORKSPACE/trainlog-release.keystore" >> $GITHUB_ENV
 
       - name: Build signed release APK
         working-directory: android
         env:
-          KEYSTORE_PATH: ${{ format('{0}/trainlog-release.keystore', env.HOME) }}
+          KEYSTORE_PATH: ${{ env.KEYSTORE_PATH }}
           KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
