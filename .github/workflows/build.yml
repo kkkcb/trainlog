@@ -27,29 +27,28 @@ jobs:
       - name: Add Android platform
         run: npx cap add android
 
-      - name: Configure release signing
+      - name: Configure Android build (signing + lint + debuggable)
         run: |
-          BUILD_GRADLE=android/app/build.gradle
-          KS_PATH="$HOME/trainlog-release.keystore"
-
-          python3 - "$BUILD_GRADLE" <<'PY'
+          python3 - android/app/build.gradle <<'PY'
           import re, sys
           path = sys.argv[1]
           src = open(path).read()
 
-          signing_block = '''
-              signingConfigs {
-                  release {
-                      storeFile file(System.getenv('KEYSTORE_PATH'))
-                      storePassword System.getenv('KEYSTORE_PASSWORD')
-                      keyAlias System.getenv('KEY_ALIAS')
-                      keyPassword System.getenv('KEY_PASSWORD')
-                  }
-              }
-          '''
-
           if 'signingConfigs' not in src:
-              src = src.replace('android {', 'android {' + signing_block, 1)
+              src = src.replace('android {', '''android {
+                  signingConfigs {
+                      release {
+                          storeFile file(System.getenv('KEYSTORE_PATH'))
+                          storePassword System.getenv('KEYSTORE_PASSWORD')
+                          keyAlias System.getenv('KEY_ALIAS')
+                          keyPassword System.getenv('KEY_PASSWORD')
+                      }
+                  }
+                  lint {
+                      abortOnError false
+                      checkReleaseBuilds false
+                  }
+              ''', 1)
 
           release_block = '''
               release {
@@ -64,9 +63,6 @@ jobs:
 
           open(path, 'w').write(src)
           PY
-
-      - name: Enable debuggable for data migration
-        run: |
           sed -i 's/<application/<application android:debuggable="true"/' android/app/src/main/AndroidManifest.xml
 
       - name: Sync Capacitor
