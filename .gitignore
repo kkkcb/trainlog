@@ -16,6 +16,13 @@ android
 *.keystore
 *.b64
 keystore.*
+platform-tools
+platform-tools.zip
+CapacitorStorage_backup.xml
+restore_b64.txt
+cap_b64.txt
+trainlog-raw-backup.json
+trainlog-import.json
 
 # Editor directories and files
 .vscode/*

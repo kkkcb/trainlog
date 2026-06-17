@@ -27,7 +27,7 @@ jobs:
       - name: Add Android platform
         run: npx cap add android
 
-      - name: Configure Android build (signing + lint + debuggable)
+      - name: Configure Android build (signing + lint)
         run: |
           python3 - android/app/build.gradle <<'PY'
           import re, sys
@@ -63,7 +63,6 @@ jobs:
 
           open(path, 'w').write(src)
           PY
-          sed -i 's/<application/<application android:debuggable="true"/' android/app/src/main/AndroidManifest.xml
 
       - name: Sync Capacitor
         run: npx cap sync android
