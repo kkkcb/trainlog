@@ -29,21 +29,41 @@ jobs:
 
       - name: Configure release signing
         run: |
-          cat >> android/app/build.gradle <<'GRADLE'
-          
-          def ksPath = System.getenv('KEYSTORE_PATH')
-          if (ksPath != null && file(ksPath).exists()) {
-            android.signingConfigs {
-              release {
-                storeFile file(ksPath)
-                storePassword System.getenv('KEYSTORE_PASSWORD')
-                keyAlias System.getenv('KEY_ALIAS')
-                keyPassword System.getenv('KEY_PASSWORD')
+          BUILD_GRADLE=android/app/build.gradle
+          KS_PATH="$HOME/trainlog-release.keystore"
+
+          python3 - "$BUILD_GRADLE" <<'PY'
+          import re, sys
+          path = sys.argv[1]
+          src = open(path).read()
+
+          signing_block = '''
+              signingConfigs {
+                  release {
+                      storeFile file(System.getenv('KEYSTORE_PATH'))
+                      storePassword System.getenv('KEYSTORE_PASSWORD')
+                      keyAlias System.getenv('KEY_ALIAS')
+                      keyPassword System.getenv('KEY_PASSWORD')
+                  }
               }
-            }
-            android.buildTypes.release.signingConfig = android.signingConfigs.release
-          }
-          GRADLE
+          '''
+
+          if 'signingConfigs' not in src:
+              src = src.replace('android {', 'android {' + signing_block, 1)
+
+          release_block = '''
+              release {
+                  minifyEnabled false
+                  proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                  signingConfig signingConfigs.release
+              }
+          '''
+          pattern = r'buildTypes\s*\{\s*release\s*\{[^}]*\}\s*\}'
+          if re.search(pattern, src):
+              src = re.sub(pattern, 'buildTypes {\n' + release_block + '\n    }', src, count=1)
+
+          open(path, 'w').write(src)
+          PY
 
       - name: Sync Capacitor
         run: npx cap sync android
@@ -76,6 +96,15 @@ jobs:
           fi
           echo "Found APK: $APK"
           cp "$APK" dist-apk/trainlog.apk
+
+      - name: Verify APK signature
+        run: |
+          if "$ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | tail -1)/apksigner" verify --print-certs dist-apk/trainlog.apk; then
+            echo "APK is signed correctly"
+          else
+            echo "ERROR: APK is NOT signed"
+            exit 1
+          fi
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
