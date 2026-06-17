@@ -67,10 +67,15 @@ jobs:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: ./gradlew assembleRelease
 
-      - name: Rename to universal APK
+      - name: Collect signed APK
         run: |
           mkdir -p dist-apk
-          cp android/app/build/outputs/apk/release/app-release.apk dist-apk/trainlog.apk
+          APK=$(find android/app/build/outputs/apk/release -name "*.apk" | head -1)
+          if [ -z "$APK" ]; then
+            echo "No APK found"; exit 1
+          fi
+          echo "Found APK: $APK"
+          cp "$APK" dist-apk/trainlog.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
