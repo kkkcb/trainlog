@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react'
+import { useRef, useCallback, memo } from 'react'
 import './CalendarDay.css'
 
 interface CalendarDayProps {
@@ -13,7 +13,7 @@ interface CalendarDayProps {
   onLongPress?: (fullDate: string) => void
 }
 
-export function CalendarDay({
+export const CalendarDay = memo(function CalendarDay({
   date,
   fullDate,
   isCurrentMonth,
@@ -76,4 +76,4 @@ export function CalendarDay({
       {tagText && <span className="calendar-day__tags">{tagText}</span>}
     </button>
   )
-}
+})

@@ -1,13 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
-import type { TrainingRecord } from '../types'
+import { useState } from 'react'
+import type { TrainingRecord, TrainingTag, TagMetrics, TagDefinition, MetricType } from '../types'
+import { METRIC_LABELS } from '../types'
 import './TrainingFormPage.css'
 
 interface TrainingFormPageProps {
   date: string
   existingRecord?: TrainingRecord
-  presetTags: string[]
-  onAddPresetTag: (tag: string) => void
-  onRemovePresetTag: (tag: string) => void
+  tagDefinitions: TagDefinition[]
   onSave: (data: Partial<TrainingRecord>) => void
   onBack: () => void
 }
@@ -15,23 +14,15 @@ interface TrainingFormPageProps {
 export function TrainingFormPage({
   date,
   existingRecord,
-  presetTags,
-  onAddPresetTag,
-  onRemovePresetTag,
+  tagDefinitions,
   onSave,
   onBack,
 }: TrainingFormPageProps) {
-  const [tags, setTags] = useState<string[]>([])
-  const [customTag, setCustomTag] = useState('')
-  const tagInputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (existingRecord) {
-      setTags(existingRecord.tags || [])
-    } else {
-      setTags([])
-    }
-  }, [existingRecord])
+  const [tags, setTags] = useState<TrainingTag[]>(() => {
+    if (!existingRecord) return []
+    const validNames = new Set(tagDefinitions.map((d) => d.name))
+    return existingRecord.tags.filter((t) => validNames.has(t.name))
+  })
 
   const handleSave = () => {
     onSave({ tags })
@@ -39,38 +30,50 @@ export function TrainingFormPage({
 
   const isValid = tags.length > 0
 
-  const toggleTag = (tag: string) => {
-    setTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag])
+  const getTagDef = (name: string): TagDefinition | undefined =>
+    tagDefinitions.find((d) => d.name === name)
+
+  const toggleTag = (name: string) => {
+    setTags((prev) => {
+      const existing = prev.find((t) => t.name === name)
+      if (existing) return prev.filter((t) => t.name !== name)
+      const def = getTagDef(name)
+      return [...prev, { name, metrics: def && def.metrics.length > 0 ? {} : undefined }]
+    })
   }
 
-  const addCustomTag = () => {
-    const trimmed = customTag.trim()
-    if (trimmed && !tags.includes(trimmed)) {
-      setTags((prev) => [...prev, trimmed])
-      setCustomTag('')
+  const updateMetricValue = (tagName: string, field: keyof TagMetrics, value: string) => {
+    if (value === '') {
+      setTags((prev) =>
+        prev.map((t) => {
+          if (t.name !== tagName) return t
+          const rest = { ...t.metrics }
+          delete rest[field]
+          const hasOther = Object.keys(rest).length > 0
+          return { ...t, metrics: hasOther ? rest : undefined }
+        })
+      )
+      return
     }
+    const num = Number(value)
+    if (Number.isNaN(num) || num < 0) return
+    setTags((prev) =>
+      prev.map((t) =>
+        t.name === tagName
+          ? { ...t, metrics: { ...t.metrics, [field]: num } }
+          : t
+      )
+    )
   }
 
-  const handleTagKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      addCustomTag()
-    }
-  }
+  const selectedTagsWithDefs = tags.map((t) => ({
+    tag: t,
+    def: getTagDef(t.name),
+  }))
 
-  const handlePresetRemove = (tag: string) => {
-    onRemovePresetTag(tag)
-  }
-
-  const handleSaveCustomAsPreset = () => {
-    const trimmed = customTag.trim()
-    if (trimmed) {
-      onAddPresetTag(trimmed)
-      setCustomTag('')
-    }
-  }
-
-  const customSelectedTags = tags.filter((t) => !presetTags.includes(t))
+  const hasMetricInputs = selectedTagsWithDefs.some(
+    ({ def }) => def && def.metrics.length > 0
+  )
 
   return (
     <div className="form-page">
@@ -104,55 +107,58 @@ export function TrainingFormPage({
         <div className="form-field">
           <label className="form-field__label">标签</label>
           <div className="form-field__tags">
-            {presetTags.map((tag) => (
-              <button
-                key={tag}
-                className={`form-field__tag ${tags.includes(tag) ? 'form-field__tag--active' : ''}`}
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
-                <span
-                  className="form-field__tag-preset-remove"
-                  onClick={(e) => { e.stopPropagation(); handlePresetRemove(tag) }}
-                >×</span>
-              </button>
-            ))}
-            {customSelectedTags.map((tag) => (
-              <button
-                key={tag}
-                className="form-field__tag form-field__tag--active form-field__tag--custom"
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
-                <span className="form-field__tag-remove">×</span>
-              </button>
-            ))}
-            <div className="form-field__tag-input-wrap">
-              <input
-                ref={tagInputRef}
-                className="form-field__tag-input"
-                type="text"
-                placeholder="自定义"
-                value={customTag}
-                onChange={(e) => setCustomTag(e.target.value)}
-                onKeyDown={handleTagKeyDown}
-                maxLength={6}
-              />
-              {customTag.trim() && !presetTags.includes(customTag.trim()) && (
+            {tagDefinitions.map((def) => {
+              const isSelected = tags.some((t) => t.name === def.name)
+              return (
                 <button
-                  className="form-field__tag-add-btn"
-                  onClick={handleSaveCustomAsPreset}
-                  title="添加为预设标签"
+                  key={def.name}
+                  className={`form-field__tag ${isSelected ? 'form-field__tag--active' : ''}`}
+                  onClick={() => toggleTag(def.name)}
                 >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                  </svg>
+                  {def.name}
+                  {def.metrics.length > 0 && (
+                    <span className="form-field__tag-badge">
+                      {def.metrics.map((m: MetricType) => METRIC_LABELS[m].label).join('/')}
+                    </span>
+                  )}
                 </button>
-              )}
-            </div>
+              )
+            })}
           </div>
         </div>
+
+        {hasMetricInputs && (
+          <div className="form-field">
+            <label className="form-field__label">训练指标</label>
+            <div className="metrics-list">
+              {selectedTagsWithDefs.map(({ tag, def }) => {
+                if (!def || def.metrics.length === 0) return null
+                return (
+                  <div key={tag.name} className="metrics-item">
+                    <div className="metrics-item__name">{tag.name}</div>
+                    <div className="metrics-item__fields">
+                      {def.metrics.map((metric: MetricType) => (
+                        <div key={metric} className="metrics-item__field">
+                          <span className="metrics-item__unit">{METRIC_LABELS[metric].label}</span>
+                          <input
+                            className="metrics-item__input"
+                            type="number"
+                            inputMode="decimal"
+                            placeholder="—"
+                            value={tag.metrics?.[metric] ?? ''}
+                            onChange={(e) => updateMetricValue(tag.name, metric, e.target.value)}
+                            min={0}
+                          />
+                          <span className="metrics-item__suffix">{METRIC_LABELS[metric].unit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

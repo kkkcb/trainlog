@@ -1,15 +1,16 @@
 import { useState } from 'react'
+import type { TagDefinition } from '../types'
 import './QuickAddSheet.css'
 
 interface QuickAddSheetProps {
   isOpen: boolean
   date: string
-  presetTags: string[]
-  onAdd: (date: string, tags: string[]) => void
+  tagDefinitions: TagDefinition[]
+  onAdd: (date: string, tagNames: string[]) => void
   onClose: () => void
 }
 
-export function QuickAddSheet({ isOpen, date, presetTags, onAdd, onClose }: QuickAddSheetProps) {
+export function QuickAddSheet({ isOpen, date, tagDefinitions, onAdd, onClose }: QuickAddSheetProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   if (!isOpen) return null
@@ -24,7 +25,6 @@ export function QuickAddSheet({ isOpen, date, presetTags, onAdd, onClose }: Quic
     if (selectedTags.length > 0) {
       onAdd(date, selectedTags)
       setSelectedTags([])
-      onClose()
     }
   }
 
@@ -44,13 +44,13 @@ export function QuickAddSheet({ isOpen, date, presetTags, onAdd, onClose }: Quic
           <span className="quick-add-sheet__title">快速添加</span>
         </div>
         <div className="quick-add-sheet__tags">
-          {presetTags.map((tag) => (
+          {tagDefinitions.map((def) => (
             <button
-              key={tag}
-              className={`quick-add-sheet__tag ${selectedTags.includes(tag) ? 'quick-add-sheet__tag--active' : ''}`}
-              onClick={() => toggleTag(tag)}
+              key={def.name}
+              className={`quick-add-sheet__tag ${selectedTags.includes(def.name) ? 'quick-add-sheet__tag--active' : ''}`}
+              onClick={() => toggleTag(def.name)}
             >
-              {tag}
+              {def.name}
             </button>
           ))}
         </div>

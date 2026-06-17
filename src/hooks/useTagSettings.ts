@@ -1,54 +1,74 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Preferences } from '@capacitor/preferences'
-import { DEFAULT_TAGS } from '../types'
+import { DEFAULT_TAG_DEFINITIONS } from '../types'
+import type { TagDefinition, MetricType } from '../types'
 
 const TAGS_KEY = 'trainlog_preset_tags'
+const TAG_DEFS_KEY = 'trainlog_tag_definitions'
 
-async function loadPresetTags(): Promise<string[]> {
-  const { value } = await Preferences.get({ key: TAGS_KEY })
+async function loadTagDefinitions(): Promise<TagDefinition[]> {
+  const { value } = await Preferences.get({ key: TAG_DEFS_KEY })
   if (value) {
     try {
-      return JSON.parse(value)
+      const parsed = JSON.parse(value)
+      if (Array.isArray(parsed)) return parsed
     } catch {
-      return [...DEFAULT_TAGS]
+      return [...DEFAULT_TAG_DEFINITIONS]
     }
   }
-  return [...DEFAULT_TAGS]
+  const { value: legacyValue } = await Preferences.get({ key: TAGS_KEY })
+  if (legacyValue) {
+    try {
+      const names: string[] = JSON.parse(legacyValue)
+      return names.map((name) => ({ name, metrics: [] as MetricType[] }))
+    } catch {
+      return [...DEFAULT_TAG_DEFINITIONS]
+    }
+  }
+  return [...DEFAULT_TAG_DEFINITIONS]
 }
 
-async function savePresetTags(tags: string[]): Promise<void> {
-  await Preferences.set({ key: TAGS_KEY, value: JSON.stringify(tags) })
+async function saveTagDefinitions(tags: TagDefinition[]): Promise<void> {
+  await Preferences.set({ key: TAG_DEFS_KEY, value: JSON.stringify(tags) })
 }
 
 export function useTagSettings() {
-  const [presetTags, setPresetTags] = useState<string[]>(DEFAULT_TAGS)
-  const [loaded, setLoaded] = useState(false)
+  const [tagDefinitions, setTagDefinitions] = useState<TagDefinition[]>(DEFAULT_TAG_DEFINITIONS)
+  const initialized = useRef(false)
 
   useEffect(() => {
-    loadPresetTags().then((tags) => {
-      setPresetTags(tags)
-      setLoaded(true)
+    loadTagDefinitions().then((defs) => {
+      setTagDefinitions(defs)
+      initialized.current = true
     })
   }, [])
 
-  const addPresetTag = useCallback(async (tag: string) => {
-    const trimmed = tag.trim()
-    if (!trimmed || presetTags.includes(trimmed)) return
-    const updated = [...presetTags, trimmed]
-    setPresetTags(updated)
-    await savePresetTags(updated)
-  }, [presetTags])
+  useEffect(() => {
+    if (initialized.current) {
+      saveTagDefinitions(tagDefinitions)
+    }
+  }, [tagDefinitions])
 
-  const removePresetTag = useCallback(async (tag: string) => {
-    const updated = presetTags.filter((t) => t !== tag)
-    setPresetTags(updated)
-    await savePresetTags(updated)
-  }, [presetTags])
+  const addTag = useCallback((def: TagDefinition): void => {
+    setTagDefinitions((prev) => {
+      if (prev.some((t) => t.name === def.name)) return prev
+      return [...prev, def]
+    })
+  }, [])
+
+  const removeTag = useCallback((name: string): void => {
+    setTagDefinitions((prev) => prev.filter((t) => t.name !== name))
+  }, [])
+
+  const updateTagMetrics = useCallback((name: string, metrics: MetricType[]): void => {
+    setTagDefinitions((prev) => prev.map((t) => (t.name === name ? { ...t, metrics } : t)))
+  }, [])
 
   return {
-    presetTags,
-    loaded,
-    addPresetTag,
-    removePresetTag,
+    tagDefinitions,
+    presetTagNames: tagDefinitions.map((t) => t.name),
+    addTag,
+    removeTag,
+    updateTagMetrics,
   }
 }

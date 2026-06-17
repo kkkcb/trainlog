@@ -8,11 +8,26 @@
   border: 1px solid var(--color-border-light);
   transition: transform var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo);
   animation: fade-in-up var(--duration-normal) var(--ease-out-expo) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.training-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  background: var(--gradient-accent);
+  border-radius: 0 2px 2px 0;
+  opacity: 0.7;
 }
 
 .training-card:active {
   transform: scale(0.98);
   border-color: var(--color-border);
+  background: var(--color-bg-card-hover);
 }
 
 .training-card__header {
@@ -33,11 +48,29 @@
 .training-card__tag {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  padding: 4px 10px;
+  padding: 5px 11px;
   border-radius: var(--radius-full);
   color: var(--color-accent);
   background: var(--color-accent-surface);
+  border: 1px solid rgba(74, 224, 154, 0.15);
   letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.training-card__tag-metrics {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  padding-left: 6px;
+  margin-left: 2px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: -0.01em;
 }
 
 .training-card__actions {
@@ -47,15 +80,15 @@
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border-light);
-  padding: 2px;
+  padding: 3px;
 }
 
 .training-card__btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-sm);
   transition: background var(--duration-instant) var(--ease-standard), color var(--duration-instant) var(--ease-standard), transform var(--duration-instant) var(--ease-standard);
 }

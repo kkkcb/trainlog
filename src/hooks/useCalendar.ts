@@ -5,12 +5,10 @@ export interface CalendarState {
   month: number
 }
 
-const today = new Date()
-
 export function useCalendar() {
-  const [state, setState] = useState<CalendarState>({
-    year: today.getFullYear(),
-    month: today.getMonth(),
+  const [state, setState] = useState<CalendarState>(() => {
+    const now = new Date()
+    return { year: now.getFullYear(), month: now.getMonth() }
   })
 
   const goToPrevMonth = useCallback(() => {
@@ -28,9 +26,10 @@ export function useCalendar() {
   }, [])
 
   const goToToday = useCallback(() => {
+    const now = new Date()
     setState({
-      year: today.getFullYear(),
-      month: today.getMonth(),
+      year: now.getFullYear(),
+      month: now.getMonth(),
     })
   }, [])
 
@@ -82,7 +81,7 @@ export function useCalendar() {
   }, [state.year, state.month])
 
   const isToday = useCallback((fullDate: string) => {
-    const t = today
+    const t = new Date()
     const todayStr = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`
     return fullDate === todayStr
   }, [])

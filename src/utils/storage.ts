@@ -1,32 +1,51 @@
 import { Preferences } from '@capacitor/preferences'
+import type { TrainingRecord } from '../types'
 
 const STORAGE_KEY = 'trainlog_records'
+const BACKUP_KEY = 'trainlog_records_backup'
 
-export async function loadRecords(): Promise<Record<string, import('../types').TrainingRecord>> {
+type LegacyRecord = Omit<TrainingRecord, 'tags'> & { tags: string[] | TrainingRecord['tags'] }
+type RawRecords = Record<string, LegacyRecord>
+
+function migrateOne(record: LegacyRecord): TrainingRecord {
+  if (
+    record.tags &&
+    Array.isArray(record.tags) &&
+    record.tags.length > 0 &&
+    typeof record.tags[0] === 'string'
+  ) {
+    return { ...record, tags: (record.tags as string[]).map((name) => ({ name })) }
+  }
+  return record as TrainingRecord
+}
+
+export async function loadRecords(): Promise<Record<string, TrainingRecord>> {
   const { value } = await Preferences.get({ key: STORAGE_KEY })
-  if (value) {
+  if (!value) return {}
+
+  let parsed: RawRecords
+  try {
+    parsed = JSON.parse(value)
+  } catch {
+    await Preferences.set({ key: BACKUP_KEY, value })
+    return {}
+  }
+
+  const migrated: Record<string, TrainingRecord> = {}
+  for (const [id, record] of Object.entries(parsed)) {
     try {
-      return JSON.parse(value)
+      migrated[id] = migrateOne(record)
     } catch {
-      return {}
+      migrated[id] = record as unknown as TrainingRecord
     }
   }
-  return {}
+
+  await Preferences.set({ key: STORAGE_KEY, value: JSON.stringify(migrated) })
+  return migrated
 }
 
-export async function saveRecords(records: Record<string, import('../types').TrainingRecord>): Promise<void> {
-  await Preferences.set({
-    key: STORAGE_KEY,
-    value: JSON.stringify(records),
-  })
-}
-
-export async function deleteRecord(
-  id: string,
-  currentRecords: Record<string, import('../types').TrainingRecord>
-): Promise<Record<string, import('../types').TrainingRecord>> {
-  const updated = { ...currentRecords }
-  delete updated[id]
-  await saveRecords(updated)
-  return updated
+export async function saveRecords(records: Record<string, TrainingRecord>): Promise<void> {
+  const value = JSON.stringify(records)
+  await Preferences.set({ key: STORAGE_KEY, value })
+  await Preferences.set({ key: BACKUP_KEY, value })
 }

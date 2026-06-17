@@ -12,8 +12,8 @@ interface CalendarGridProps {
     goToToday: () => void
     isToday: (fullDate: string) => boolean
   }
-  trainingDates: Set<number>
-  tagsByDate: Record<number, string[]>
+  trainingDates: Set<string>
+  tagsByDate: Record<string, string[]>
   selectedDate: string
   onSelectDate: (date: string) => void
   onLongPressDate?: (fullDate: string) => void
@@ -37,8 +37,8 @@ export function CalendarGrid({ calendar, trainingDates, tagsByDate, selectedDate
       </div>
       <div className="calendar__grid">
         {calendar.calendarDays.map((day) => {
-          const hasTraining = trainingDates.has(day.date)
-          const dayTags = tagsByDate[day.date]
+          const hasTraining = trainingDates.has(day.fullDate)
+          const dayTags = tagsByDate[day.fullDate]
           return (
             <CalendarDay
               key={day.fullDate}
