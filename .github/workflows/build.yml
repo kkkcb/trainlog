@@ -27,6 +27,24 @@ jobs:
       - name: Add Android platform
         run: npx cap add android
 
+      - name: Configure release signing
+        run: |
+          cat >> android/app/build.gradle <<'GRADLE'
+          
+          def ksPath = System.getenv('KEYSTORE_PATH')
+          if (ksPath != null && file(ksPath).exists()) {
+            android.signingConfigs {
+              release {
+                storeFile file(ksPath)
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias System.getenv('KEY_ALIAS')
+                keyPassword System.getenv('KEY_PASSWORD')
+              }
+            }
+            android.buildTypes.release.signingConfig = android.signingConfigs.release
+          }
+          GRADLE
+
       - name: Sync Capacitor
         run: npx cap sync android
 
@@ -36,13 +54,27 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Build APK
+      - name: Decode signing keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > $HOME/trainlog-release.keystore
+
+      - name: Build signed release APK
         working-directory: android
-        run: ./gradlew assembleDebug
+        env:
+          KEYSTORE_PATH: ${{ format('{0}/trainlog-release.keystore', env.HOME) }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease
+
+      - name: Rename to universal APK
+        run: |
+          mkdir -p dist-apk
+          cp android/app/build/outputs/apk/release/app-release.apk dist-apk/trainlog.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: trainlog-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: trainlog-apk
+          path: dist-apk/trainlog.apk
           retention-days: 30

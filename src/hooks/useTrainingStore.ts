@@ -59,11 +59,18 @@ export function useTrainingStore() {
     })
   }, [])
 
+  const reload = useCallback((): void => {
+    loadRecords().then((data) => {
+      setRecords(data)
+    })
+  }, [])
+
   return {
     records,
     loading,
     addRecord,
     updateRecord,
     deleteRecordById,
+    reload,
   }
 }

@@ -49,3 +49,46 @@ export async function saveRecords(records: Record<string, TrainingRecord>): Prom
   await Preferences.set({ key: STORAGE_KEY, value })
   await Preferences.set({ key: BACKUP_KEY, value })
 }
+
+export interface ExportPayload {
+  version: 1
+  exportedAt: number
+  records: Record<string, TrainingRecord>
+  tagDefinitions: unknown
+}
+
+export async function exportAllData(tagDefinitions: unknown): Promise<string> {
+  const { value: recordsValue } = await Preferences.get({ key: STORAGE_KEY })
+  let records: Record<string, TrainingRecord> = {}
+  if (recordsValue) {
+    try {
+      records = JSON.parse(recordsValue)
+    } catch {
+      records = {}
+    }
+  }
+  const payload: ExportPayload = {
+    version: 1,
+    exportedAt: Date.now(),
+    records,
+    tagDefinitions,
+  }
+  return JSON.stringify(payload, null, 2)
+}
+
+export async function importAllData(json: string): Promise<ExportPayload> {
+  const parsed = JSON.parse(json) as ExportPayload
+  if (!parsed || typeof parsed !== 'object' || !parsed.records) {
+    throw new Error('数据格式不正确')
+  }
+  const migrated: Record<string, TrainingRecord> = {}
+  for (const [id, record] of Object.entries(parsed.records)) {
+    try {
+      migrated[id] = migrateOne(record as LegacyRecord)
+    } catch {
+      migrated[id] = record as TrainingRecord
+    }
+  }
+  await saveRecords(migrated)
+  return { ...parsed, records: migrated }
+}

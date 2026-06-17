@@ -3,17 +3,19 @@ import type { TrainingRecord, TrainingTag } from './types'
 import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
+import { exportAllData, importAllData } from './utils/storage'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { BottomSheet } from './components/BottomSheet'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
+import { BackupPage } from './pages/BackupPage'
 import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
 import './App.css'
 
-type Page = 'home' | 'form' | 'settings'
+type Page = 'home' | 'form' | 'settings' | 'backup'
 
 function getTodayString(): string {
   const t = new Date()
@@ -21,7 +23,7 @@ function getTodayString(): string {
 }
 
 export default function App() {
-  const { loading, records, addRecord, updateRecord, deleteRecordById } = useTrainingStore()
+  const { loading, records, addRecord, updateRecord, deleteRecordById, reload } = useTrainingStore()
 
   const todayStr = getTodayString()
   const [selectedDate, setSelectedDate] = useState(todayStr)
@@ -144,6 +146,26 @@ export default function App() {
     history.back()
   }
 
+  const handleOpenBackup = () => {
+    pushPage('backup')
+  }
+
+  const handleBackupExport = useCallback(() => {
+    return exportAllData(tagDefinitions)
+  }, [tagDefinitions])
+
+  const handleBackupImport = useCallback(async (json: string) => {
+    await importAllData(json)
+  }, [])
+
+  const handleBackupImported = useCallback(() => {
+    reload()
+  }, [reload])
+
+  const handleBackupBack = () => {
+    history.back()
+  }
+
   const handleTabChange = useCallback((tab: 'training' | 'stats') => {
     setActiveTab(tab)
   }, [])
@@ -229,7 +251,19 @@ export default function App() {
           onAddTag={addTag}
           onRemoveTag={removeTag}
           onUpdateTagMetrics={updateTagMetrics}
+          onOpenBackup={handleOpenBackup}
           onBack={handleSettingsBack}
+        />
+      )}
+
+      {currentPage === 'backup' && (
+        <BackupPage
+          records={records}
+          tagDefinitions={tagDefinitions}
+          onExport={handleBackupExport}
+          onImport={handleBackupImport}
+          onImported={handleBackupImported}
+          onBack={handleBackupBack}
         />
       )}
 
