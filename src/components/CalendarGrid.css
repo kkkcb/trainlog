@@ -4,10 +4,14 @@
   animation-delay: 100ms;
 }
 
-.calendar__weekdays {
+.calendar__weekdays,
+.calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 3px;
+}
+
+.calendar__weekdays {
   margin-bottom: var(--space-xs);
 }
 
@@ -21,10 +25,4 @@
   padding: var(--space-sm) 0;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-.calendar__grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
 }
