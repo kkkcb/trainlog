@@ -14,6 +14,9 @@
 .quick-add-sheet {
   width: 100%;
   max-width: var(--max-content-width);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg-secondary);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   border-top: 1px solid var(--color-border);
@@ -38,6 +41,7 @@
   border-radius: 2px;
   background: var(--color-border);
   margin: 0 auto var(--space-lg);
+  flex-shrink: 0;
 }
 
 .quick-add-sheet__header {
@@ -45,6 +49,7 @@
   align-items: center;
   gap: var(--space-sm);
   margin-bottom: var(--space-lg);
+  flex-shrink: 0;
 }
 
 .quick-add-sheet__date {
@@ -61,10 +66,15 @@
 }
 
 .quick-add-sheet__tags {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
   margin-bottom: var(--space-xl);
+  padding: 2px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .quick-add-sheet__tag {
@@ -106,6 +116,7 @@
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   transition: all var(--duration-fast) var(--ease-out-expo);
+  flex-shrink: 0;
 }
 
 .quick-add-sheet__btn--active {
