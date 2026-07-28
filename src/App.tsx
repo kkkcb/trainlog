@@ -4,6 +4,7 @@ import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
 import { exportAllData, importAllData } from './utils/storage'
+import { calculateGamification } from './utils/gamification'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { BottomSheet } from './components/BottomSheet'
@@ -13,6 +14,8 @@ import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
 import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
+import { StreakCard } from './components/StreakCard'
+import { AchievementsPage } from './components/AchievementsPage'
 import './App.css'
 
 type Page = 'home' | 'form' | 'settings' | 'backup'
@@ -28,7 +31,7 @@ export default function App() {
   const todayStr = getTodayString()
   const [selectedDate, setSelectedDate] = useState(todayStr)
   const [currentPage, setCurrentPage] = useState<Page>('home')
-  const [activeTab, setActiveTab] = useState<'training' | 'stats'>('training')
+  const [activeTab, setActiveTab] = useState<'training' | 'stats' | 'achievements'>('training')
   const [editingRecord, setEditingRecord] = useState<TrainingRecord | undefined>()
   const [deleteTarget, setDeleteTarget] = useState<TrainingRecord | null>(null)
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
@@ -81,6 +84,8 @@ export default function App() {
       .filter((r) => r.date === selectedDate)
       .sort((a, b) => a.createdAt - b.createdAt)
   }, [selectedDate, records])
+
+  const gamificationStats = useMemo(() => calculateGamification(records), [records])
 
   const pushPage = useCallback((page: Page) => {
     setCurrentPage(page)
@@ -166,7 +171,7 @@ export default function App() {
     history.back()
   }
 
-  const handleTabChange = useCallback((tab: 'training' | 'stats') => {
+  const handleTabChange = useCallback((tab: 'training' | 'stats' | 'achievements') => {
     setActiveTab(tab)
   }, [])
 
@@ -195,6 +200,7 @@ export default function App() {
 
           {activeTab === 'training' && (
             <>
+              <StreakCard stats={gamificationStats} />
               <CalendarGrid
                 calendar={calendar}
                 trainingDates={trainingDates}
@@ -215,6 +221,10 @@ export default function App() {
                 />
               </div>
             </>
+          )}
+
+          {activeTab === 'achievements' && (
+            <AchievementsPage stats={gamificationStats} />
           )}
 
           {activeTab === 'stats' && (
