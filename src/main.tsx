@@ -2,6 +2,7 @@ import { StrictMode, Component, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/global.css'
 import App from './App.tsx'
+import { ToastProvider } from './components/Toast'
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
   state = { hasError: false }
@@ -31,7 +32,9 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </ErrorBoundary>
   </StrictMode>,
 )

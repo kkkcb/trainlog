@@ -252,3 +252,14 @@ button,
     transition-duration: 0.01ms !important;
   }
 }
+
+button:not(:disabled):active,
+[role="button"]:not(:disabled):active {
+  transition: transform 80ms var(--ease-out-expo), opacity 80ms var(--ease-out-expo);
+  transform: scale(0.96);
+}
+
+.app__fab:not(:disabled):active,
+.calendar-day:not(.calendar-day--empty):active {
+  transform: scale(0.92);
+}

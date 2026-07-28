@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react'
 import type { TrainingRecord, TrainingTag } from './types'
 import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
@@ -16,6 +16,8 @@ import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
 import { StreakCard } from './components/StreakCard'
 import { AchievementsPage } from './components/AchievementsPage'
+import { useToast } from './components/useToast'
+import { useHapticFeedback } from './hooks/useHapticFeedback'
 import './App.css'
 
 type Page = 'home' | 'form' | 'settings' | 'backup'
@@ -27,6 +29,8 @@ function getTodayString(): string {
 
 export default function App() {
   const { loading, records, addRecord, updateRecord, deleteRecordById, reload } = useTrainingStore()
+  const toast = useToast()
+  const haptic = useHapticFeedback()
 
   const todayStr = getTodayString()
   const [selectedDate, setSelectedDate] = useState(todayStr)
@@ -41,8 +45,11 @@ export default function App() {
 
   useEffect(() => {
     const handler = () => {
-      setCurrentPage('home')
+      pageStackRef.current.pop()
+      const prev = pageStackRef.current[pageStackRef.current.length - 1] ?? 'home'
+      setCurrentPage(prev)
       setEditingRecord(undefined)
+      setQuickAddDate(null)
     }
     window.addEventListener('popstate', handler)
     return () => window.removeEventListener('popstate', handler)
@@ -87,7 +94,10 @@ export default function App() {
 
   const gamificationStats = useMemo(() => calculateGamification(records), [records])
 
+  const pageStackRef = useRef<Page[]>(['home'])
+
   const pushPage = useCallback((page: Page) => {
+    pageStackRef.current.push(page)
     setCurrentPage(page)
     if (page !== 'home') {
       history.pushState(null, '')
@@ -111,6 +121,8 @@ export default function App() {
   const handleConfirmDelete = async () => {
     if (deleteTarget) {
       await deleteRecordById(deleteTarget.id)
+      haptic.onSuccess()
+      toast.show('已删除', 'success')
       setDeleteTarget(null)
     }
   }
@@ -118,8 +130,12 @@ export default function App() {
   const handleFormSave = async (data: Partial<TrainingRecord>) => {
     if (editingRecord) {
       await updateRecord(editingRecord.id, data)
+      haptic.onSuccess()
+      toast.show('已更新', 'success')
     } else {
       await addRecord(selectedDate, data)
+      haptic.onSuccess()
+      toast.show('已添加训练记录', 'success')
     }
     setEditingRecord(undefined)
     history.back()
@@ -140,6 +156,8 @@ export default function App() {
       return { name, metrics: def && def.metrics.length > 0 ? {} : undefined }
     })
     await addRecord(date, { tags })
+    haptic.onSuccess()
+    toast.show(`已添加 ${tagNames.length} 个训练`, 'success')
     setQuickAddDate(null)
   }
 
@@ -172,8 +190,9 @@ export default function App() {
   }
 
   const handleTabChange = useCallback((tab: 'training' | 'stats' | 'achievements') => {
+    haptic.onTap()
     setActiveTab(tab)
-  }, [])
+  }, [haptic])
 
   if (loading) {
     return (
