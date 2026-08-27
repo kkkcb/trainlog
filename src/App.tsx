@@ -16,6 +16,8 @@ import { StatsPage } from './components/StatsPage'
 import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
+import { Capacitor } from '@capacitor/core'
+import { App as CapApp } from '@capacitor/app'
 import './App.css'
 
 type Page = 'home' | 'form' | 'settings' | 'backup'
@@ -45,6 +47,30 @@ export default function App() {
     window.addEventListener('popstate', handler)
     return () => window.removeEventListener('popstate', handler)
   }, [])
+
+  // Android 返回键（Capacitor 8 无默认处理，需自行接管）：
+  // 优先关弹层 → 子页面后退 → 主页才退出
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return
+    const listener = CapApp.addListener('backButton', () => {
+      if (quickAddDate) {
+        setQuickAddDate(null)
+        return
+      }
+      if (deleteTarget) {
+        setDeleteTarget(null)
+        return
+      }
+      if (currentPage !== 'home') {
+        history.back()
+        return
+      }
+      CapApp.exitApp()
+    })
+    return () => {
+      listener.then((l) => l.remove()).catch(() => {})
+    }
+  }, [quickAddDate, deleteTarget, currentPage])
 
   const monthPrefix = useMemo(
     () => `${calendar.year}-${String(calendar.month + 1).padStart(2, '0')}`,
