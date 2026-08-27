@@ -1,7 +1,6 @@
 .calendar {
   padding: 0 var(--space-xl);
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 100ms;
 }
 
 .calendar__weekdays,

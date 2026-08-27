@@ -64,7 +64,7 @@
   justify-content: space-between;
   padding: var(--space-lg) var(--space-2xl) var(--space-sm);
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 300ms;
+  animation-delay: 150ms;
 }
 
 .app__section-title {

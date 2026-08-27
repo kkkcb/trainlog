@@ -1,7 +1,7 @@
 .training-list {
   padding: var(--space-sm) var(--space-2xl) var(--space-2xl);
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 350ms;
+  animation-delay: 200ms;
 }
 
 .training-list-empty {

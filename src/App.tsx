@@ -4,7 +4,6 @@ import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
 import { exportAllData, importAllData } from './utils/storage'
-import { calculateGamification } from './utils/gamification'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { BottomSheet } from './components/BottomSheet'
@@ -14,7 +13,6 @@ import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
 import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
-import { StreakCard } from './components/StreakCard'
 import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
@@ -100,8 +98,6 @@ export default function App() {
       .filter((r) => r.date === selectedDate)
       .sort((a, b) => a.createdAt - b.createdAt)
   }, [selectedDate, records])
-
-  const gamificationStats = useMemo(() => calculateGamification(records), [records])
 
   const pageStackRef = useRef<Page[]>(['home'])
 
@@ -226,7 +222,6 @@ export default function App() {
 
           {activeTab === 'training' && (
             <>
-              <StreakCard stats={gamificationStats} />
               <CalendarGrid
                 calendar={calendar}
                 trainingDates={trainingDates}
