@@ -34,7 +34,7 @@
 /* 今天：淡绿底 + 描边圆环 */
 .calendar-day--today:not(.calendar-day--selected) {
   background: var(--color-accent-surface);
-  box-shadow: inset 0 0 0 1.5px rgba(16, 185, 129, 0.45);
+  box-shadow: inset 0 0 0 1.5px rgba(52, 211, 153, 0.45);
 }
 
 .calendar-day--today:not(.calendar-day--selected) .calendar-day__number {
@@ -45,7 +45,7 @@
 /* 选中：实心渐变圆 */
 .calendar-day--selected {
   background: var(--gradient-accent);
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 4px 14px rgba(52, 211, 153, 0.35);
 }
 
 .calendar-day--selected .calendar-day__number {

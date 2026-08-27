@@ -20,7 +20,7 @@
   flex-direction: column;
   background: var(--color-bg-secondary);
   border-radius: var(--radius-xl);
-  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.22), 0 8px 20px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.32);
   padding: var(--space-xl);
   animation: pop-in var(--duration-normal) var(--ease-spring);
 }
@@ -115,7 +115,7 @@
   width: 15px;
   height: 15px;
   border-radius: var(--radius-full);
-  color: #fff;
+  color: var(--color-text-inverse);
   background: var(--color-accent);
 }
 
@@ -145,7 +145,7 @@
 .quick-add-sheet__btn--active {
   color: var(--color-text-inverse);
   background: var(--gradient-accent);
-  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 6px 18px rgba(52, 211, 153, 0.35);
 }
 
 .quick-add-sheet__btn:active {

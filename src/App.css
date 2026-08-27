@@ -1,7 +1,7 @@
 .app {
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   max-width: var(--max-content-width);
@@ -84,22 +84,22 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding-bottom: calc(var(--bottom-bar-height) + var(--safe-area-bottom) + var(--space-2xl));
+  padding-bottom: calc(88px + var(--safe-area-bottom) + var(--space-xl));
 }
 
 .app__fab {
   position: fixed;
-  bottom: calc(64px + var(--space-2xl) + var(--safe-area-bottom));
+  bottom: calc(104px + var(--safe-area-bottom));
   right: calc(var(--space-2xl) + var(--safe-area-right));
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 18px;
   background: var(--gradient-accent);
-  color: #fff;
+  color: var(--color-text-inverse);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35), 0 16px 32px rgba(16, 185, 129, 0.18);
+  box-shadow: var(--shadow-fab);
   transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
   z-index: 50;
   animation: scale-in var(--duration-normal) var(--ease-spring) both;
@@ -108,8 +108,8 @@
 .app__fab:active {
   transform: scale(0.88) rotate(90deg);
   box-shadow:
-    0 1px 4px rgba(16, 185, 129, 0.2),
-    0 4px 12px rgba(16, 185, 129, 0.15);
+    0 1px 4px rgba(52, 211, 153, 0.2),
+    0 4px 12px rgba(52, 211, 153, 0.15);
 }
 
 .app-loading {
