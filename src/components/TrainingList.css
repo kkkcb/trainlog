@@ -1,5 +1,9 @@
 .training-list {
-  padding: var(--space-sm) var(--space-2xl) var(--space-2xl);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-xs) var(--space-2xl) var(--space-md);
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
   animation-delay: 200ms;
 }

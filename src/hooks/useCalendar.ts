@@ -34,7 +34,8 @@ export function useCalendar() {
   }, [])
 
   const calendarDays = useMemo(() => {
-    const firstDay = new Date(state.year, state.month, 1).getDay()
+    // 周一起始：(getDay() 周日=0 → 周一=0)
+    const firstDay = (new Date(state.year, state.month, 1).getDay() + 6) % 7
     const daysInMonth = new Date(state.year, state.month + 1, 0).getDate()
     const daysInPrevMonth = new Date(state.year, state.month, 0).getDate()
 

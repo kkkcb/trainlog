@@ -19,7 +19,7 @@ interface CalendarGridProps {
   onLongPressDate?: (fullDate: string) => void
 }
 
-const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
+const WEEKDAYS = ['一', '二', '三', '四', '五', '六', '日']
 
 export function CalendarGrid({ calendar, trainingDates, tagsByDate, selectedDate, onSelectDate, onLongPressDate }: CalendarGridProps) {
   return (

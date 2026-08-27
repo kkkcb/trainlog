@@ -11,19 +11,60 @@
 
 .app__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: var(--space-xl) var(--space-2xl) var(--space-lg);
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-2xl) var(--space-sm);
   padding-top: calc(var(--space-xl) + var(--safe-area-top));
   flex-shrink: 0;
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 50ms;
+}
+
+/* 训记式日期标题：日期即页面标题 */
+.app__header-main {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.app__date {
+  font-size: 30px;
+  font-weight: var(--font-weight-black);
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.app__weekday {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  letter-spacing: -0.01em;
+}
+
+.app__today-pill {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  background: var(--color-accent-surface);
+  border-radius: var(--radius-full);
+  padding: 3px 9px;
+  letter-spacing: 0.06em;
+}
+
+.app__header-sub {
+  margin-top: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
 }
 
 .app__settings-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 38px;
   height: 38px;
   border-radius: var(--radius-md);
@@ -37,70 +78,31 @@
   transform: scale(0.9);
 }
 
-.app__title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-black);
-  color: var(--color-text-primary);
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.app__title-accent {
-  background: linear-gradient(135deg, var(--color-accent), #64d2ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.app__section {
+/* Tab 内容区底部留出导航栏高度 */
+.app__tab-content {
   flex: 1;
   min-height: 0;
-  padding-bottom: calc(60px + var(--safe-area-bottom) + var(--space-3xl));
-}
-
-.app__section-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-lg) var(--space-2xl) var(--space-sm);
-  animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 150ms;
-}
-
-.app__section-title {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  letter-spacing: -0.01em;
-}
-
-.app__section-count {
-  font-size: var(--font-size-2xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-tertiary);
-  background: var(--color-bg-card);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border-light);
+  flex-direction: column;
+  padding-bottom: calc(var(--bottom-bar-height) + var(--safe-area-bottom) + var(--space-2xl));
 }
 
 .app__fab {
   position: fixed;
-  bottom: calc(60px + var(--space-2xl) + var(--safe-area-bottom));
+  bottom: calc(64px + var(--space-2xl) + var(--safe-area-bottom));
   right: calc(var(--space-2xl) + var(--safe-area-right));
   width: 56px;
   height: 56px;
   border-radius: 18px;
   background: var(--gradient-accent);
-  color: var(--color-text-inverse);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-fab);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35), 0 16px 32px rgba(16, 185, 129, 0.18);
   transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
   z-index: 50;
   animation: scale-in var(--duration-normal) var(--ease-spring) both;
-  animation-delay: 500ms;
 }
 
 .app__fab:active {
