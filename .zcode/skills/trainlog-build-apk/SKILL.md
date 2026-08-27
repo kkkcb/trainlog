@@ -80,10 +80,16 @@ SHA-256 指纹必须是 `0b124970…`（上文完整值）。
 
 ```bash
 cp android/app/build/outputs/apk/release/app-release.apk dist-apk/trainlog-apk/trainlog.apk   # 项目惯例位置
-cp android/app/build/outputs/apk/release/app-release.apk public/trainlog.apk                 # 供 dev server 下载
+cp android/app/build/outputs/apk/release/app-release.apk dist/trainlog.apk                   # 供 preview 服务器下载
 ```
 
-若 dev server 在跑（默认 5173 起顺延），给用户这个链接（端口按实际）：
-`http://localhost:<port>/trainlog.apk`——先用 `curl -s -o /dev/null -w "%{http_code}"` 确认 200 再交付。
+**警告：绝不把 APK 放进 `public/`**——vite 会把 public/ 打进下一次构建产物，APK 套 APK 体积滚雪球（实测 3.2MB→6.2MB）。
 
-`public/*.apk` 已在 `.gitignore`，分发副本不会污染仓库。
+下载链接走 preview 服务器（服务 dist/，gitignored 无污染）：
+
+```bash
+(npm run preview -- --port 4173 > /tmp/preview.log 2>&1 &)
+curl -s -o /dev/null -w "%{http_code}" http://localhost:4173/trainlog.apk   # 确认 200 再交付
+```
+
+交付链接：`http://localhost:4173/trainlog.apk`
