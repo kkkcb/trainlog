@@ -7,58 +7,33 @@ interface StreakCardProps {
 }
 
 export function StreakCard({ stats }: StreakCardProps) {
-  const { streak, level } = stats
+  const { streak } = stats
   const isHot = streak.current >= 7
-  // 等级进度环（conic-gradient，0~360deg）
-  const ringDeg = Math.round(Math.min(1, Math.max(0, level.progress)) * 360)
 
   return (
     <div className={`streak-card ${isHot ? 'streak-card--hot' : ''}`}>
       <div className="streak-card__glow" />
 
       <div className="streak-card__top">
-        <div className="streak-card__streak">
-          <div className="streak-card__flame">
-            <FlameGradientIcon size={30} className="streak-card__flame-icon" />
-            {streak.current > 0 && (
-              <span className="streak-card__flame-particle streak-card__flame-particle--1" />
-            )}
-            {streak.current >= 3 && (
-              <span className="streak-card__flame-particle streak-card__flame-particle--2" />
-            )}
-            {streak.current >= 7 && (
-              <span className="streak-card__flame-particle streak-card__flame-particle--3" />
-            )}
-          </div>
-          <div className="streak-card__streak-info">
-            <span className="streak-card__streak-num">{streak.current}</span>
-            <span className="streak-card__streak-label">天连续打卡</span>
-          </div>
+        <div className="streak-card__flame">
+          <FlameGradientIcon size={30} className="streak-card__flame-icon" />
+          {streak.current > 0 && (
+            <span className="streak-card__flame-particle streak-card__flame-particle--1" />
+          )}
+          {streak.current >= 3 && (
+            <span className="streak-card__flame-particle streak-card__flame-particle--2" />
+          )}
+          {streak.current >= 7 && (
+            <span className="streak-card__flame-particle streak-card__flame-particle--3" />
+          )}
         </div>
-
-        <div className="streak-card__level">
-          <div
-            className="streak-card__level-badge"
-            style={{ '--ring': `${ringDeg}deg` } as React.CSSProperties}
-          >
-            <span className="streak-card__level-num">{level.level}</span>
-          </div>
-          <div className="streak-card__level-info">
-            <span className="streak-card__level-title">{level.title}</span>
-            <span className="streak-card__level-exp">
-              LV{level.level} · {level.expInCurrentLevel}/{level.expForNextLevel}
-            </span>
-          </div>
+        <div className="streak-card__streak-info">
+          <span className="streak-card__streak-num">{streak.current}</span>
+          <span className="streak-card__streak-label">天连续打卡</span>
         </div>
-      </div>
-
-      <div className="streak-card__progress">
-        <div className="streak-card__progress-track">
-          <div
-            className="streak-card__progress-fill"
-            style={{ width: `${Math.min(1, Math.max(0, level.progress)) * 100}%` }}
-          />
-        </div>
+        {streak.longest > 0 && (
+          <span className="streak-card__best">最长 {streak.longest} 天</span>
+        )}
       </div>
 
       <div className="streak-card__stats">

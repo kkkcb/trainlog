@@ -33,16 +33,10 @@
 .streak-card__top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
   position: relative;
   z-index: 1;
-  margin-bottom: var(--space-md);
-}
-
-.streak-card__streak {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
 }
 
 .streak-card__flame {
@@ -102,8 +96,10 @@
 
 .streak-card__streak-info {
   display: flex;
-  flex-direction: column;
-  gap: 3px;
+  align-items: baseline;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .streak-card__streak-num {
@@ -116,89 +112,21 @@
 }
 
 .streak-card__streak-label {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
   font-weight: var(--font-weight-medium);
   letter-spacing: 0.02em;
 }
 
-.streak-card__level {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-/* 等级徽章：conic-gradient 进度环 */
-.streak-card__level-badge {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-full);
-  background:
-    conic-gradient(var(--color-accent) var(--ring, 0deg), rgba(16, 185, 129, 0.12) var(--ring, 0deg));
-  transition: background var(--duration-slow) var(--ease-out-expo);
-}
-
-.streak-card__level-badge::before {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: var(--radius-full);
-  background: var(--color-bg-card);
-}
-
-.streak-card__level-num {
-  position: relative;
-  z-index: 1;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-black);
-  color: var(--color-accent);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.streak-card__level-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
-}
-
-.streak-card__level-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  letter-spacing: -0.01em;
-}
-
-.streak-card__level-exp {
-  font-size: var(--font-size-2xs);
+.streak-card__best {
+  font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
-  font-variant-numeric: tabular-nums;
-}
-
-.streak-card__progress {
-  margin-bottom: var(--space-md);
-  position: relative;
-  z-index: 1;
-}
-
-.streak-card__progress-track {
-  width: 100%;
-  height: 6px;
   background: var(--color-bg-tertiary);
   border-radius: var(--radius-full);
-  overflow: hidden;
-}
-
-.streak-card__progress-fill {
-  height: 100%;
-  background: var(--gradient-accent);
-  border-radius: var(--radius-full);
-  transition: width 0.8s var(--ease-out-expo);
+  padding: 4px 10px;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .streak-card__stats {
