@@ -7,6 +7,7 @@ import { exportAllData, importAllData } from './utils/storage'
 import { getTodayString, formatDateParts } from './utils/date'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
+import { PetCompanion } from './components/PetCompanion'
 import { BottomSheet } from './components/BottomSheet'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
@@ -32,6 +33,8 @@ export default function App() {
   const [editingRecord, setEditingRecord] = useState<TrainingRecord | undefined>()
   const [deleteTarget, setDeleteTarget] = useState<TrainingRecord | null>(null)
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
+  // 喂养信号：成功记录训练时 +1，驱动宠物庆祝动画
+  const [feedSignal, setFeedSignal] = useState(0)
 
   const calendar = useCalendar()
   const { tagDefinitions, addTag, removeTag, updateTagMetrics } = useTagSettings()
@@ -158,6 +161,7 @@ export default function App() {
       haptic.onSuccess()
       toast.show('已添加训练记录', 'success')
     }
+    setFeedSignal((n) => n + 1)
     setEditingRecord(undefined)
     history.back()
   }
@@ -180,6 +184,7 @@ export default function App() {
     await addRecord(date, { tags })
     haptic.onSuccess()
     toast.show(`已添加 ${tagNames.length} 个训练`, 'success')
+    setFeedSignal((n) => n + 1)
     setQuickAddDate(null)
   }
 
@@ -236,6 +241,8 @@ export default function App() {
           </header>
 
           <main className="app__main">
+            <PetCompanion records={records} feedSignal={feedSignal} />
+
             <div className="app__calendar-card">
               <CalendarGrid
                 calendar={calendar}

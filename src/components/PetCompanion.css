@@ -1,0 +1,293 @@
+/* 训练养宠卡片 */
+
+.pet-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
+}
+
+.pet-stage {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: 50% 90%;
+}
+
+/* 待机：呼吸 / 蛋轻晃 */
+.pet-wrap--egg .pet-svg {
+  animation: pet-sway 3.2s ease-in-out infinite;
+}
+.pet-wrap--blob,
+.pet-wrap--dragon,
+.pet-wrap--legend {
+  animation: pet-breath 2.6s ease-in-out infinite;
+}
+.pet-wrap--legend .pet-halo {
+  animation: pet-spin 9s linear infinite;
+  transform-origin: 32px 26px;
+}
+
+@keyframes pet-breath {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+@keyframes pet-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+@keyframes pet-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 戳一戳：压扁弹起 + 眨眼 */
+.pet-wrap--poke {
+  animation: pet-poke 0.55s var(--ease-spring);
+}
+.pet-wrap--poke .pet-lid { transform-box: fill-box; }
+.pet-wrap--poke .pet-lid {
+  animation: pet-wink 0.55s ease both;
+}
+@keyframes pet-poke {
+  0% { transform: scale(1, 1); }
+  30% { transform: scale(0.86, 1.12); }
+  60% { transform: scale(1.12, 0.88) translateY(-6px); }
+  100% { transform: scale(1, 1); }
+}
+@keyframes pet-wink {
+  0%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+  70% { opacity: 0; }
+}
+
+/* 喂食派对 */
+.pet-wrap--party {
+  animation: pet-party 1.5s var(--ease-out-expo);
+}
+@keyframes pet-party {
+  0% { transform: translateY(0) scale(1); }
+  15% { transform: translateY(-14px) scale(1.08) rotate(-6deg); }
+  30% { transform: translateY(0) scale(0.94, 1.06); }
+  45% { transform: translateY(-10px) scale(1.05) rotate(6deg); }
+  60% { transform: translateY(0) scale(1); }
+  80% { transform: translateY(-5px) scale(1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.pet-svg {
+  width: 46px;
+  height: 46px;
+}
+.pet-svg--wide {
+  width: 54px;
+  height: 44px;
+}
+
+/* 庆祝粒子 */
+.pet-particle {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fbbf24;
+  animation: pet-burst 1.4s var(--ease-accelerate) forwards;
+}
+@keyframes pet-burst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  15% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.15);
+  }
+}
+
+/* 文案区 */
+.pet-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pet-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.pet-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.pet-need {
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.14);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+  animation: pet-need-bounce 2s ease-in-out infinite;
+}
+
+.pet-need--hunger {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.14);
+  animation: none;
+}
+
+@keyframes pet-need-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+.pet-bubble {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pet-bubble--happy {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---------- 进化全屏过场 ---------- */
+
+.evolve-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 6, 9, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: fade-in var(--duration-fast) ease both;
+}
+
+.evolve-rays {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(52, 211, 153, 0.16) 0deg 20deg,
+      transparent 20deg 48deg
+    );
+  border-radius: 50%;
+  animation: pet-spin 7s linear infinite;
+}
+
+.evolve-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-3xl);
+  background: var(--color-bg-elevated);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 0 60px rgba(52, 211, 153, 0.22),
+    0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: evolve-pop 0.5s var(--ease-spring) both;
+}
+
+@keyframes evolve-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.evolve-old,
+.evolve-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+}
+
+.evolve-old svg,
+.evolve-new svg {
+  width: 64px;
+  height: 64px;
+}
+
+.evolve-old {
+  filter: grayscale(0.6);
+  opacity: 0.55;
+  animation: evolve-old-out 2.2s ease forwards;
+}
+
+@keyframes evolve-old-out {
+  to { transform: scale(0.75); opacity: 0.25; }
+}
+
+.evolve-new {
+  animation: evolve-new-in 2.2s var(--ease-spring) both;
+}
+
+@keyframes evolve-new-in {
+  0% { opacity: 0; transform: scale(0.4) rotate(-18deg); }
+  30% { opacity: 1; transform: scale(1.18) rotate(4deg); }
+  50% { transform: scale(1) rotate(0); }
+  70% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+.evolve-arrow {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-tertiary);
+  margin: 0 var(--space-xs);
+}
+
+.evolve-title {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-black);
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 24px rgba(52, 211, 153, 0.5);
+}
+
+.evolve-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+}
