@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { CalendarDay } from './CalendarDay'
 import { CalendarHeader } from './CalendarHeader'
 import type { CalendarState } from '../hooks/useCalendar'
@@ -17,11 +18,21 @@ interface CalendarGridProps {
   selectedDate: string
   onSelectDate: (date: string) => void
   onLongPressDate?: (fullDate: string) => void
+  /** 栖居在月历格子上的宠物（绝对对齐到候选格） */
+  pet?: ReactNode
 }
 
 const WEEKDAYS = ['一', '二', '三', '四', '五', '六', '日']
 
-export function CalendarGrid({ calendar, trainingDates, tagsByDate, selectedDate, onSelectDate, onLongPressDate }: CalendarGridProps) {
+export function CalendarGrid({
+  calendar,
+  trainingDates,
+  tagsByDate,
+  selectedDate,
+  onSelectDate,
+  onLongPressDate,
+  pet,
+}: CalendarGridProps) {
   return (
     <div className="calendar">
       <CalendarHeader
@@ -54,6 +65,12 @@ export function CalendarGrid({ calendar, trainingDates, tagsByDate, selectedDate
             />
           )
         })}
+        {/* 宠物以格内元素参与定位，需处于末尾保证覆盖绘制 */}
+        {pet && (
+          <div style={{ display: 'contents' }} key="pet-layer">
+            {pet}
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,77 +1,95 @@
-/* 训练养宠卡片 */
+/* 训练养宠 —— 日历栖居版 */
 
-.pet-card {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm) var(--space-lg);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-  cursor: pointer;
-  user-select: none;
-  animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-}
-
-.pet-stage {
+/* 宿主格子：由 CalendarGrid 的 42 格网格定位 */
+.cal-pet {
   position: relative;
-  width: 56px;
-  height: 56px;
-  flex-shrink: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cal-pet::before {
+  /* 缩小命中区到格子上半部，不遮挡数字点击 */
+  content: '';
+  position: absolute;
+  inset: 4% 8% 42% 8%;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.cal-pet__body {
+  position: absolute;
+  inset: 6% 10% 34% 10%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transform-origin: 50% 88%;
+  transition: left var(--duration-normal) var(--ease-out-expo);
 }
 
-.pet-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-origin: 50% 90%;
+.pet-svg {
+  width: 100%;
+  height: 100%;
+}
+.pet-svg--wide {
+  width: 116%;
+  height: 100%;
 }
 
-/* 待机：呼吸 / 蛋轻晃 */
-.pet-wrap--egg .pet-svg {
-  animation: pet-sway 3.2s ease-in-out infinite;
-}
-.pet-wrap--blob,
-.pet-wrap--dragon,
-.pet-wrap--legend {
-  animation: pet-breath 2.6s ease-in-out infinite;
-}
-.pet-wrap--legend .pet-halo {
+/* 待机 */
+.cal-pet__body--egg .pet-svg { animation: pet-sway 3.2s ease-in-out infinite; }
+.cal-pet__body--blob,
+.cal-pet__body--dragon,
+.cal-pet__body--legend { animation: pet-breath 2.6s ease-in-out infinite; }
+.cal-pet__body--legend .pet-halo {
   animation: pet-spin 9s linear infinite;
   transform-origin: 32px 26px;
 }
 
 @keyframes pet-breath {
   0%, 100% { transform: scale(1, 1); }
-  50% { transform: scale(1.04, 0.96); }
+  50% { transform: scale(1.05, 0.95); }
 }
 @keyframes pet-sway {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-4deg); }
-  75% { transform: rotate(4deg); }
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
 }
 @keyframes pet-spin {
   to { transform: rotate(360deg); }
 }
 
-/* 戳一戳：压扁弹起 + 眨眼 */
-.pet-wrap--poke {
-  animation: pet-poke 0.55s var(--ease-spring);
+/* 散步中：小碎步颠簸（蛋则是翻滚） */
+.cal-pet--walking .cal-pet__body--egg .pet-svg,
+.cal-pet--walking .cal-pet__body--egg {
+  animation: pet-roll 0.62s linear;
 }
-.pet-wrap--poke .pet-lid { transform-box: fill-box; }
-.pet-wrap--poke .pet-lid {
-  animation: pet-wink 0.55s ease both;
+.cal-pet--walking .cal-pet__body:not(.cal-pet__body--egg) {
+  animation: pet-hop 0.62s ease-in-out;
+}
+@keyframes pet-roll {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pet-hop {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  30% { transform: translateY(-22%) scale(0.92, 1.08); }
+  60% { transform: translateY(0) scale(1.06, 0.94); }
+}
+
+/* 戳一戳 */
+.cal-pet__body--poke {
+  animation: pet-poke 0.55s var(--ease-spring);
 }
 @keyframes pet-poke {
   0% { transform: scale(1, 1); }
-  30% { transform: scale(0.86, 1.12); }
-  60% { transform: scale(1.12, 0.88) translateY(-6px); }
+  30% { transform: scale(0.84, 1.14); }
+  60% { transform: scale(1.14, 0.86) translateY(-5px); }
   100% { transform: scale(1, 1); }
+}
+.cal-pet__body--poke .pet-lid {
+  transform-box: fill-box;
+  animation: pet-wink 0.55s ease both;
 }
 @keyframes pet-wink {
   0%, 100% { opacity: 0; }
@@ -79,43 +97,92 @@
   70% { opacity: 0; }
 }
 
+/* 双击旋转 */
+.cal-pet__body--spin {
+  animation: pet-spin-dance 0.9s var(--ease-spring);
+}
+@keyframes pet-spin-dance {
+  0% { transform: rotate(0) scale(1); }
+  50% { transform: rotate(360deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
 /* 喂食派对 */
-.pet-wrap--party {
+.cal-pet__body--party {
   animation: pet-party 1.5s var(--ease-out-expo);
 }
 @keyframes pet-party {
   0% { transform: translateY(0) scale(1); }
-  15% { transform: translateY(-14px) scale(1.08) rotate(-6deg); }
-  30% { transform: translateY(0) scale(0.94, 1.06); }
-  45% { transform: translateY(-10px) scale(1.05) rotate(6deg); }
+  15% { transform: translateY(-16%) scale(1.1) rotate(-7deg); }
+  30% { transform: translateY(0) scale(0.92, 1.08); }
+  45% { transform: translateY(-11%) scale(1.06) rotate(7deg); }
   60% { transform: translateY(0) scale(1); }
-  80% { transform: translateY(-5px) scale(1.03); }
+  80% { transform: translateY(-5%) scale(1.03); }
   100% { transform: translateY(0) scale(1); }
 }
 
-.pet-svg {
-  width: 46px;
-  height: 46px;
+/* 困倦：三天没训练 */
+.cal-pet__body--sleep {
+  filter: grayscale(0.55) brightness(0.85);
 }
-.pet-svg--wide {
-  width: 54px;
-  height: 44px;
+.cal-pet__zzz {
+  position: absolute;
+  top: -2%;
+  right: -6%;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  color: #60a5fa;
+  animation: pet-zzz 2.4s ease-in-out infinite;
+}
+@keyframes pet-zzz {
+  0% { opacity: 0; transform: translateY(2px); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-7px); }
+}
+
+/* 气泡 */
+.cal-pet__bubble {
+  position: absolute;
+  bottom: calc(100% - 12%);
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 132px;
+  padding: 4px 9px;
+  border-radius: 10px 10px 10px 2px;
+  background: var(--color-bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--color-text-primary);
+  font-size: 10.5px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.35;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.cal-pet__bubble--anim {
+  animation: bubble-pop 0.28s var(--ease-spring) both;
+}
+@keyframes bubble-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px) scale(0.8); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 
 /* 庆祝粒子 */
-.pet-particle {
+.cal-pet__particle {
   position: absolute;
   left: 50%;
-  top: 42%;
+  top: 38%;
   border-radius: var(--radius-full);
   pointer-events: none;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fbbf24;
-  animation: pet-burst 1.4s var(--ease-accelerate) forwards;
+  animation: pet-burst 1.35s var(--ease-accelerate) forwards;
+  z-index: 4;
 }
 @keyframes pet-burst {
   0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
@@ -124,64 +191,6 @@
     opacity: 0;
     transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.15);
   }
-}
-
-/* 文案区 */
-.pet-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.pet-name-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.pet-name {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  letter-spacing: 0.02em;
-}
-
-.pet-need {
-  font-size: 10px;
-  font-weight: var(--font-weight-semibold);
-  color: #f97316;
-  background: rgba(249, 115, 22, 0.14);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  letter-spacing: 0.04em;
-  animation: pet-need-bounce 2s ease-in-out infinite;
-}
-
-.pet-need--hunger {
-  color: #60a5fa;
-  background: rgba(96, 165, 250, 0.14);
-  animation: none;
-}
-
-@keyframes pet-need-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
-}
-
-.pet-bubble {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-  line-height: 1.35;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pet-bubble--happy {
-  color: var(--color-accent);
-  font-weight: var(--font-weight-medium);
 }
 
 /* ---------- 进化全屏过场 ---------- */
@@ -203,12 +212,11 @@
   position: absolute;
   width: 480px;
   height: 480px;
-  background:
-    conic-gradient(
-      from 0deg,
-      rgba(52, 211, 153, 0.16) 0deg 20deg,
-      transparent 20deg 48deg
-    );
+  background: conic-gradient(
+    from 0deg,
+    rgba(52, 211, 153, 0.16) 0deg 20deg,
+    transparent 20deg 48deg
+  );
   border-radius: 50%;
   animation: pet-spin 7s linear infinite;
 }

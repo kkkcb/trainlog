@@ -7,7 +7,7 @@ import { exportAllData, importAllData } from './utils/storage'
 import { getTodayString, formatDateParts } from './utils/date'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
-import { PetCompanion } from './components/PetCompanion'
+import { CalendarPet } from './components/PetCompanion'
 import { BottomSheet } from './components/BottomSheet'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
@@ -114,6 +114,16 @@ export default function App() {
       .filter((r) => r.date === selectedDate)
       .sort((a, b) => a.createdAt - b.createdAt)
   }, [selectedDate, records])
+
+  // 宠物候选格：本月、今天及之前的日期
+  const petCandidates = useMemo(() => {
+    return calendar.calendarDays
+      .filter((d) => d.month === 'current' && d.fullDate <= todayStr)
+      .map((d) => {
+        const idx = calendar.calendarDays.indexOf(d)
+        return { index: idx, date: d.fullDate }
+      })
+  }, [calendar.calendarDays, todayStr])
 
   const isViewingToday = selectedDate === getTodayString()
   const { main: dateMain, week: dateWeek } = formatDateParts(selectedDate)
