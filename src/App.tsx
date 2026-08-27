@@ -15,7 +15,6 @@ import { BackupPage } from './pages/BackupPage'
 import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
 import { StreakCard } from './components/StreakCard'
-import { AchievementsPage } from './components/AchievementsPage'
 import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
@@ -45,7 +44,7 @@ export default function App() {
   const todayStr = getTodayString()
   const [selectedDate, setSelectedDate] = useState(todayStr)
   const [currentPage, setCurrentPage] = useState<Page>('home')
-  const [activeTab, setActiveTab] = useState<'training' | 'stats' | 'achievements'>('training')
+  const [activeTab, setActiveTab] = useState<'training' | 'stats'>('training')
   const [editingRecord, setEditingRecord] = useState<TrainingRecord | undefined>()
   const [deleteTarget, setDeleteTarget] = useState<TrainingRecord | null>(null)
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
@@ -200,7 +199,7 @@ export default function App() {
     history.back()
   }
 
-  const handleTabChange = useCallback((tab: 'training' | 'stats' | 'achievements') => {
+  const handleTabChange = useCallback((tab: 'training' | 'stats') => {
     haptic.onTap()
     setActiveTab(tab)
   }, [haptic])
@@ -248,10 +247,6 @@ export default function App() {
                 />
               </div>
             </>
-          )}
-
-          {activeTab === 'achievements' && (
-            <AchievementsPage stats={gamificationStats} />
           )}
 
           {activeTab === 'stats' && (

@@ -71,8 +71,8 @@ export function StreakCard({ stats }: StreakCardProps) {
           <span className="streak-card__stat-label">本月</span>
         </div>
         <div className="streak-card__stat">
-          <span className="streak-card__stat-value">{stats.badges.filter(b => b.unlocked).length}</span>
-          <span className="streak-card__stat-label">徽章</span>
+          <span className="streak-card__stat-value">{streak.longest}</span>
+          <span className="streak-card__stat-label">最长连续</span>
         </div>
       </div>
     </div>

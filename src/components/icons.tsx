@@ -35,16 +35,6 @@ const ICONS = {
       <path d="M6.5 12h11" />
     </>
   ),
-  trophy: (
-    <>
-      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-      <path d="M4 22h16" />
-      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-    </>
-  ),
   chart: (
     <>
       <path d="M3 3v16a2 2 0 0 0 2 2h16" />
@@ -82,76 +72,6 @@ const ICONS = {
       <line x1="6" y1="6" x2="18" y2="18" />
     </>
   ),
-  flame: (
-    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
-  ),
-  lock: (
-    <>
-      <rect x="3" y="11" width="18" height="11" rx="2.5" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </>
-  ),
-  target: (
-    <>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="5" />
-      <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none" />
-    </>
-  ),
-  medal: (
-    <>
-      <circle cx="12" cy="14.5" r="5" />
-      <path d="m9.2 10.4-3-7.9" />
-      <path d="m14.8 10.4 3-7.9" />
-      <path d="M7 6.5h10" />
-    </>
-  ),
-  star: (
-    <polygon points="12 2.5 15.09 8.76 22 9.77 17 14.64 18.18 21.52 12 18.23 5.82 21.52 7 14.64 2 9.77 8.91 8.76 12 2.5" />
-  ),
-  zap: (
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  ),
-  grid: (
-    <>
-      <rect x="3" y="3" width="7" height="7" rx="1.8" />
-      <rect x="14" y="3" width="7" height="7" rx="1.8" />
-      <rect x="14" y="14" width="7" height="7" rx="1.8" />
-      <rect x="3" y="14" width="7" height="7" rx="1.8" />
-    </>
-  ),
-  trendingUp: (
-    <>
-      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-      <polyline points="16 7 22 7 22 13" />
-    </>
-  ),
-  download: (
-    <>
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
-    </>
-  ),
-  upload: (
-    <>
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="17 8 12 3 7 8" />
-      <line x1="12" y1="3" x2="12" y2="15" />
-    </>
-  ),
-  copy: (
-    <>
-      <rect x="9" y="9" width="13" height="13" rx="2.5" />
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </>
-  ),
-  clipboard: (
-    <>
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-      <rect x="8" y="2" width="8" height="4" rx="1.5" />
-    </>
-  ),
   database: (
     <>
       <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -164,12 +84,6 @@ const ICONS = {
       <circle cx="12" cy="12" r="9" />
       <line x1="12" y1="16" x2="12" y2="12" />
       <line x1="12" y1="8" x2="12.01" y2="8" strokeWidth="2.6" />
-    </>
-  ),
-  sparkles: (
-    <>
-      <path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8L12 3z" />
-      <path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z" />
     </>
   ),
 } as const
