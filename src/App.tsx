@@ -1,17 +1,17 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react'
 import type { TrainingRecord, TrainingTag } from './types'
 import { useTrainingStore } from './hooks/useTrainingStore'
+import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
 import { exportAllData, importAllData } from './utils/storage'
-import { getTodayString, getWeekOf, shiftDays, formatDateParts } from './utils/date'
-import { WeekStrip } from './components/WeekStrip'
+import { getTodayString, formatDateParts } from './utils/date'
+import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { BottomSheet } from './components/BottomSheet'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
-import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
 import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
@@ -27,11 +27,11 @@ export default function App() {
 
   const [selectedDate, setSelectedDate] = useState(getTodayString)
   const [currentPage, setCurrentPage] = useState<Page>('home')
-  const [activeTab, setActiveTab] = useState<'training' | 'stats'>('training')
   const [editingRecord, setEditingRecord] = useState<TrainingRecord | undefined>()
   const [deleteTarget, setDeleteTarget] = useState<TrainingRecord | null>(null)
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
 
+  const calendar = useCalendar()
   const { tagDefinitions, addTag, removeTag, updateTagMetrics } = useTagSettings()
 
   useEffect(() => {
@@ -46,7 +46,39 @@ export default function App() {
     return () => window.removeEventListener('popstate', handler)
   }, [])
 
-  const allTrainingDates = useMemo(() => new Set(Object.values(records).map((r) => r.date)), [records])
+  const monthPrefix = useMemo(
+    () => `${calendar.year}-${String(calendar.month + 1).padStart(2, '0')}`,
+    [calendar.year, calendar.month]
+  )
+
+  const trainingDates = useMemo(() => {
+    const dates = new Set<string>()
+    Object.values(records).forEach((r) => {
+      if (r.date.startsWith(monthPrefix)) dates.add(r.date)
+    })
+    return dates
+  }, [monthPrefix, records])
+
+  const tagsByDate = useMemo(() => {
+    const result: Record<string, string[]> = {}
+    const seen: Record<string, Set<string>> = {}
+    Object.values(records).forEach((r) => {
+      if (r.date.startsWith(monthPrefix) && r.tags.length > 0) {
+        if (!seen[r.date]) {
+          seen[r.date] = new Set()
+          result[r.date] = []
+        }
+        const s = seen[r.date]
+        r.tags.forEach((tag) => {
+          if (!s.has(tag.name)) {
+            s.add(tag.name)
+            result[r.date].push(tag.name)
+          }
+        })
+      }
+    })
+    return result
+  }, [monthPrefix, records])
 
   const dateRecords = useMemo(() => {
     return Object.values(records)
@@ -54,7 +86,6 @@ export default function App() {
       .sort((a, b) => a.createdAt - b.createdAt)
   }, [selectedDate, records])
 
-  const weekDates = useMemo(() => getWeekOf(selectedDate), [selectedDate])
   const isViewingToday = selectedDate === getTodayString()
   const { main: dateMain, week: dateWeek } = formatDateParts(selectedDate)
 
@@ -154,18 +185,6 @@ export default function App() {
     history.back()
   }
 
-  /** 从统计页月历点击某天：跳回训练页查看该日记录 */
-  const handleJumpToDate = useCallback((iso: string) => {
-    haptic.onTap()
-    setSelectedDate(iso)
-    setActiveTab('training')
-  }, [haptic])
-
-  const handleTabChange = useCallback((tab: 'training' | 'stats') => {
-    haptic.onTap()
-    setActiveTab(tab)
-  }, [haptic])
-
   if (loading) {
     return (
       <div className="app-loading">
@@ -180,54 +199,41 @@ export default function App() {
       {currentPage === 'home' && (
         <>
           <header className="app__header">
-            <div className="app__header-date">
-              <div className="app__header-main">
-                <h1 className="app__date">{dateMain}</h1>
-                <span className="app__weekday">{dateWeek}</span>
-                {isViewingToday && <span className="app__today-pill">今天</span>}
-              </div>
-              <p className="app__header-sub">
-                {isViewingToday ? '今日' : '当日'}共 {dateRecords.length} 条训练记录
-              </p>
+            <div className="app__header-main">
+              <h1 className="app__date">{dateMain}</h1>
+              <span className="app__weekday">{dateWeek}</span>
+              {isViewingToday && <span className="app__today-pill">今天</span>}
             </div>
             <button className="app__settings-btn" onClick={handleOpenSettings} aria-label="设置">
               <Icon name="settings" size={21} strokeWidth={1.9} />
             </button>
           </header>
 
-          {activeTab === 'training' && (
-            <div className="app__tab-content">
-              <WeekStrip
-                weekDates={weekDates}
+          <main className="app__main">
+            <div className="app__calendar-card">
+              <CalendarGrid
+                calendar={calendar}
+                trainingDates={trainingDates}
+                tagsByDate={tagsByDate}
                 selectedDate={selectedDate}
-                trainingDates={allTrainingDates}
                 onSelectDate={setSelectedDate}
                 onLongPressDate={handleLongPressDate}
-                onPrevWeek={() => setSelectedDate(shiftDays(selectedDate, -7))}
-                onNextWeek={() => setSelectedDate(shiftDays(selectedDate, 7))}
               />
-              <TrainingList
-                records={dateRecords}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-
-              <button className="app__fab" onClick={handleAdd} aria-label="添加训练">
-                <Icon name="plus" size={26} strokeWidth={2.4} />
-              </button>
+              <p className="app__calendar-hint">长按日期快速打卡 · 点选查看当日记录</p>
             </div>
-          )}
 
-          {activeTab === 'stats' && (
-            <StatsPage
-              records={records}
-              selectedDate={selectedDate}
-              onSelectDay={handleJumpToDate}
-              onLongPressDay={handleLongPressDate}
+            <TrainingList
+              records={dateRecords}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
-          )}
 
-          <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
+            <StatsPage records={records} />
+          </main>
+
+          <button className="app__fab" onClick={handleAdd} aria-label="添加训练">
+            <Icon name="plus" size={26} strokeWidth={2.4} />
+          </button>
         </>
       )}
 

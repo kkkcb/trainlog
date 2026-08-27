@@ -1,7 +1,5 @@
 import { useState, useMemo } from 'react'
 import type { TrainingRecord } from '../types'
-import { useCalendar } from '../hooks/useCalendar'
-import { CalendarGrid } from './CalendarGrid'
 import { Icon } from './icons'
 import './StatsPage.css'
 
@@ -9,9 +7,6 @@ type Period = 'week' | 'month' | 'year'
 
 interface StatsPageProps {
   records: Record<string, TrainingRecord>
-  selectedDate: string
-  onSelectDay?: (iso: string) => void
-  onLongPressDay?: (iso: string) => void
 }
 
 function formatDate(d: Date): string {
@@ -49,9 +44,8 @@ const BAR_COLORS = [
   'linear-gradient(90deg, #f472b6, #ec4899)',
 ]
 
-export function StatsPage({ records, selectedDate, onSelectDay, onLongPressDay }: StatsPageProps) {
+export function StatsPage({ records }: StatsPageProps) {
   const [period, setPeriod] = useState<Period>('month')
-  const calendar = useCalendar()
 
   const stats = useMemo(() => {
     const [start, end] = getRange(period)
@@ -76,54 +70,10 @@ export function StatsPage({ records, selectedDate, onSelectDay, onLongPressDay }
     return { sorted, maxCount, totalSessions, totalDays }
   }, [records, period])
 
-  /** 月历所需的当月训练日期与标签 */
-  const monthPrefix = useMemo(
-    () => `${calendar.year}-${String(calendar.month + 1).padStart(2, '0')}`,
-    [calendar.year, calendar.month]
-  )
-  const trainingDates = useMemo(() => {
-    const dates = new Set<string>()
-    Object.values(records).forEach((r) => {
-      if (r.date.startsWith(monthPrefix)) dates.add(r.date)
-    })
-    return dates
-  }, [monthPrefix, records])
-  const tagsByDate = useMemo(() => {
-    const result: Record<string, string[]> = {}
-    const seen: Record<string, Set<string>> = {}
-    Object.values(records).forEach((r) => {
-      if (r.date.startsWith(monthPrefix) && r.tags.length > 0) {
-        if (!seen[r.date]) {
-          seen[r.date] = new Set()
-          result[r.date] = []
-        }
-        r.tags.forEach((tag) => {
-          if (!seen[r.date].has(tag.name)) {
-            seen[r.date].add(tag.name)
-            result[r.date].push(tag.name)
-          }
-        })
-      }
-    })
-    return result
-  }, [monthPrefix, records])
-
   const periods: Period[] = ['week', 'month', 'year']
 
   return (
     <div className="stats">
-      <div className="stats__calendar">
-        <CalendarGrid
-          calendar={calendar}
-          trainingDates={trainingDates}
-          tagsByDate={tagsByDate}
-          selectedDate={selectedDate}
-          onSelectDate={(d) => onSelectDay?.(d)}
-          onLongPressDate={onLongPressDay}
-        />
-        <p className="stats__calendar-hint">点日期查看当天记录 · 长按快速添加</p>
-      </div>
-
       <div className="stats__period">
         {periods.map((p) => (
           <button

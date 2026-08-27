@@ -11,24 +11,25 @@
 
 .app__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  padding: var(--space-xl) var(--space-2xl) var(--space-sm);
-  padding-top: calc(var(--space-xl) + var(--safe-area-top));
+  padding: var(--space-lg) var(--space-2xl) var(--space-sm);
+  padding-top: calc(var(--space-lg) + var(--safe-area-top));
   flex-shrink: 0;
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
 }
 
-/* 训记式日期标题：日期即页面标题 */
+/* 日期标题：当前选中日 */
 .app__header-main {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
+  min-width: 0;
 }
 
 .app__date {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: var(--font-weight-black);
   color: var(--color-text-primary);
   letter-spacing: -0.03em;
@@ -36,7 +37,7 @@
 }
 
 .app__weekday {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   letter-spacing: -0.01em;
@@ -50,14 +51,6 @@
   border-radius: var(--radius-full);
   padding: 3px 9px;
   letter-spacing: 0.06em;
-}
-
-.app__header-sub {
-  margin-top: 4px;
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-  font-weight: var(--font-weight-medium);
-  font-variant-numeric: tabular-nums;
 }
 
 .app__settings-btn {
@@ -78,18 +71,42 @@
   transform: scale(0.9);
 }
 
-/* Tab 内容区底部留出导航栏高度 */
-.app__tab-content {
+/* 单页主滚动区：月历卡 + 当日记录 + 统计 */
+.app__main {
   flex: 1;
   min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  padding-bottom: calc(88px + var(--safe-area-bottom) + var(--space-xl));
+  gap: var(--space-md);
+  padding: var(--space-xs) var(--space-xl) calc(100px + var(--safe-area-bottom));
+}
+
+.app__calendar-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
+}
+
+.app__calendar-card .calendar {
+  padding: 0 var(--space-md);
+}
+
+.app__calendar-hint {
+  text-align: center;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  padding: 0 var(--space-md) var(--space-md);
+  letter-spacing: 0.02em;
 }
 
 .app__fab {
   position: fixed;
-  bottom: calc(104px + var(--safe-area-bottom));
+  bottom: calc(var(--space-2xl) + var(--safe-area-bottom));
   right: calc(var(--space-2xl) + var(--safe-area-right));
   width: 54px;
   height: 54px;

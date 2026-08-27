@@ -1,11 +1,8 @@
 .training-list {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: var(--space-xs) var(--space-2xl) var(--space-md);
+  display: flex;
+  flex-direction: column;
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 200ms;
+  animation-delay: 120ms;
 }
 
 .training-list-empty {
@@ -13,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4xl) var(--space-xl);
+  padding: var(--space-3xl) var(--space-xl);
   text-align: center;
 }
 
