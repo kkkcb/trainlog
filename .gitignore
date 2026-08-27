@@ -34,3 +34,5 @@ trainlog-import.json
 *.njsproj
 *.sln
 *.sw?
+.tooling/
+public/*.apk
