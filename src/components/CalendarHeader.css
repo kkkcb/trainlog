@@ -19,21 +19,19 @@
 }
 
 .calendar-header__today {
-  font-size: var(--font-size-2xs);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   color: var(--color-accent);
   background: var(--color-accent-surface);
-  padding: 4px 10px;
+  padding: 4px 11px;
   border-radius: var(--radius-full);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border: 1px solid rgba(61, 214, 140, 0.12);
-  transition: background var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo);
+  letter-spacing: 0.02em;
+  transition: background var(--duration-fast) var(--ease-out-expo);
 }
 
 .calendar-header__today:active {
   background: var(--color-accent-dim);
-  border-color: rgba(61, 214, 140, 0.25);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
 .calendar-header__nav {

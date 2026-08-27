@@ -3,7 +3,7 @@
   inset: 0;
   background: var(--color-bg-primary);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(61, 214, 140, 0.03), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.03), transparent);
   background-attachment: fixed;
   z-index: 100;
   display: flex;
@@ -101,7 +101,7 @@
 .tag-settings__add-btn--active {
   color: var(--color-accent);
   background: var(--color-accent-surface);
-  border: 1px solid rgba(74, 224, 154, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .tag-settings__add-btn--active:active {
@@ -173,7 +173,7 @@
 
 .tag-settings__metric--active {
   background: var(--color-accent-surface);
-  border-color: rgba(74, 224, 154, 0.2);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .tag-settings__metric:active {

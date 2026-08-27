@@ -1,33 +1,17 @@
 .training-card {
   background: var(--color-bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg) var(--space-xl);
+  padding: var(--space-md) var(--space-lg) var(--space-md) var(--space-xl);
   margin-bottom: var(--space-sm);
   border: 1px solid var(--color-border-light);
-  transition: transform var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
   animation: fade-in-up var(--duration-normal) var(--ease-out-expo) both;
-  position: relative;
-  overflow: hidden;
-}
-
-.training-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 12px;
-  bottom: 12px;
-  width: 3px;
-  background: var(--gradient-accent);
-  border-radius: 0 2px 2px 0;
-  opacity: 0.7;
 }
 
 .training-card:active {
-  transform: scale(0.98);
-  border-color: var(--color-border);
-  background: var(--color-bg-card-hover);
+  transform: scale(0.985);
+  box-shadow: none;
 }
 
 .training-card__header {
@@ -50,51 +34,58 @@
   font-weight: var(--font-weight-semibold);
   padding: 5px 11px;
   border-radius: var(--radius-full);
-  color: var(--color-accent);
-  background: var(--color-accent-surface);
-  border: 1px solid rgba(74, 224, 154, 0.15);
-  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  letter-spacing: 0.02em;
+}
+
+.training-card__tag-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
 }
 
 .training-card__tag-metrics {
   display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: var(--font-size-xs);
+  align-items: baseline;
+  gap: 6px;
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  padding-left: 6px;
-  margin-left: 2px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding-left: 8px;
+  border-left: 1px solid var(--color-divider);
   letter-spacing: -0.01em;
+}
+
+.training-card__tag-metrics i {
+  font-style: normal;
+  font-size: 9px;
+  color: var(--color-text-tertiary);
+  margin-left: 1px;
 }
 
 .training-card__actions {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   flex-shrink: 0;
-  background: var(--color-bg-card);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-light);
-  padding: 3px;
 }
 
 .training-card__btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-sm);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-tertiary);
   transition: background var(--duration-instant) var(--ease-standard), color var(--duration-instant) var(--ease-standard), transform var(--duration-instant) var(--ease-standard);
 }
 
 .training-card__btn:active {
-  transform: scale(0.88);
+  transform: scale(0.86);
 }
 
 .training-card__btn--edit {
@@ -104,10 +95,6 @@
 .training-card__btn--edit:active {
   background: var(--color-accent-dim);
   color: var(--color-accent);
-}
-
-.training-card__btn--delete {
-  color: var(--color-text-tertiary);
 }
 
 .training-card__btn--delete:active {

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { TagDefinition, MetricType } from '../types'
 import { METRIC_LABELS } from '../types'
+import { Icon } from '../components/icons'
 import './TagSettingsPage.css'
 
 interface TagSettingsPageProps {
@@ -60,10 +61,8 @@ export function TagSettingsPage({
   return (
     <div className="tag-settings">
       <div className="tag-settings__header">
-        <button className="tag-settings__back" onClick={onBack}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+        <button className="tag-settings__back" onClick={onBack} aria-label="返回">
+          <Icon name="arrowLeft" size={20} />
         </button>
         <span className="tag-settings__title">标签管理</span>
         <span className="tag-settings__spacer" />
@@ -111,11 +110,7 @@ export function TagSettingsPage({
                       onClick={() => toggleMetric(def.name, metric)}
                     >
                       <span className="tag-settings__metric-check">
-                        {active && (
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        )}
+                        {active && <Icon name="check" size={10} strokeWidth={3.4} />}
                       </span>
                       <span className="tag-settings__metric-label">{METRIC_LABELS[metric].label}</span>
                       <span className="tag-settings__metric-unit">({METRIC_LABELS[metric].unit})</span>
@@ -134,11 +129,7 @@ export function TagSettingsPage({
         )}
 
         <button className="tag-settings__backup-btn" onClick={onOpenBackup}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
+          <Icon name="database" size={17} />
           <span>数据备份 / 导入导出</span>
         </button>
       </div>

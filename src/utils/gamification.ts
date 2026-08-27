@@ -132,16 +132,16 @@ export function calculateBadges(records: Record<string, TrainingRecord>): Badge[
   })
 
   const badges: Badge[] = [
-    { id: 'first', name: '初战告捷', description: '完成第一次训练', icon: '🎯', tier: 'bronze', unlocked: stats.total >= 1 },
-    { id: 'ten', name: '十全十美', description: '累计训练 10 次', icon: '💪', tier: 'bronze', unlocked: stats.total >= 10 },
-    { id: 'fifty', name: '半百达人', description: '累计训练 50 次', icon: '🏅', tier: 'silver', unlocked: stats.total >= 50 },
-    { id: 'hundred', name: '百战雄师', description: '累计训练 100 次', icon: '🏆', tier: 'gold', unlocked: stats.total >= 100 },
-    { id: 'streak3', name: '三连发', description: '连续训练 3 天', icon: '🔥', tier: 'bronze', unlocked: stats.streak.longest >= 3 },
-    { id: 'streak7', name: '一周不歇', description: '连续训练 7 天', icon: '🔥', tier: 'silver', unlocked: stats.streak.longest >= 7 },
-    { id: 'streak30', name: '月度狂人', description: '连续训练 30 天', icon: '🌟', tier: 'diamond', unlocked: stats.streak.longest >= 30 },
-    { id: 'tags5', name: '多面手', description: '使用 5 种不同训练', icon: '🎨', tier: 'silver', unlocked: stats.uniqueTags.size >= 5 },
-    { id: 'month10', name: '本月活跃', description: '本月训练 10 次', icon: '📅', tier: 'silver', unlocked: stats.monthCount >= 10 },
-    { id: 'month20', name: '本月狂热', description: '本月训练 20 次', icon: '⚡', tier: 'gold', unlocked: stats.monthCount >= 20 },
+    { id: 'first', name: '初战告捷', description: '完成第一次训练', icon: 'target', tier: 'bronze', unlocked: stats.total >= 1 },
+    { id: 'ten', name: '十全十美', description: '累计训练 10 次', icon: 'dumbbell', tier: 'bronze', unlocked: stats.total >= 10 },
+    { id: 'fifty', name: '半百达人', description: '累计训练 50 次', icon: 'medal', tier: 'silver', unlocked: stats.total >= 50 },
+    { id: 'hundred', name: '百战雄师', description: '累计训练 100 次', icon: 'trophy', tier: 'gold', unlocked: stats.total >= 100 },
+    { id: 'streak3', name: '三连发', description: '连续训练 3 天', icon: 'flame', tier: 'bronze', unlocked: stats.streak.longest >= 3 },
+    { id: 'streak7', name: '一周不歇', description: '连续训练 7 天', icon: 'flame', tier: 'silver', unlocked: stats.streak.longest >= 7 },
+    { id: 'streak30', name: '月度狂人', description: '连续训练 30 天', icon: 'flame', tier: 'diamond', unlocked: stats.streak.longest >= 30 },
+    { id: 'tags5', name: '多面手', description: '使用 5 种不同训练', icon: 'grid', tier: 'silver', unlocked: stats.uniqueTags.size >= 5 },
+    { id: 'month10', name: '本月活跃', description: '本月训练 10 次', icon: 'calendar', tier: 'silver', unlocked: stats.monthCount >= 10 },
+    { id: 'month20', name: '本月狂热', description: '本月训练 20 次', icon: 'zap', tier: 'gold', unlocked: stats.monthCount >= 20 },
   ]
 
   return badges

@@ -16,6 +16,7 @@ import { TabBar } from './components/TabBar'
 import { StatsPage } from './components/StatsPage'
 import { StreakCard } from './components/StreakCard'
 import { AchievementsPage } from './components/AchievementsPage'
+import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
 import './App.css'
@@ -25,6 +26,15 @@ type Page = 'home' | 'form' | 'settings' | 'backup'
 function getTodayString(): string {
   const t = new Date()
   return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`
+}
+
+const WEEKDAY_NAMES = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+
+/** "2026-08-27" -> "8月27日 · 周四" */
+function formatDateLabel(iso: string): string {
+  const d = new Date(`${iso}T00:00:00`)
+  if (Number.isNaN(d.getTime())) return iso
+  return `${d.getMonth() + 1}月${d.getDate()}日 · ${WEEKDAY_NAMES[d.getDay()]}`
 }
 
 export default function App() {
@@ -146,6 +156,7 @@ export default function App() {
   }
 
   const handleLongPressDate = (fullDate: string) => {
+    haptic.onSelect()
     setSelectedDate(fullDate)
     setQuickAddDate(fullDate)
   }
@@ -209,11 +220,8 @@ export default function App() {
         <>
           <header className="app__header">
             <h1 className="app__title"><span className="app__title-accent">Train</span>Log</h1>
-            <button className="app__settings-btn" onClick={handleOpenSettings}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-              </svg>
+            <button className="app__settings-btn" onClick={handleOpenSettings} aria-label="设置">
+              <Icon name="settings" size={21} strokeWidth={1.9} />
             </button>
           </header>
 
@@ -230,7 +238,7 @@ export default function App() {
               />
               <div className="app__section">
                 <div className="app__section-header">
-                  <span className="app__section-title">{selectedDate}</span>
+                  <span className="app__section-title">{formatDateLabel(selectedDate)}</span>
                   <span className="app__section-count">{dateRecords.length} 条记录</span>
                 </div>
                 <TrainingList
@@ -251,11 +259,8 @@ export default function App() {
           )}
 
           {activeTab === 'training' && (
-            <button className="app__fab" onClick={handleAdd}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
+            <button className="app__fab" onClick={handleAdd} aria-label="添加训练">
+              <Icon name="plus" size={26} strokeWidth={2.4} />
             </button>
           )}
 

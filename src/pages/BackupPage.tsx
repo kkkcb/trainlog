@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { TrainingRecord, TagDefinition } from '../types'
+import { Icon } from '../components/icons'
 import './BackupPage.css'
 
 interface BackupPageProps {
@@ -88,10 +89,8 @@ export function BackupPage({
   return (
     <div className="backup-page">
       <div className="backup-page__header">
-        <button className="backup-page__back" onClick={onBack}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+        <button className="backup-page__back" onClick={onBack} aria-label="返回">
+          <Icon name="arrowLeft" size={20} />
         </button>
         <span className="backup-page__title">数据备份</span>
         <span className="backup-page__spacer" />

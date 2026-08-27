@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { ToastContext, type ToastContextValue, type ToastItem } from './ToastContext'
+import { Icon, type IconName } from './icons'
 import './Toast.css'
 
 let toastId = 0
@@ -29,16 +30,23 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   )
 }
 
+const TOAST_ICONS: Record<ToastItem['type'], IconName> = {
+  success: 'check',
+  error: 'close',
+  info: 'info',
+}
+
 function Toast({ item }: { item: ToastItem }) {
   const [leaving, setLeaving] = useState(false)
   useEffect(() => {
     const timer = window.setTimeout(() => setLeaving(true), 1500)
     return () => window.clearTimeout(timer)
   }, [])
-  const icon = item.type === 'success' ? '✓' : item.type === 'error' ? '✕' : '•'
   return (
     <div className={`toast toast--${item.type} ${leaving ? 'toast--leave' : ''}`}>
-      <span className="toast__icon">{icon}</span>
+      <span className="toast__icon">
+        <Icon name={TOAST_ICONS[item.type] ?? 'check'} size={10} strokeWidth={3} />
+      </span>
       <span className="toast__msg">{item.message}</span>
     </div>
   )

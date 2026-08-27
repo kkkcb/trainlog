@@ -1,10 +1,25 @@
 import type { TrainingRecord } from '../types'
+import { Icon } from './icons'
 import './TrainingCard.css'
 
 interface TrainingCardProps {
   record: TrainingRecord
   onEdit: (record: TrainingRecord) => void
   onDelete: (record: TrainingRecord) => void
+}
+
+/** 按标签名哈希取色，保证同名标签颜色稳定 */
+const TAG_COLORS = [
+  '#10b981', '#8b5cf6', '#3b82f6', '#f59e0b', '#ec4899',
+  '#14b8a6', '#f97316', '#6366f1', '#84cc16',
+]
+
+function tagColor(name: string): string {
+  let hash = 0
+  for (let i = 0; i < name.length; i++) {
+    hash = (hash * 31 + name.charCodeAt(i)) | 0
+  }
+  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length]
 }
 
 export function TrainingCard({ record, onEdit, onDelete }: TrainingCardProps) {
@@ -14,29 +29,34 @@ export function TrainingCard({ record, onEdit, onDelete }: TrainingCardProps) {
         <div className="training-card__tags">
           {record.tags.map((tag) => (
             <span key={tag.name} className="training-card__tag">
-              {tag.name}
-              {(tag.metrics?.duration || tag.metrics?.distance) && (
+              <span
+                className="training-card__tag-dot"
+                style={{ background: tagColor(tag.name) }}
+              />
+              <span className="training-card__tag-name">{tag.name}</span>
+              {(tag.metrics?.duration != null || tag.metrics?.distance != null) && (
                 <span className="training-card__tag-metrics">
-                  {tag.metrics?.duration != null && <span>{tag.metrics.duration}min</span>}
-                  {tag.metrics?.duration != null && tag.metrics?.distance != null && <span>·</span>}
-                  {tag.metrics?.distance != null && <span>{tag.metrics.distance}km</span>}
+                  {tag.metrics?.duration != null && <span>{tag.metrics.duration}<i>min</i></span>}
+                  {tag.metrics?.distance != null && <span>{tag.metrics.distance}<i>km</i></span>}
                 </span>
               )}
             </span>
           ))}
         </div>
         <div className="training-card__actions">
-          <button className="training-card__btn training-card__btn--edit" onClick={() => onEdit(record)}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-            </svg>
+          <button
+            className="training-card__btn training-card__btn--edit"
+            onClick={() => onEdit(record)}
+            aria-label="编辑"
+          >
+            <Icon name="pencil" size={16} />
           </button>
-          <button className="training-card__btn training-card__btn--delete" onClick={() => onDelete(record)}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="3 6 5 6 21 6" />
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            </svg>
+          <button
+            className="training-card__btn training-card__btn--delete"
+            onClick={() => onDelete(record)}
+            aria-label="删除"
+          >
+            <Icon name="trash" size={16} />
           </button>
         </div>
       </div>

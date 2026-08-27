@@ -178,7 +178,7 @@ a {
 }
 
 ::selection {
-  background: rgba(74, 224, 154, 0.3);
+  background: rgba(16, 185, 129, 0.22);
   color: var(--color-text-primary);
 }
 
@@ -192,12 +192,12 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.14);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(15, 23, 42, 0.24);
 }
 
 input, textarea, select, button {
@@ -244,15 +244,6 @@ button,
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(61, 214, 140, 0.15);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(61, 214, 140, 0.3);
   }
 }
 

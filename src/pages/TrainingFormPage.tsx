@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { TrainingRecord, TrainingTag, TagMetrics, TagDefinition, MetricType } from '../types'
 import { METRIC_LABELS } from '../types'
+import { Icon } from '../components/icons'
 import './TrainingFormPage.css'
 
 interface TrainingFormPageProps {
@@ -78,10 +79,8 @@ export function TrainingFormPage({
   return (
     <div className="form-page">
       <div className="form-page__header">
-        <button className="form-page__back" onClick={onBack}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+        <button className="form-page__back" onClick={onBack} aria-label="返回">
+          <Icon name="arrowLeft" size={20} />
         </button>
         <span className="form-page__header-title">{existingRecord ? '编辑记录' : '添加记录'}</span>
         <button
@@ -95,12 +94,7 @@ export function TrainingFormPage({
 
       <div className="form-page__body">
         <div className="form-page__date">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
-          </svg>
+          <Icon name="calendar" size={15} />
           <span>{date}</span>
         </div>
 

@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import type { TrainingRecord } from '../types'
+import { Icon } from './icons'
 import './StatsPage.css'
 
 type Period = 'week' | 'month' | 'year'
@@ -33,6 +34,15 @@ function getRange(period: Period): [string, string] {
 }
 
 const PERIOD_LABELS: Record<Period, string> = { week: '本周', month: '本月', year: '本年' }
+
+/** 分类条形图配色，按名次循环 */
+const BAR_COLORS = [
+  'linear-gradient(90deg, #34d399, #10b981)',
+  'linear-gradient(90deg, #a78bfa, #8b5cf6)',
+  'linear-gradient(90deg, #60a5fa, #3b82f6)',
+  'linear-gradient(90deg, #fbbf24, #f59e0b)',
+  'linear-gradient(90deg, #f472b6, #ec4899)',
+]
 
 export function StatsPage({ records }: StatsPageProps) {
   const [period, setPeriod] = useState<Period>('month')
@@ -78,10 +88,16 @@ export function StatsPage({ records }: StatsPageProps) {
 
       <div className="stats__summary">
         <div className="stats__summary-item">
+          <span className="stats__summary-icon stats__summary-icon--green">
+            <Icon name="calendar" size={16} />
+          </span>
           <span className="stats__summary-value">{stats.totalDays}</span>
           <span className="stats__summary-label">训练天数</span>
         </div>
         <div className="stats__summary-item">
+          <span className="stats__summary-icon stats__summary-icon--violet">
+            <Icon name="dumbbell" size={16} />
+          </span>
           <span className="stats__summary-value">{stats.totalSessions}</span>
           <span className="stats__summary-label">记录总数</span>
         </div>
@@ -89,21 +105,27 @@ export function StatsPage({ records }: StatsPageProps) {
 
       {stats.sorted.length === 0 ? (
         <div className="stats__empty">
+          <div className="stats__empty-icon">
+            <Icon name="chart" size={30} strokeWidth={1.5} />
+          </div>
           <p className="stats__empty-text">暂无训练记录</p>
           <p className="stats__empty-hint">{PERIOD_LABELS[period]}还没有训练数据</p>
         </div>
       ) : (
         <div className="stats__list">
-          {stats.sorted.map(([name, count]) => (
+          {stats.sorted.map(([name, count], i) => (
             <div key={name} className="stats__item">
               <div className="stats__item-header">
                 <span className="stats__item-name">{name}</span>
-                <span className="stats__item-count">{count}次</span>
+                <span className="stats__item-count">{count}<i>次</i></span>
               </div>
               <div className="stats__bar-track">
                 <div
                   className="stats__bar-fill"
-                  style={{ width: stats.maxCount > 0 ? `${(count / stats.maxCount) * 100}%` : '0%' }}
+                  style={{
+                    width: stats.maxCount > 0 ? `${(count / stats.maxCount) * 100}%` : '0%',
+                    background: BAR_COLORS[i % BAR_COLORS.length],
+                  }}
                 />
               </div>
             </div>
