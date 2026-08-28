@@ -156,12 +156,12 @@ export function TagSettingsPage({
         <div className="ai-card">
           <div className="ai-card__head">
             <span className="ai-card__title">AI 生命</span>
-            <span className="ai-card__hint">点头像即可对话</span>
+            <span className="ai-card__hint">点头像即可对话 · 保存后长期生效</span>
           </div>
           <input
             className="ai-card__input"
             type="password"
-            placeholder="Z.ai API Key"
+            placeholder="Z.ai API Key（填写一次，永久保存在本机）"
             value={ai.apiKey}
             onChange={(e) => setAi({ ...ai, apiKey: e.target.value.trim() })}
           />

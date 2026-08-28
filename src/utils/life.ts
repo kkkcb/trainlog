@@ -18,7 +18,7 @@ export interface AIConfig {
 }
 
 export const DEFAULT_AI_CONFIG: AIConfig = {
-  apiKey: '0075fb5095f14eaf911debf2e970e04a.5RYO59XWcoXXRS6T',
+  apiKey: '', // 由主人在 设置 → AI生命 中手动填写，保存在本机数据库，长期生效
   model: 'glm-5.3',
   endpoint: 'https://api.z.ai/api/coding/paas/v4/chat/completions',
   systemPrompt: DEFAULT_SYSTEM_PROMPT,
