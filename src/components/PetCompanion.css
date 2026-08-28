@@ -65,6 +65,15 @@
   filter: sepia(1) saturate(3.5) hue-rotate(160deg);
 }
 
+.cal-pet--mini.cal-pet--hue-purple .pet-art svg {
+  filter: sepia(1) saturate(4) hue-rotate(220deg);
+}
+
+.cal-pet--mini .pet-art--dragon-mini svg {
+  width: 86%;
+  height: 86%;
+}
+
 .cal-pet--spawn .cal-pet__scaler {
   animation: pet-spawn 0.55s var(--ease-spring) both;
 }

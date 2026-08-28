@@ -267,6 +267,7 @@ export default function App() {
                     candidates={petCandidates}
                     records={records}
                     trainingDates={trainingDates}
+                    selectedDate={selectedDate}
                     feedSignal={feedSignal}
                     onQuickAdd={(date) => {
                       setSelectedDate(date)

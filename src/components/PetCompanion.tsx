@@ -8,12 +8,14 @@ import hatchArt from '../assets/pets/hatch.svg?raw'
 import dragonFaceArt from '../assets/pets/dragon-face.svg?raw'
 import dragonArt from '../assets/pets/dragon.svg?raw'
 import ghostArt from '../assets/pets/ghost.svg?raw'
+import chickArt from '../assets/pets/chick.svg?raw'
+import octopusArt from '../assets/pets/octopus.svg?raw'
 import './PetCompanion.css'
 
 /**
- * 训练养宠（日历栖居 + 小队版）：
- * 主宠按累计训练四阶进化，体型随阶段内进度真实变大；
- * 累计 3 次/10 次分别解锁橙/蓝小伙伴，组成小队同住日历。
+ * 训练养宠（日历栖居 · 军团版）：
+ * 主宠四阶进化 + 最多 6 只小伙伴组成军团同住月历；
+ * 喂食时全员冲刺到打卡格子开派对，新伙伴入场自带「我来啦」动画。
  */
 
 type Stage = 'egg' | 'blob' | 'dragon' | 'legend'
@@ -48,9 +50,21 @@ interface CalendarPetProps {
   candidates: PetCandidate[]
   records: Record<string, TrainingRecord>
   trainingDates: Set<string>
+  selectedDate: string
   feedSignal?: number
   onQuickAdd?: (date: string) => void
 }
+
+type MiniKind = 'ghost-orange' | 'ghost-blue' | 'chick' | 'octopus' | 'ghost-purple' | 'dragon-mini'
+
+const MINI_DEFS: Array<{ unlock: number; kind: MiniKind }> = [
+  { unlock: 2, kind: 'ghost-orange' },
+  { unlock: 3, kind: 'ghost-blue' },
+  { unlock: 4, kind: 'chick' },
+  { unlock: 5, kind: 'octopus' },
+  { unlock: 6, kind: 'ghost-purple' },
+  { unlock: 7, kind: 'dragon-mini' },
+]
 
 const POKE_MSGS: Record<Stage, string[]> = {
   egg: ['咚咚咚……有动静！', '完成 1 次训练我就孵化', '别戳啦，晃晕了…'],
@@ -63,9 +77,9 @@ const FED_MSGS: Record<Exclude<Stage, 'egg'>, string[]> = {
   dragon: ['真香，火焰要喷出来了', '龙威+1！', '能量吸收完毕'],
   legend: ['传说也要吃饭的', '雷霆之力+1⚡', '呜呼——满足！'],
 }
-const MINI_MSGS = ['吱！', '陪练打卡~', '小家伙也要变强！', '嘿嘿，戳中啦']
+const MINI_MSGS = ['吱！', '陪练打卡~', '小家伙也要变强！', '嘿嘿，戳中啦', '开饭啦！']
 
-/** 体型：阶段内随喂食进度真实变大（每喂一次肉眼可辨） */
+/** 体型：阶段内随喂食进度真实变大 */
 function scaleFor(stage: Stage, total: number): number {
   if (stage === 'legend') return 1.2
   const [lo, hi] = STAGE_RANGE[stage]
@@ -76,12 +90,12 @@ function scaleFor(stage: Stage, total: number): number {
 const ROAM_MIN_MS = 8000
 const ROAM_RAND_MS = 5000
 const LONG_PRESS_MS = 480
-const MINI_UNLOCK = [3, 10]
 
 export function CalendarPet({
   candidates,
   records,
   trainingDates,
+  selectedDate,
   feedSignal = 0,
   onQuickAdd,
 }: CalendarPetProps) {
@@ -91,7 +105,7 @@ export function CalendarPet({
   const totalWorkouts = useMemo(() => Object.keys(records).length, [records])
   const stage = stageFor(totalWorkouts)
 
-  // ---------- 主宠栖息位（与散步） ----------
+  // ---------- 主宠栖息位 ----------
   const [posIdx, setPosIdx] = useState<number>(() => {
     const empty = candidates.filter(
       (c) => c.date < today && !trainingDates.has(c.date)
@@ -152,8 +166,7 @@ export function CalendarPet({
   const pokeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lpTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lpFiredRef = useRef(false)
-  const curDate =
-    candidates.find((c) => c.index === posIdx)?.date ?? today
+  const curDate = candidates.find((c) => c.index === posIdx)?.date ?? today
 
   const clearLp = () => {
     if (lpTimer.current) clearTimeout(lpTimer.current)
@@ -191,14 +204,26 @@ export function CalendarPet({
     pokeTimer.current = setTimeout(() => setPoked(false), 650)
   }
 
-  // ---------- 喂食庆祝（真实变大：体型由 scaleFor 驱动） ----------
+  // ---------- 喂食：全员冲刺到打卡格子 + 派对 ----------
   const [party, setParty] = useState(false)
   const [burstKey, setBurstKey] = useState(0)
+  const [rushIdx, setRushIdx] = useState<number | null>(null)
   const prevTotalRef = useRef(totalWorkouts)
+
   useEffect(() => {
     const prev = prevTotalRef.current
     prevTotalRef.current = totalWorkouts
     if (feedSignal <= 0 || totalWorkouts <= prev) return
+
+    // 冲刺目标：优先刚打卡的日期所在格
+    const target = candidates.find((c) => c.date === selectedDate)
+    if (target && target.index !== posRef.current) {
+      setRushIdx(target.index)
+      setWalking(true)
+      setPosIdx(target.index)
+      posRef.current = target.index
+      setTimeout(() => setWalking(false), 620)
+    }
     setParty(true)
     setBurstKey((k) => k + 1)
     const nowIdx = STAGE_ORDER.indexOf(stage)
@@ -207,9 +232,12 @@ export function CalendarPet({
     else if (stage !== 'egg')
       say(FED_MSGS[stage][Math.floor(Math.random() * FED_MSGS[stage].length)], 2400)
     else say('破壳了！！')
-    const t = setTimeout(() => setParty(false), 1600)
+    const t = setTimeout(() => {
+      setParty(false)
+      setRushIdx(null)
+    }, 1900)
     return () => clearTimeout(t)
-  }, [feedSignal, totalWorkouts, stage, say, haptic])
+  }, [feedSignal, totalWorkouts, stage, say, haptic, candidates, selectedDate])
 
   // ---------- 进化全屏过场 ----------
   const [evolvingFrom, setEvolvingFrom] = useState<Stage | null>(null)
@@ -302,16 +330,18 @@ export function CalendarPet({
         ))}
       </div>
 
-      {/* 小伙伴小队 */}
-      {MINI_UNLOCK.map((unlockAt, i) =>
-        totalWorkouts >= unlockAt ? (
+      {/* 小伙伴军团 */}
+      {MINI_DEFS.map((def, i) =>
+        totalWorkouts >= def.unlock ? (
           <MiniPet
-            key={`mini-${i}`}
-            id={`mini-${i}`}
+            key={`${def.kind}-${i}`}
+            kind={def.kind}
             candidates={candidates}
-            avoidIdx={posIdx}
-            party={party}
+            avoidIdxes={[posIdx, rushIdx ?? -1]}
             today={today}
+            party={party}
+            rushIdx={rushIdx}
+            spawnDelay={i * 260}
           />
         ) : null
       )}
@@ -337,41 +367,58 @@ export function CalendarPet({
   )
 }
 
-/* ---------- 小伙伴（mini）：换色缩小，独立游走，可戳 ---------- */
+/* ---------- 小伙伴 ---------- */
 
 function MiniPet({
-  id,
+  kind,
   candidates,
-  avoidIdx,
-  party,
+  avoidIdxes,
   today,
+  party,
+  rushIdx,
+  spawnDelay,
 }: {
-  id: string
+  kind: MiniKind
   candidates: PetCandidate[]
-  avoidIdx: number
-  party: boolean
+  avoidIdxes: number[]
   today: string
+  party: boolean
+  rushIdx: number | null
+  spawnDelay: number
 }) {
   const haptic = useHapticFeedback()
-  const hueClass = id === 'mini-0' ? 'cal-pet--hue-orange' : 'cal-pet--hue-blue'
-
   const [posIdx, setPosIdx] = useState(() => {
-    const pool = candidates.filter((c) => c.index !== avoidIdx && c.date <= today)
+    const pool = candidates.filter((c) => c.date <= today && !avoidIdxes.includes(c.index))
     return pool.length > 0
       ? pool[Math.floor(Math.random() * pool.length)].index
       : candidates[0]?.index ?? 20
   })
   const [walking, setWalking] = useState(false)
+  const [poked, setPoked] = useState(false)
+  const [bubble, setBubble] = useState<string | null>(null)
+  const bt = useRef<ReturnType<typeof setTimeout> | null>(null)
   const posRef = useRef(posIdx)
   const candRef = useRef(candidates)
   candRef.current = candidates
 
+  const say = useCallback((text: string, ms = 2000) => {
+    setBubble(text)
+    if (bt.current) clearTimeout(bt.current)
+    bt.current = setTimeout(() => setBubble(null), ms)
+  }, [])
+
+  // 入场：延迟 +「我来啦！」
+  useEffect(() => {
+    const t = setTimeout(() => say('我来啦！', 2000), spawnDelay)
+    return () => clearTimeout(t)
+  }, [say, spawnDelay])
+
   useEffect(() => {
     if (!candidates.some((c) => c.index === posRef.current)) {
-      const pool = candidates.filter((c) => c.date <= today && c.index !== avoidIdx)
+      const pool = candidates.filter((c) => c.date <= today && !avoidIdxes.includes(c.index))
       if (pool.length > 0) setPosIdx(pool[Math.floor(Math.random() * pool.length)].index)
     }
-  }, [candidates, today, avoidIdx])
+  }, [candidates, today, avoidIdxes])
 
   useEffect(() => {
     let alive = true
@@ -379,7 +426,7 @@ function MiniPet({
       const timer = setTimeout(() => {
         if (!alive) return
         const pool = candRef.current.filter(
-          (c) => c.index !== posRef.current && c.index !== avoidIdx && c.date <= today
+          (c) => c.index !== posRef.current && !avoidIdxes.includes(c.index) && c.date <= today
         )
         if (pool.length > 0) {
           setWalking(true)
@@ -395,21 +442,25 @@ function MiniPet({
       alive = false
       clearTimeout(timer2)
     }
-  }, [today, avoidIdx])
+  }, [today, avoidIdxes])
 
-  const [poked, setPoked] = useState(false)
-  const [bubble, setBubble] = useState<string | null>(null)
-  const bt = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const [spawn] = useState(true)
+  // 喂食冲刺：奔向开饭格
+  useEffect(() => {
+    if (rushIdx == null || rushIdx === posRef.current) return
+    setWalking(true)
+    setPosIdx(rushIdx)
+    posRef.current = rushIdx
+    say('干饭啦！！')
+    const t = setTimeout(() => setWalking(false), 620)
+    return () => clearTimeout(t)
+  }, [rushIdx, say])
 
   const handlePoke = (e: React.MouseEvent) => {
     e.stopPropagation()
     haptic.onTap()
     setPoked(true)
-    setBubble(MINI_MSGS[Math.floor(Math.random() * MINI_MSGS.length)])
+    say(MINI_MSGS[Math.floor(Math.random() * MINI_MSGS.length)])
     setTimeout(() => setPoked(false), 600)
-    if (bt.current) clearTimeout(bt.current)
-    bt.current = setTimeout(() => setBubble(null), 2000)
   }
 
   const cand = candidates.find((c) => c.index === posIdx)
@@ -418,23 +469,51 @@ function MiniPet({
 
   return (
     <div
-      className={`cal-pet cal-pet--mini ${hueClass} ${walking ? 'cal-pet--walking' : ''} ${spawn ? 'cal-pet--spawn' : ''}`}
-      style={{ gridColumn: col, gridRow: row }}
+      className={`cal-pet cal-pet--mini ${hueClassFor(kind)} ${walking ? 'cal-pet--walking' : ''} cal-pet--spawn`}
+      style={{ gridColumn: col, gridRow: row, animationDelay: `${spawnDelay}ms` }}
       onClick={handlePoke}
       role="button"
       aria-label="宠物小伙伴"
     >
       {bubble && <span className="cal-pet__bubble">{bubble}</span>}
-      <div className={`cal-pet__scaler ${party ? 'cal-pet__body--party' : ''} ${poked ? 'cal-pet__body--poke' : ''}`}>
+      <div
+        className={`cal-pet__scaler ${party ? 'cal-pet__body--party' : ''} ${poked ? 'cal-pet__body--poke' : ''}`}
+      >
         <div className={`cal-pet__body ${walking ? 'cal-pet__body--walk' : ''}`}>
-          <PetArt ghost />
+          <MiniArt kind={kind} />
         </div>
       </div>
     </div>
   )
 }
 
-/* ---------- 四阶段美术（OpenMoji）---------- */
+function hueClassFor(kind: MiniKind): string {
+  if (kind === 'ghost-orange') return 'cal-pet--hue-orange'
+  if (kind === 'ghost-blue') return 'cal-pet--hue-blue'
+  if (kind === 'ghost-purple') return 'cal-pet--hue-purple'
+  return ''
+}
+
+const MINI_ART: Record<MiniKind, string> = {
+  'ghost-orange': ghostArt,
+  'ghost-blue': ghostArt,
+  chick: chickArt,
+  octopus: octopusArt,
+  'ghost-purple': ghostArt,
+  'dragon-mini': dragonFaceArt,
+}
+
+function MiniArt({ kind }: { kind: MiniKind }) {
+  return (
+    <span
+      className={kind === 'dragon-mini' ? 'pet-art pet-art--dragon-mini' : 'pet-art'}
+      dangerouslySetInnerHTML={{ __html: MINI_ART[kind] }}
+      aria-hidden
+    />
+  )
+}
+
+/* ---------- 主宠四阶段美术（OpenMoji）---------- */
 
 const STAGE_ART: Record<Stage, string> = {
   egg: eggArt,
@@ -443,12 +522,11 @@ const STAGE_ART: Record<Stage, string> = {
   legend: dragonArt,
 }
 
-export function PetArt({ stage, ghost = false }: { stage?: Stage; ghost?: boolean }) {
-  const raw = ghost ? ghostArt : STAGE_ART[stage ?? 'egg']
+export function PetArt({ stage }: { stage: Stage }) {
   return (
     <span
-      className={ghost ? 'pet-art pet-art--ghost' : 'pet-art'}
-      dangerouslySetInnerHTML={{ __html: raw }}
+      className="pet-art"
+      dangerouslySetInnerHTML={{ __html: STAGE_ART[stage] }}
       aria-hidden
     />
   )
