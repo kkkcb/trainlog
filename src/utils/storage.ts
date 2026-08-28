@@ -1,8 +1,9 @@
 import { Preferences } from '@capacitor/preferences'
-import type { TrainingRecord } from '../types'
+import type { TrainingRecord, DiaryEntry } from '../types'
 
 const STORAGE_KEY = 'trainlog_records'
 const BACKUP_KEY = 'trainlog_records_backup'
+const DIARY_KEY = 'trainlog_diary'
 
 type LegacyRecord = Omit<TrainingRecord, 'tags'> & { tags: string[] | TrainingRecord['tags'] }
 type RawRecords = Record<string, LegacyRecord>
@@ -50,11 +51,27 @@ export async function saveRecords(records: Record<string, TrainingRecord>): Prom
   await Preferences.set({ key: BACKUP_KEY, value })
 }
 
+export async function loadDiary(): Promise<DiaryEntry[]> {
+  const { value } = await Preferences.get({ key: DIARY_KEY })
+  if (!value) return []
+  try {
+    const parsed = JSON.parse(value)
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
+export async function saveDiary(entries: DiaryEntry[]): Promise<void> {
+  await Preferences.set({ key: DIARY_KEY, value: JSON.stringify(entries) })
+}
+
 export interface ExportPayload {
-  version: 1
+  version: 2
   exportedAt: number
   records: Record<string, TrainingRecord>
   tagDefinitions: unknown
+  diary?: DiaryEntry[]
 }
 
 export async function exportAllData(tagDefinitions: unknown): Promise<string> {
@@ -67,11 +84,13 @@ export async function exportAllData(tagDefinitions: unknown): Promise<string> {
       records = {}
     }
   }
+  const diary = await loadDiary()
   const payload: ExportPayload = {
-    version: 1,
+    version: 2,
     exportedAt: Date.now(),
     records,
     tagDefinitions,
+    diary,
   }
   return JSON.stringify(payload, null, 2)
 }
@@ -90,5 +109,8 @@ export async function importAllData(json: string): Promise<ExportPayload> {
     }
   }
   await saveRecords(migrated)
+  if (Array.isArray(parsed.diary)) {
+    await saveDiary(parsed.diary)
+  }
   return { ...parsed, records: migrated }
 }

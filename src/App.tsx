@@ -13,6 +13,7 @@ import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
+import { DiaryPage } from './pages/DiaryPage'
 import { StatsPage } from './components/StatsPage'
 import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
@@ -22,7 +23,7 @@ import { App as CapApp } from '@capacitor/app'
 import avatarImg from './assets/avatar.jpg'
 import './App.css'
 
-type Page = 'home' | 'form' | 'settings' | 'backup'
+type Page = 'home' | 'form' | 'settings' | 'backup' | 'diary'
 
 export default function App() {
   const { loading, records, addRecord, updateRecord, deleteRecordById, reload } = useTrainingStore()
@@ -204,6 +205,14 @@ export default function App() {
     pushPage('settings')
   }
 
+  const handleOpenDiary = () => {
+    pushPage('diary')
+  }
+
+  const handleDiaryBack = () => {
+    history.back()
+  }
+
   const handleSettingsBack = () => {
     history.back()
   }
@@ -248,9 +257,14 @@ export default function App() {
               <span className="app__weekday">{dateWeek}</span>
               {isViewingToday && <span className="app__today-pill">今天</span>}
             </div>
-            <button className="app__settings-btn" onClick={handleOpenSettings} aria-label="设置">
-              <Icon name="settings" size={21} strokeWidth={1.9} />
-            </button>
+            <div className="app__header-actions">
+              <button className="app__settings-btn" onClick={handleOpenDiary} aria-label="训练日记">
+                <Icon name="notebook" size={20} strokeWidth={1.9} />
+              </button>
+              <button className="app__settings-btn" onClick={handleOpenSettings} aria-label="设置">
+                <Icon name="settings" size={21} strokeWidth={1.9} />
+              </button>
+            </div>
           </header>
 
           <main className="app__main">
@@ -326,6 +340,8 @@ export default function App() {
           onBack={handleBackupBack}
         />
       )}
+
+      {currentPage === 'diary' && <DiaryPage onBack={handleDiaryBack} />}
 
       <BottomSheet
         isOpen={!!deleteTarget}

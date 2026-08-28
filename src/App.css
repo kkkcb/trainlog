@@ -80,6 +80,14 @@
   transition: background var(--duration-fast) var(--ease-out-expo), color var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
 }
 
+.app__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
 .app__settings-btn:active {
   background: var(--color-bg-card-hover);
   color: var(--color-text-secondary);

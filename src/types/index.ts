@@ -23,6 +23,17 @@ export interface TrainingRecord {
   updatedAt: number
 }
 
+/** 训练日记：随手收集的训练技巧与心得 */
+export interface DiaryEntry {
+  id: string
+  text: string
+  tag: string
+  createdAt: number
+  updatedAt: number
+}
+
+export const DIARY_TAGS = ['胸', '背', '腿', '肩臂', '核心', '饮食', '拉伸', '其他']
+
 export const DEFAULT_TAG_DEFINITIONS: TagDefinition[] = [
   { name: '推', metrics: [] },
   { name: '拉', metrics: [] },
