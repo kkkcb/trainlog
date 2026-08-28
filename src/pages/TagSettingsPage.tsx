@@ -1,7 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { TagDefinition, MetricType } from '../types'
 import { METRIC_LABELS } from '../types'
 import { Icon } from '../components/icons'
+import {
+  loadAIConfig,
+  saveAIConfig,
+  DEFAULT_AI_CONFIG,
+  type AIConfig,
+} from '../utils/life'
+import { useHapticFeedback } from '../hooks/useHapticFeedback'
+import { useToast } from '../components/useToast'
 import './TagSettingsPage.css'
 
 interface TagSettingsPageProps {
@@ -25,6 +33,22 @@ export function TagSettingsPage({
 }: TagSettingsPageProps) {
   const [newTagName, setNewTagName] = useState('')
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
+
+  // AI 生命配置
+  const toast = useToast()
+  const haptic = useHapticFeedback()
+  const [ai, setAi] = useState<AIConfig>(DEFAULT_AI_CONFIG)
+  const [aiSaved, setAiSaved] = useState(false)
+  useEffect(() => {
+    loadAIConfig().then(setAi).catch(() => {})
+  }, [])
+  const handleSaveAI = async () => {
+    await saveAIConfig(ai)
+    haptic.onSuccess()
+    setAiSaved(true)
+    setTimeout(() => setAiSaved(false), 1500)
+    toast.show('AI 生命已点亮', 'success')
+  }
 
   const handleAdd = () => {
     const trimmed = newTagName.trim()
@@ -127,6 +151,36 @@ export function TagSettingsPage({
             <p>还没有标签，添加一个开始吧</p>
           </div>
         )}
+
+        {/* AI 生命配置 */}
+        <div className="ai-card">
+          <div className="ai-card__head">
+            <span className="ai-card__title">AI 生命</span>
+            <span className="ai-card__hint">点头像即可对话</span>
+          </div>
+          <input
+            className="ai-card__input"
+            type="password"
+            placeholder="Z.ai API Key"
+            value={ai.apiKey}
+            onChange={(e) => setAi({ ...ai, apiKey: e.target.value.trim() })}
+          />
+          <textarea
+            className="ai-card__prompt"
+            rows={5}
+            maxLength={1200}
+            placeholder="生命提示词（描述你是谁、它该如何说话）"
+            value={ai.systemPrompt}
+            onChange={(e) => setAi({ ...ai, systemPrompt: e.target.value })}
+          />
+          <button
+            className={`ai-card__save ${ai.apiKey ? 'ai-card__save--on' : ''} ${aiSaved ? 'ai-card__save--done' : ''}`}
+            onClick={handleSaveAI}
+            disabled={!ai.apiKey}
+          >
+            {aiSaved ? '✓ 已保存' : '保存并点亮'}
+          </button>
+        </div>
 
         <button className="tag-settings__backup-btn" onClick={onOpenBackup}>
           <Icon name="database" size={17} />

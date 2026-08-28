@@ -9,7 +9,10 @@ import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { CalendarPet } from './components/PetCompanion'
 import { TabBar, type HomeTab } from './components/TabBar'
+import { AvatarChat } from './components/AvatarChat'
 import { BottomSheet } from './components/BottomSheet'
+import { loadDiary } from './utils/storage'
+import type { LifeContext } from './utils/life'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
@@ -40,6 +43,8 @@ export default function App() {
   const [feedSignal, setFeedSignal] = useState(0)
   // 首页底部标签：日历 / 训记
   const [homeTab, setHomeTab] = useState<HomeTab>('calendar')
+  // 「另一个你」聊天
+  const [lifeOpen, setLifeOpen] = useState(false)
 
   const calendar = useCalendar()
   const { tagDefinitions, addTag, removeTag, updateTagMetrics } = useTagSettings()
@@ -133,6 +138,47 @@ export default function App() {
 
   const isViewingToday = selectedDate === getTodayString()
   const { main: dateMain, week: dateWeek } = formatDateParts(selectedDate)
+
+  // 「另一个你」的实时状态上下文
+  const [diaryCountForLife, setDiaryCountForLife] = useState(0)
+  useEffect(() => {
+    loadDiary()
+      .then((l) => setDiaryCountForLife(l.length))
+      .catch(() => {})
+  }, [homeTab])
+
+  const lifeContext = useMemo<LifeContext>(() => {
+    const today = getTodayString()
+    const todayRecs = Object.values(records).filter((r) => r.date === today)
+    const d = new Date()
+    const off = (d.getDay() + 6) % 7
+    const mon = new Date(d)
+    mon.setDate(d.getDate() - off)
+    const pad = (n: number) => String(n).padStart(2, '0')
+    const monStr = `${mon.getFullYear()}-${pad(mon.getMonth() + 1)}-${pad(mon.getDate())}`
+    let weekCount = 0
+    const dateSet = new Set<string>()
+    Object.values(records).forEach((r) => {
+      if (r.date >= monStr && r.date <= today) weekCount++
+      dateSet.add(r.date)
+    })
+    let streakDays = 0
+    const cur = new Date()
+    for (;;) {
+      const iso = `${cur.getFullYear()}-${pad(cur.getMonth() + 1)}-${pad(cur.getDate())}`
+      if (!dateSet.has(iso)) break
+      streakDays++
+      cur.setDate(cur.getDate() - 1)
+    }
+    return {
+      todayCount: todayRecs.length,
+      todayTags: todayRecs.flatMap((r) => r.tags.map((t) => t.name)),
+      weekCount,
+      streakDays,
+      totalWorkouts: Object.keys(records).length,
+      diaryCount: diaryCountForLife,
+    }
+  }, [records, diaryCountForLife])
 
   const pageStackRef = useRef<Page[]>(['home'])
 
@@ -254,7 +300,17 @@ export default function App() {
       {currentPage === 'home' && (
         <>
           <header className="app__header">
-            <img className="app__avatar" src={avatarImg} alt="我的头像" />
+            <button
+              className="app__avatar app__avatar--life"
+              onClick={() => {
+                haptic.onTap()
+                setLifeOpen(true)
+              }}
+              aria-label="和另一个自己对话"
+            >
+              <img src={avatarImg} alt="我的头像" />
+              <span className="app__avatar-life-dot" />
+            </button>
             <div className="app__header-main">
               <h1 className="app__date">{dateMain}</h1>
               <span className="app__weekday">{dateWeek}</span>
@@ -317,6 +373,12 @@ export default function App() {
           <TabBar active={homeTab} onChange={handleHomeTabChange} />
         </>
       )}
+
+      <AvatarChat
+        open={lifeOpen}
+        onClose={() => setLifeOpen(false)}
+        context={lifeContext}
+      />
 
       {currentPage === 'form' && (
         <TrainingFormPage

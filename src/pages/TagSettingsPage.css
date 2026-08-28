@@ -241,3 +241,76 @@
   color: var(--color-accent);
   border-color: var(--color-accent);
 }
+
+/* ---------- AI 生命配置 ---------- */
+
+.ai-card {
+  background: var(--color-bg-card);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.ai-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.ai-card__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+}
+
+.ai-card__hint {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+
+.ai-card__input,
+.ai-card__prompt {
+  width: 100%;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.ai-card__input:focus,
+.ai-card__prompt:focus {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+.ai-card__prompt {
+  resize: none;
+  line-height: 1.6;
+}
+
+.ai-card__save {
+  align-self: flex-end;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.ai-card__save--on {
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
+}
+
+.ai-card__save--done {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+}

@@ -19,10 +19,11 @@
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
 }
 
-/* 个人头像：圆形 + 强调色细环 */
+/* 个人头像：圆形 + 强调色细环（可点击，是「另一个你」的入口） */
 .app__avatar {
   width: 44px;
   height: 44px;
+  padding: 0;
   border-radius: var(--radius-full);
   object-fit: cover;
   flex-shrink: 0;
@@ -34,7 +35,44 @@
   transform: scale(1.06) rotate(-3deg);
 }
 
-/* 日期标题：当前选中日 */
+.app__avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  display: block;
+}
+
+.app__avatar--life {
+  position: relative;
+  animation: life-breathe 3.4s ease-in-out infinite;
+}
+
+/* 生命脉冲点 */
+.app__avatar-life-dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 11px;
+  height: 11px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg-primary);
+  animation: life-dot-ping 2.4s ease-out infinite;
+}
+
+@keyframes life-dot-ping {
+  0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+@keyframes life-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.045); }
+}
+
+/* 日期块占满剩余空间 */
 .app__header-main {
   flex: 1;
   min-width: 0;
