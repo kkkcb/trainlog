@@ -2,6 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { TrainingRecord } from '../types'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { getTodayString } from '../utils/date'
+// 宠物美术资源：OpenMoji（CC BY-SA 4.0）· https://github.com/hfg-gmuend/openmoji
+import eggArt from '../assets/pets/egg.svg?raw'
+import hatchArt from '../assets/pets/hatch.svg?raw'
+import dragonFaceArt from '../assets/pets/dragon-face.svg?raw'
+import dragonArt from '../assets/pets/dragon.svg?raw'
+import ghostArt from '../assets/pets/ghost.svg?raw'
 import './PetCompanion.css'
 
 /**
@@ -421,118 +427,29 @@ function MiniPet({
       {bubble && <span className="cal-pet__bubble">{bubble}</span>}
       <div className={`cal-pet__scaler ${party ? 'cal-pet__body--party' : ''} ${poked ? 'cal-pet__body--poke' : ''}`}>
         <div className={`cal-pet__body ${walking ? 'cal-pet__body--walk' : ''}`}>
-          <BlobArt />
+          <PetArt ghost />
         </div>
       </div>
     </div>
   )
 }
 
-/* ---------- 四阶段 SVG ---------- */
+/* ---------- 四阶段美术（OpenMoji）---------- */
 
-export function PetArt({ stage }: { stage: Stage }) {
-  if (stage === 'egg') return <EggArt />
-  if (stage === 'legend') return <DragonArt legend />
-  if (stage === 'dragon') return <DragonArt />
-  return <BlobArt />
+const STAGE_ART: Record<Stage, string> = {
+  egg: eggArt,
+  blob: hatchArt,
+  dragon: dragonFaceArt,
+  legend: dragonArt,
 }
 
-function EggArt() {
+export function PetArt({ stage, ghost = false }: { stage?: Stage; ghost?: boolean }) {
+  const raw = ghost ? ghostArt : STAGE_ART[stage ?? 'egg']
   return (
-    <svg viewBox="0 0 48 48" className="pet-svg" aria-hidden>
-      <defs>
-        <linearGradient id="pgEgg" x1="24" y1="44" x2="24" y2="6" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#cfd8e3" />
-          <stop offset="1" stopColor="#f5f7fa" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M24 4C14 4 9 16 9 27a15 15 0 0 0 30 0C39 16 34 4 24 4Z"
-        fill="url(#pgEgg)"
-        stroke="#334155"
-        strokeWidth="1.6"
-      />
-      <circle cx="18" cy="20" r="2.4" fill="#34d399" opacity=".55" />
-      <circle cx="29" cy="30" r="2.8" fill="#8b5cf6" opacity=".45" />
-      <circle cx="19" cy="33" r="1.7" fill="#60a5fa" opacity=".5" />
-      <path d="M17 25l4 3-3 3 5 3" stroke="#94a3b8" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <ellipse cx="28" cy="13" rx="3.2" ry="4.5" fill="#fff" opacity=".5" transform="rotate(-18 28 13)" />
-    </svg>
-  )
-}
-
-function BlobArt() {
-  return (
-    <svg viewBox="0 0 48 48" className="pet-svg" aria-hidden>
-      <defs>
-        <linearGradient id="pgBlob" x1="24" y1="42" x2="24" y2="10" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#0ea571" />
-          <stop offset="1" stopColor="#38dfa2" />
-        </linearGradient>
-      </defs>
-      <path d="M24 12q1-6 7-7" stroke="#38dfa2" strokeWidth="2.4" fill="none" strokeLinecap="round" />
-      <circle cx="31.6" cy="5" r="2.4" fill="#fbbf24" />
-      <path
-        d="M8 29q0-17 16-17t16 17q0 12-16 12T8 29Z"
-        fill="url(#pgBlob)"
-        stroke="#0b6b4d"
-        strokeWidth="1.4"
-      />
-      <ellipse cx="17" cy="21" rx="4.5" ry="6" fill="#eafff5" opacity=".35" transform="rotate(-16 17 21)" />
-      <g className="pet-eye">
-        <circle cx="18.5" cy="28" r="3.4" fill="#fff" />
-        <circle cx="29.5" cy="28" r="3.4" fill="#fff" />
-        <circle cx="19.6" cy="28.4" r="1.8" fill="#0b0e11" />
-        <circle cx="30.6" cy="28.4" r="1.8" fill="#0b0e11" />
-      </g>
-      <g className="pet-lid">
-        <rect x="15" y="24" width="7" height="8" rx="2" fill="url(#pgBlob)" />
-        <rect x="26" y="24" width="7" height="8" rx="2" fill="url(#pgBlob)" />
-      </g>
-      <path d="M21 34q3 3 6 0" stroke="#063b2b" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-      <circle cx="7" cy="32" r="3" fill="#38dfa2" />
-      <circle cx="41" cy="32" r="3" fill="#38dfa2" />
-    </svg>
-  )
-}
-
-function DragonArt({ legend = false }: { legend?: boolean }) {
-  return (
-    <svg viewBox="0 0 64 52" className="pet-svg pet-svg--wide" aria-hidden>
-      <defs>
-        <linearGradient id="pgDra" x1="32" y1="46" x2="32" y2="10" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor={legend ? '#6d28d9' : '#0ea571'} />
-          <stop offset="1" stopColor={legend ? '#a78bfa' : '#38dfa2'} />
-        </linearGradient>
-      </defs>
-      {legend && (
-        <g className="pet-halo">
-          <circle cx="32" cy="26" r="22" fill="none" stroke="#fbbf24" strokeWidth="1.6" strokeDasharray="6 9" strokeLinecap="round" />
-        </g>
-      )}
-      <path d="M18 22Q4 12 6 26q2 10 14 8Z" fill={legend ? '#7c3aed' : '#0ea571'} opacity=".8" />
-      <path d="M46 22q14-10 12 4-2 10-14 8Z" fill={legend ? '#7c3aed' : '#0ea571'} opacity=".8" />
-      <path d="M44 40q10 2 12-4l3 5-6 4q-6 2-11-3Z" fill={legend ? '#8b5cf6' : '#2dd4a0'} />
-      <path
-        d="M14 30q0-16 18-16t18 16q0 12-18 12T14 30Z"
-        fill="url(#pgDra)"
-        stroke={legend ? '#4c1d95' : '#0b6b4d'}
-        strokeWidth="1.4"
-      />
-      <path d="M20 14 16 7l6 3M44 14l4-7-6 3" stroke="#fbbf24" strokeWidth="2.6" strokeLinecap="round" fill="none" />
-      <ellipse cx="24" cy="21" rx="5" ry="6.5" fill="#fff" opacity=".3" transform="rotate(-14 24 21)" />
-      <g className="pet-eye">
-        <circle cx="26" cy="30" r="3.6" fill="#fff" />
-        <circle cx="38" cy="30" r="3.6" fill="#fff" />
-        <circle cx="27.2" cy="30.4" r="1.9" fill="#0b0e11" />
-        <circle cx="39.2" cy="30.4" r="1.9" fill="#0b0e11" />
-      </g>
-      <g className="pet-lid">
-        <rect x="22" y="26" width="8" height="8" rx="2" fill="url(#pgDra)" />
-        <rect x="34" y="26" width="8" height="8" rx="2" fill="url(#pgDra)" />
-      </g>
-      <path d="M28.5 36q3.5 3 7 0" stroke="#08131f" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-      <polygon points="32,36 28.6,41 31,41 29.4,46 34.6,39.6 32,39.6 34,36" fill={legend ? '#fef3c7' : '#fbbf24'} />
-    </svg>
+    <span
+      className={ghost ? 'pet-art pet-art--ghost' : 'pet-art'}
+      dangerouslySetInnerHTML={{ __html: raw }}
+      aria-hidden
+    />
   )
 }

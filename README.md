@@ -71,3 +71,8 @@ export default defineConfig([
   },
 ])
 ```
+
+
+## 致谢
+
+- 宠物美术资源来自 [OpenMoji](https://github.com/hfg-gmuend/openmoji)（CC BY-SA 4.0），文件位于 `src/assets/pets/`

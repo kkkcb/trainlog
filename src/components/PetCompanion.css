@@ -1,4 +1,4 @@
-/* 训练养宠 —— 日历栖居版 */
+/* 训练养宠 —— 日历栖居版（美术：OpenMoji CC BY-SA 4.0） */
 
 /* 宿主格子：由 CalendarGrid 的 42 格网格定位 */
 .cal-pet {
@@ -17,6 +17,7 @@
   touch-action: manipulation;
 }
 
+/* 体型缩放层（真实成长） */
 .cal-pet__scaler {
   position: absolute;
   inset: 6% 10% 32% 10%;
@@ -32,71 +33,81 @@
   justify-content: center;
 }
 
-/* 小伙伴：缩小 + 色相偏移换色 */
+/* OpenMoji 美术容器 */
+.pet-art {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 小伙伴：迷你幽灵，缩小 + sepia/hue 调色 */
 .cal-pet--mini {
   z-index: 2;
 }
+
 .cal-pet--mini .cal-pet__scaler {
   inset: 16% 24% 44% 24%;
 }
-.cal-pet--mini.cal-pet--hue-orange .pet-svg {
-  filter: hue-rotate(-118deg) saturate(1.5);
+
+.cal-pet--mini.cal-pet--hue-orange .pet-art svg {
+  filter: sepia(1) saturate(4) hue-rotate(-30deg);
 }
-.cal-pet--mini.cal-pet--hue-blue .pet-svg {
-  filter: hue-rotate(102deg) saturate(1.35);
+
+.cal-pet--mini.cal-pet--hue-blue .pet-art svg {
+  filter: sepia(1) saturate(3.5) hue-rotate(160deg);
 }
+
 .cal-pet--spawn .cal-pet__scaler {
   animation: pet-spawn 0.55s var(--ease-spring) both;
 }
+
 @keyframes pet-spawn {
   from { opacity: 0; transform: scale(0.15); }
   to { opacity: 1; transform: scale(1); }
 }
 
-.pet-svg {
-  width: 100%;
-  height: 100%;
-}
-.pet-svg--wide {
-  width: 116%;
-  height: 100%;
-}
-
 /* 待机 */
-.cal-pet__body--egg .pet-svg { animation: pet-sway 3.2s ease-in-out infinite; }
+.cal-pet__body--egg { animation: pet-sway 3.2s ease-in-out infinite; }
 .cal-pet__body--blob,
 .cal-pet__body--dragon,
 .cal-pet__body--legend { animation: pet-breath 2.6s ease-in-out infinite; }
-.cal-pet__body--legend .pet-halo {
-  animation: pet-spin 9s linear infinite;
-  transform-origin: 32px 26px;
-}
 
 @keyframes pet-breath {
   0%, 100% { transform: scale(1, 1); }
   50% { transform: scale(1.05, 0.95); }
 }
+
 @keyframes pet-sway {
   0%, 100% { transform: rotate(0); }
   25% { transform: rotate(-6deg); }
   75% { transform: rotate(6deg); }
 }
+
 @keyframes pet-spin {
   to { transform: rotate(360deg); }
 }
 
 /* 散步中：小碎步颠簸（蛋则是翻滚） */
-.cal-pet--walking .cal-pet__body--egg .pet-svg,
 .cal-pet--walking .cal-pet__body--egg {
   animation: pet-roll 0.62s linear;
 }
 .cal-pet--walking .cal-pet__body:not(.cal-pet__body--egg) {
   animation: pet-hop 0.62s ease-in-out;
 }
+
 @keyframes pet-roll {
   from { transform: rotate(0); }
   to { transform: rotate(360deg); }
 }
+
 @keyframes pet-hop {
   0%, 100% { transform: translateY(0) scale(1, 1); }
   30% { transform: translateY(-22%) scale(0.92, 1.08); }
@@ -107,26 +118,19 @@
 .cal-pet__body--poke {
   animation: pet-poke 0.55s var(--ease-spring);
 }
+
 @keyframes pet-poke {
   0% { transform: scale(1, 1); }
   30% { transform: scale(0.84, 1.14); }
   60% { transform: scale(1.14, 0.86) translateY(-5px); }
   100% { transform: scale(1, 1); }
 }
-.cal-pet__body--poke .pet-lid {
-  transform-box: fill-box;
-  animation: pet-wink 0.55s ease both;
-}
-@keyframes pet-wink {
-  0%, 100% { opacity: 0; }
-  40% { opacity: 1; }
-  70% { opacity: 0; }
-}
 
 /* 双击旋转 */
 .cal-pet__body--spin {
   animation: pet-spin-dance 0.9s var(--ease-spring);
 }
+
 @keyframes pet-spin-dance {
   0% { transform: rotate(0) scale(1); }
   50% { transform: rotate(360deg) scale(1.15); }
@@ -137,6 +141,7 @@
 .cal-pet__body--party {
   animation: pet-party 1.5s var(--ease-out-expo);
 }
+
 @keyframes pet-party {
   0% { transform: translateY(0) scale(1); }
   15% { transform: translateY(-16%) scale(1.1) rotate(-7deg); }
@@ -151,6 +156,7 @@
 .cal-pet__body--sleep {
   filter: grayscale(0.55) brightness(0.85);
 }
+
 .cal-pet__zzz {
   position: absolute;
   top: -2%;
@@ -160,6 +166,7 @@
   color: #60a5fa;
   animation: pet-zzz 2.4s ease-in-out infinite;
 }
+
 @keyframes pet-zzz {
   0% { opacity: 0; transform: translateY(2px); }
   40% { opacity: 1; }
@@ -190,6 +197,7 @@
 .cal-pet__bubble--anim {
   animation: bubble-pop 0.28s var(--ease-spring) both;
 }
+
 @keyframes bubble-pop {
   from { opacity: 0; transform: translateX(-50%) translateY(5px) scale(0.8); }
   to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
@@ -210,6 +218,7 @@
   animation: pet-burst 1.35s var(--ease-accelerate) forwards;
   z-index: 4;
 }
+
 @keyframes pet-burst {
   0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
   15% { opacity: 1; }
@@ -277,8 +286,8 @@
   height: 72px;
 }
 
-.evolve-old svg,
-.evolve-new svg {
+.evolve-old .pet-art svg,
+.evolve-new .pet-art svg {
   width: 64px;
   height: 64px;
 }
