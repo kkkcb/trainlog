@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/set-state-in-effect, react-hooks/refs, react-hooks/immutability, react-hooks/purity -- 宠物为游戏式命令式动画逻辑(定时游走/冲刺/粒子),非声明式数据流 */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { TrainingRecord } from '../types'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { getTodayString } from '../utils/date'
-// 宠物美术资源：OpenMoji（CC BY-SA 4.0）· https://github.com/hfg-gmuend/openmoji
-import eggArt from '../assets/pets/egg.svg?raw'
-import hatchArt from '../assets/pets/hatch.svg?raw'
-import dragonFaceArt from '../assets/pets/dragon-face.svg?raw'
-import dragonArt from '../assets/pets/dragon.svg?raw'
-import ghostArt from '../assets/pets/ghost.svg?raw'
-import chickArt from '../assets/pets/chick.svg?raw'
-import octopusArt from '../assets/pets/octopus.svg?raw'
+// 宠物美术资源：Microsoft Fluent Emoji 3D（MIT License）· https://github.com/microsoft/fluentui-emoji
+import eggArt from '../assets/pets3d/egg.png'
+import hatchArt from '../assets/pets3d/hatch.png'
+import dragonFaceArt from '../assets/pets3d/dragon-face.png'
+import dragonArt from '../assets/pets3d/dragon.png'
+import dogArt from '../assets/pets3d/dog.png'
+import catArt from '../assets/pets3d/cat.png'
+import frogArt from '../assets/pets3d/frog.png'
+import pandaArt from '../assets/pets3d/panda.png'
+import rabbitArt from '../assets/pets3d/rabbit.png'
+import unicornArt from '../assets/pets3d/unicorn.png'
 import './PetCompanion.css'
 
 /**
@@ -55,15 +59,15 @@ interface CalendarPetProps {
   onQuickAdd?: (date: string) => void
 }
 
-type MiniKind = 'ghost-orange' | 'ghost-blue' | 'chick' | 'octopus' | 'ghost-purple' | 'dragon-mini'
+type MiniKind = 'dog' | 'cat' | 'frog' | 'panda' | 'rabbit' | 'unicorn'
 
 const MINI_DEFS: Array<{ unlock: number; kind: MiniKind }> = [
-  { unlock: 2, kind: 'ghost-orange' },
-  { unlock: 3, kind: 'ghost-blue' },
-  { unlock: 4, kind: 'chick' },
-  { unlock: 5, kind: 'octopus' },
-  { unlock: 6, kind: 'ghost-purple' },
-  { unlock: 7, kind: 'dragon-mini' },
+  { unlock: 2, kind: 'dog' },
+  { unlock: 3, kind: 'cat' },
+  { unlock: 4, kind: 'frog' },
+  { unlock: 5, kind: 'panda' },
+  { unlock: 6, kind: 'rabbit' },
+  { unlock: 7, kind: 'unicorn' },
 ]
 
 const POKE_MSGS: Record<Stage, string[]> = {
@@ -116,7 +120,9 @@ export function CalendarPet({
   const [walking, setWalking] = useState(false)
   const posRef = useRef(posIdx)
   const candidatesRef = useRef(candidates)
-  candidatesRef.current = candidates
+  useEffect(() => {
+    candidatesRef.current = candidates
+  }, [candidates])
 
   useEffect(() => {
     if (!candidates.some((c) => c.index === posRef.current)) {
@@ -208,6 +214,9 @@ export function CalendarPet({
   const [party, setParty] = useState(false)
   const [burstKey, setBurstKey] = useState(0)
   const [rushIdx, setRushIdx] = useState<number | null>(null)
+  const [particles, setParticles] = useState<
+    Array<{ id: number; angle: number; dist: number; size: number; color: string; star: boolean }>
+  >([])
   const prevTotalRef = useRef(totalWorkouts)
 
   useEffect(() => {
@@ -226,6 +235,16 @@ export function CalendarPet({
     }
     setParty(true)
     setBurstKey((k) => k + 1)
+    setParticles(
+      Array.from({ length: 12 }, (_, i) => ({
+        id: i,
+        angle: (i / 12) * Math.PI * 2 + Math.random(),
+        dist: 30 + Math.random() * 34,
+        size: 9 + Math.random() * 8,
+        color: ['#34d399', '#fbbf24', '#f472b6', '#60a5fa'][i % 4],
+        star: i % 2 === 0,
+      }))
+    )
     const nowIdx = STAGE_ORDER.indexOf(stage)
     const prevIdx = STAGE_ORDER.indexOf(stageFor(prev))
     if (nowIdx > prevIdx) say(`进化！${STAGE_NAME[stage]}`, 2400)
@@ -254,22 +273,6 @@ export function CalendarPet({
       return () => clearTimeout(t)
     }
   }, [totalWorkouts, stage, haptic])
-
-  // ---------- 粒子 ----------
-  const particles = useMemo(
-    () =>
-      burstKey === 0
-        ? []
-        : Array.from({ length: 12 }, (_, i) => ({
-            id: i,
-            angle: (i / 12) * Math.PI * 2 + Math.random(),
-            dist: 30 + Math.random() * 34,
-            size: 9 + Math.random() * 8,
-            color: ['#34d399', '#fbbf24', '#f472b6', '#60a5fa'][i % 4],
-            star: i % 2 === 0,
-          })),
-    [burstKey]
-  )
 
   const cand = candidates.find((c) => c.index === posIdx)
   const col = cand ? (cand.index % 7) + 1 : 6
@@ -398,8 +401,11 @@ function MiniPet({
   const [bubble, setBubble] = useState<string | null>(null)
   const bt = useRef<ReturnType<typeof setTimeout> | null>(null)
   const posRef = useRef(posIdx)
+  // 候选列表在 effect 内同步，避免渲染期写 ref
   const candRef = useRef(candidates)
-  candRef.current = candidates
+  useEffect(() => {
+    candRef.current = candidates
+  }, [candidates])
 
   const say = useCallback((text: string, ms = 2000) => {
     setBubble(text)
@@ -469,7 +475,7 @@ function MiniPet({
 
   return (
     <div
-      className={`cal-pet cal-pet--mini ${hueClassFor(kind)} ${walking ? 'cal-pet--walking' : ''} cal-pet--spawn`}
+      className={`cal-pet cal-pet--mini ${walking ? 'cal-pet--walking' : ''} cal-pet--spawn`}
       style={{ gridColumn: col, gridRow: row, animationDelay: `${spawnDelay}ms` }}
       onClick={handlePoke}
       role="button"
@@ -482,38 +488,24 @@ function MiniPet({
         <div className={`cal-pet__body ${walking ? 'cal-pet__body--walk' : ''}`}>
           <MiniArt kind={kind} />
         </div>
-      </div>
-    </div>
+      </div>    </div>
   )
-}
-
-function hueClassFor(kind: MiniKind): string {
-  if (kind === 'ghost-orange') return 'cal-pet--hue-orange'
-  if (kind === 'ghost-blue') return 'cal-pet--hue-blue'
-  if (kind === 'ghost-purple') return 'cal-pet--hue-purple'
-  return ''
 }
 
 const MINI_ART: Record<MiniKind, string> = {
-  'ghost-orange': ghostArt,
-  'ghost-blue': ghostArt,
-  chick: chickArt,
-  octopus: octopusArt,
-  'ghost-purple': ghostArt,
-  'dragon-mini': dragonFaceArt,
+  dog: dogArt,
+  cat: catArt,
+  frog: frogArt,
+  panda: pandaArt,
+  rabbit: rabbitArt,
+  unicorn: unicornArt,
 }
 
 function MiniArt({ kind }: { kind: MiniKind }) {
-  return (
-    <span
-      className={kind === 'dragon-mini' ? 'pet-art pet-art--dragon-mini' : 'pet-art'}
-      dangerouslySetInnerHTML={{ __html: MINI_ART[kind] }}
-      aria-hidden
-    />
-  )
+  return <img className="pet-art" src={MINI_ART[kind]} alt="" draggable={false} />
 }
 
-/* ---------- 主宠四阶段美术（OpenMoji）---------- */
+/* ---------- 主宠四阶段美术 ---------- */
 
 const STAGE_ART: Record<Stage, string> = {
   egg: eggArt,
@@ -523,11 +515,5 @@ const STAGE_ART: Record<Stage, string> = {
 }
 
 export function PetArt({ stage }: { stage: Stage }) {
-  return (
-    <span
-      className="pet-art"
-      dangerouslySetInnerHTML={{ __html: STAGE_ART[stage] }}
-      aria-hidden
-    />
-  )
+  return <img className="pet-art" src={STAGE_ART[stage]} alt="" draggable={false} />
 }

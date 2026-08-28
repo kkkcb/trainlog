@@ -75,4 +75,4 @@ export default defineConfig([
 
 ## 致谢
 
-- 宠物美术资源来自 [OpenMoji](https://github.com/hfg-gmuend/openmoji)（CC BY-SA 4.0），文件位于 `src/assets/pets/`
+- 宠物美术资源来自 [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) 3D 系列（MIT License），文件位于 `src/assets/pets3d/`
