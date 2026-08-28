@@ -17,6 +17,8 @@ export interface AIConfig {
   model: string
   endpoint: string
   systemPrompt: string
+  /** 深度思考开关：开启返回思考过程，关闭秒回 */
+  thinkingEnabled: boolean
 }
 
 export const DEFAULT_AI_CONFIG: AIConfig = {
@@ -24,6 +26,7 @@ export const DEFAULT_AI_CONFIG: AIConfig = {
   model: 'glm-5.3',
   endpoint: 'https://api.z.ai/api/coding/paas/v4/chat/completions',
   systemPrompt: DEFAULT_SYSTEM_PROMPT,
+  thinkingEnabled: true,
 }
 
 export async function loadAIConfig(): Promise<AIConfig> {
@@ -134,9 +137,9 @@ export async function chatWithLife(
           ...history,
         ],
         temperature: 0.8,
-        max_tokens: 3072,
-        // 开启深度思考：reasoning_content 单独返回，供界面折叠展示
-        thinking: { type: 'enabled' },
+        max_tokens: config.thinkingEnabled ? 3072 : 1024,
+        // 深度思考可开关：开启时 reasoning_content 单独返回供折叠展示
+        thinking: { type: config.thinkingEnabled ? 'enabled' : 'disabled' },
       }),
     })
     if (!res.ok) {

@@ -165,6 +165,24 @@ export function TagSettingsPage({
             value={ai.apiKey}
             onChange={(e) => setAi({ ...ai, apiKey: e.target.value.trim() })}
           />
+          <div className="ai-card__row">
+            <div className="ai-card__thinking-label">
+              <span>深度思考</span>
+              <small>{ai.thinkingEnabled ? '回复带思考过程' : '关闭后秒回'}</small>
+            </div>
+            <button
+              className={`ai-switch ${ai.thinkingEnabled ? 'ai-switch--on' : ''}`}
+              onClick={() => {
+                haptic.onTap()
+                setAi({ ...ai, thinkingEnabled: !ai.thinkingEnabled })
+              }}
+              role="switch"
+              aria-checked={ai.thinkingEnabled}
+              aria-label="深度思考开关"
+            >
+              <span className="ai-switch__knob" />
+            </button>
+          </div>
           <textarea
             className="ai-card__prompt"
             rows={5}
