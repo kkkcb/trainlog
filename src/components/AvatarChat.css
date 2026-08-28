@@ -95,6 +95,22 @@
   color: var(--color-text-primary);
 }
 
+.life-iconbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-tertiary);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.life-iconbtn:active {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
 .life-list {
   flex: 1;
   min-height: 0;
@@ -170,6 +186,91 @@
   max-width: 90%;
   text-align: center;
   word-break: break-all;
+}
+
+/* ---------- 消息操作 / 思考过程 ---------- */
+
+.life-msg-wrap {
+  display: flex;
+  flex-direction: column;
+  animation: life-msg-in 0.3s var(--ease-spring) both;
+}
+
+.life-msg-wrap--user {
+  align-items: flex-end;
+}
+.life-msg-wrap--assistant {
+  align-items: flex-start;
+}
+
+.life-msg__ops {
+  display: flex;
+  gap: 2px;
+  opacity: 0.45;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.life-msg-wrap:hover .life-msg__ops,
+.life-msg__ops:focus-within {
+  opacity: 1;
+}
+
+.life-msg__ops button {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  background: none;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-fast) ease;
+}
+
+.life-msg__ops button:active {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+/* 思考过程（DeepSeek 式折叠块） */
+.life-reason {
+  width: 100%;
+  max-width: 88%;
+  margin-bottom: 4px;
+}
+
+.life-reason__toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  transition: all var(--duration-fast) ease;
+}
+
+.life-reason__toggle:active {
+  color: var(--color-text-secondary);
+}
+
+.life-reason__chev {
+  font-size: 9px;
+}
+
+.life-reason__body {
+  margin-top: 5px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-tertiary);
+  border-left: 2px solid rgba(52, 211, 153, 0.4);
+  border-radius: 6px;
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 180px;
+  overflow-y: auto;
 }
 
 .life-inputrow {

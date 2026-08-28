@@ -306,7 +306,7 @@ export default function App() {
                 haptic.onTap()
                 setLifeOpen(true)
               }}
-              aria-label="和另一个自己对话"
+              aria-label="和 kei 对话"
             >
               <img src={avatarImg} alt="我的头像" />
               <span className="app__avatar-life-dot" />
