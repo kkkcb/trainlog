@@ -10,65 +10,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-xs) var(--space-xl) var(--space-xl);
+  padding: var(--space-3xl) var(--space-xl);
   text-align: center;
-}
-
-.training-list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-top: var(--space-lg);
-  animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
-  animation-delay: 120ms;
-}
-
-/* 悬浮头像：骑在日历卡与列表的交界线上，不占布局空间 */
-.training-list__avatar-wrap {
-  position: absolute;
-  top: -26px;
-  right: var(--space-lg);
-  z-index: 5;
-}
-
-.training-list__avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
-  display: block;
-  box-shadow:
-    0 0 0 2px var(--color-bg-primary),
-    0 0 0 3.5px rgba(52, 211, 153, 0.5),
-    0 8px 20px rgba(0, 0, 0, 0.4);
-  animation: avatar-float 3.4s ease-in-out infinite;
-}
-
-@keyframes avatar-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-.training-list__bubble {
-  position: absolute;
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 5px 10px;
-  border-radius: 12px 2px 12px 12px;
-  background: var(--color-bg-elevated);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  color: var(--color-text-primary);
-  font-size: 11px;
-  font-weight: var(--font-weight-medium);
-  white-space: nowrap;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-  animation: bubble-nudge 2.6s ease-in-out infinite;
-}
-
-@keyframes bubble-nudge {
-  0%, 100% { transform: translateY(-50%) translateX(0); }
-  50% { transform: translateY(-50%) translateX(-3px); }
 }
 
 .training-list-empty__text {
