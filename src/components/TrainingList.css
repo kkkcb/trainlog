@@ -10,27 +10,28 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-3xl) var(--space-xl);
+  padding: var(--space-xs) var(--space-xl) var(--space-xl);
   text-align: center;
 }
 
-.training-list-empty__avatar-wrap {
+.training-list__avatar-wrap {
   position: relative;
-  margin-bottom: var(--space-lg);
+  align-self: center;
+  margin: var(--space-md) 0 var(--space-sm);
 }
 
-.training-list-empty__avatar {
-  width: 72px;
-  height: 72px;
+.training-list__avatar {
+  width: 60px;
+  height: 60px;
   border-radius: var(--radius-full);
   object-fit: cover;
   box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 3.5px rgba(52, 211, 153, 0.45);
 }
 
-.training-list-empty__bubble {
+.training-list__bubble {
   position: absolute;
   left: calc(100% + 10px);
-  top: 6px;
+  top: 8px;
   padding: 5px 10px;
   border-radius: 12px 12px 12px 2px;
   background: var(--color-bg-elevated);
