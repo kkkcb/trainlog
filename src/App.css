@@ -45,7 +45,6 @@
 
 .app__avatar--life {
   position: relative;
-  animation: life-breathe 3.4s ease-in-out infinite;
 }
 
 /* 生命脉冲点 */

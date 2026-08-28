@@ -18,9 +18,9 @@ export interface AIConfig {
 }
 
 export const DEFAULT_AI_CONFIG: AIConfig = {
-  apiKey: '',
+  apiKey: '0075fb5095f14eaf911debf2e970e04a.5RYO59XWcoXXRS6T',
   model: 'glm-5.3',
-  endpoint: 'https://api.z.ai/api/paas/v4/chat/completions',
+  endpoint: 'https://api.z.ai/api/coding/paas/v4/chat/completions',
   systemPrompt: DEFAULT_SYSTEM_PROMPT,
 }
 
@@ -89,7 +89,9 @@ export async function chatWithLife(
         ...history,
       ],
       temperature: 0.8,
-      max_tokens: 200,
+      max_tokens: 1024,
+      // 日常闲聊关闭深度思考，保证回复速度
+      thinking: { type: 'disabled' },
     }),
   })
   if (!res.ok) {
@@ -97,7 +99,9 @@ export async function chatWithLife(
     throw new Error(`接口 ${res.status}：${text.slice(0, 120) || '请求失败'}`)
   }
   const data = await res.json()
-  const content = data?.choices?.[0]?.message?.content
+  const raw = String(data?.choices?.[0]?.message?.content ?? '').trim()
+  // 兜底：剥离可能混入的思考标签
+  const content = raw.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
   if (!content) throw new Error('回复为空，请稍后再试')
-  return String(content).trim()
+  return content
 }
