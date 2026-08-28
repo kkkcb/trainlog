@@ -59,6 +59,16 @@ export interface LifeMessage {
 }
 
 const LIFE_CHAT_KEY = 'trainlog_life_chat'
+const LIFE_SESSIONS_KEY = 'trainlog_life_sessions'
+
+/** 一场对话（会话） */
+export interface LifeSession {
+  id: string
+  title: string
+  messages: LifeMessage[]
+  createdAt: number
+  updatedAt: number
+}
 
 export async function loadLifeMessages(): Promise<LifeMessage[]> {
   const { value } = await Preferences.get({ key: LIFE_CHAT_KEY })
@@ -77,6 +87,43 @@ export async function saveLifeMessages(msgs: LifeMessage[]): Promise<void> {
 
 export async function clearLifeMessages(): Promise<void> {
   await Preferences.remove({ key: LIFE_CHAT_KEY })
+}
+
+/** 读取全部会话（首次自动迁移旧版单会话存档），按最近活跃倒序 */
+export async function loadLifeSessions(): Promise<LifeSession[]> {
+  const legacy = await loadLifeMessages()
+  if (legacy.length > 0) {
+    await clearLifeMessages()
+    const hasUser = legacy.some((m) => m.role === 'user')
+    const sessions: LifeSession[] = hasUser
+      ? [
+          {
+            id: newMsgId(),
+            title: (legacy.find((m) => m.role === 'user')?.content ?? '对话').slice(0, 14),
+            messages: legacy,
+            createdAt: legacy[0].at,
+            updatedAt: legacy[legacy.length - 1].at,
+          },
+        ]
+      : []
+    await Preferences.set({ key: LIFE_SESSIONS_KEY, value: JSON.stringify(sessions) })
+    return sessions
+  }
+  const { value } = await Preferences.get({ key: LIFE_SESSIONS_KEY })
+  if (!value) return []
+  try {
+    const parsed = JSON.parse(value)
+    return (Array.isArray(parsed) ? parsed : [])
+      .sort((a: LifeSession, b: LifeSession) => b.updatedAt - a.updatedAt)
+      .slice(0, 50)
+  } catch {
+    return []
+  }
+}
+
+export async function saveLifeSessions(list: LifeSession[]): Promise<void> {
+  const sorted = [...list].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 50)
+  await Preferences.set({ key: LIFE_SESSIONS_KEY, value: JSON.stringify(sorted) })
 }
 
 export function newMsgId(): string {

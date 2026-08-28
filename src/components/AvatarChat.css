@@ -111,9 +111,22 @@
   color: var(--color-text-primary);
 }
 
-.life-list {
+.life-iconbtn--on {
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
+
+/* 列表容器（承载消息 + 历史抽屉） */
+.life-list-wrap {
+  position: relative;
   flex: 1;
   min-height: 0;
+  display: flex;
+}
+
+.life-list {
+  flex: 1;
+  min-width: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: var(--space-lg);
@@ -323,4 +336,117 @@
 .life-send:disabled {
   opacity: 0.6;
   pointer-events: none;
+}
+
+/* ---------- 会话历史抽屉 ---------- */
+
+.life-history {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-secondary);
+  animation: life-hist-in var(--duration-normal) var(--ease-out-expo) both;
+}
+
+@keyframes life-hist-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.life-history__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-divider);
+  flex-shrink: 0;
+}
+
+.life-history__head > span {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.life-history__new {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+}
+
+.life-history__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.life-history__empty {
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+  padding: var(--space-3xl) 0;
+}
+
+.life-hitem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  transition: border-color var(--duration-fast) ease;
+}
+
+.life-hitem--on {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+.life-hitem__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.life-hitem__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.life-hitem__meta {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.life-hitem__del {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.life-hitem__del:active {
+  background: var(--color-danger-dim);
+  color: var(--color-danger);
 }
