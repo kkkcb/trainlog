@@ -33,6 +33,11 @@ export function CalendarGrid({
   onLongPressDate,
   pet,
 }: CalendarGridProps) {
+  // 浏览当前月时隐藏日历自带的「今天」按钮，避免与页面头部徽章重复
+  const now = new Date()
+  const viewingCurrentMonth =
+    calendar.year === now.getFullYear() && calendar.month === now.getMonth()
+
   return (
     <div className="calendar">
       <CalendarHeader
@@ -40,6 +45,7 @@ export function CalendarGrid({
         onPrev={calendar.goToPrevMonth}
         onNext={calendar.goToNextMonth}
         onToday={calendar.goToToday}
+        showToday={!viewingCurrentMonth}
       />
       <div className="calendar__weekdays">
         {WEEKDAYS.map((d) => (
