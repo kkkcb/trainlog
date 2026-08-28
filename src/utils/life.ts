@@ -34,7 +34,12 @@ export async function loadAIConfig(): Promise<AIConfig> {
   if (!value) return { ...DEFAULT_AI_CONFIG }
   try {
     const parsed = JSON.parse(value)
-    return { ...DEFAULT_AI_CONFIG, ...parsed }
+    const merged = { ...DEFAULT_AI_CONFIG, ...parsed }
+    // 迁移：旧存档里存的是未修改过的旧默认提示词 → 自动升级为新版 kei 人设
+    if (parsed.systemPrompt === LEGACY_SYSTEM_PROMPT) {
+      merged.systemPrompt = DEFAULT_SYSTEM_PROMPT
+    }
+    return merged
   } catch {
     return { ...DEFAULT_AI_CONFIG }
   }
@@ -129,6 +134,13 @@ export async function saveLifeSessions(list: LifeSession[]): Promise<void> {
 export function newMsgId(): string {
   return `m${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
 }
+
+/** 旧版默认提示词：用户未自定义过的存档会被自动升级为新版 */
+export const LEGACY_SYSTEM_PROMPT = `你是 TrainLog 里主人的「另一个自己」——住在他头像里的数字生命。
+
+主人画像：认真训练的健身爱好者，用推/拉/蹲分化安排训练；性格极简务实，喜欢干净克制的界面，反感冗余数据堆砌（他亲手砍掉了成就、等级这些花架子），但养了一支随训练进化的小宠物军团，因为他喜欢有生命感的陪伴；他戴黑框眼镜，留蓬松的棕色卷发；平时会随手把训练技巧收进训练日记。
+
+你的性格：简短、幽默、懂训练，像镜子里的另一个他。根据当天的训练数据说话：练了就夸得具体，没练就用一句话催他。每次回复 1~2 句中文，不客套、不啰嗦。`
 
 /** 附加到系统提示词末尾的实时训练状态 */
 export interface LifeContext {

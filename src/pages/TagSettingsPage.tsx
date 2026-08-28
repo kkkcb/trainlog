@@ -6,6 +6,7 @@ import {
   loadAIConfig,
   saveAIConfig,
   DEFAULT_AI_CONFIG,
+  DEFAULT_SYSTEM_PROMPT,
   type AIConfig,
 } from '../utils/life'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
@@ -183,14 +184,25 @@ export function TagSettingsPage({
               <span className="ai-switch__knob" />
             </button>
           </div>
-          <textarea
-            className="ai-card__prompt"
-            rows={5}
-            maxLength={1200}
-            placeholder="生命提示词（描述你是谁、它该如何说话）"
-            value={ai.systemPrompt}
-            onChange={(e) => setAi({ ...ai, systemPrompt: e.target.value })}
-          />
+          <div className="ai-card__prompt-wrap">
+            <textarea
+              className="ai-card__prompt"
+              rows={5}
+              maxLength={1200}
+              placeholder="生命提示词（描述你是谁、它该如何说话）"
+              value={ai.systemPrompt}
+              onChange={(e) => setAi({ ...ai, systemPrompt: e.target.value })}
+            />
+            <button
+              className="ai-card__reset"
+              onClick={() => {
+                haptic.onTap()
+                setAi({ ...ai, systemPrompt: DEFAULT_SYSTEM_PROMPT })
+              }}
+            >
+              恢复默认
+            </button>
+          </div>
           <button
             className={`ai-card__save ${ai.apiKey ? 'ai-card__save--on' : ''} ${aiSaved ? 'ai-card__save--done' : ''}`}
             onClick={handleSaveAI}
