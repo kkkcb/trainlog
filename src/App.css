@@ -103,7 +103,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  padding: var(--space-xs) var(--space-xl) calc(100px + var(--safe-area-bottom));
+  padding: var(--space-xs) var(--space-xl) calc(112px + var(--safe-area-bottom));
 }
 
 /* 关键：子元素禁止收缩，否则内容超屏时月历卡片会被压扁裁切 */

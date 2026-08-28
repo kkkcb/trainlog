@@ -8,7 +8,7 @@ import { Icon } from '../components/icons'
 import './DiaryPage.css'
 
 interface DiaryPageProps {
-  onBack: () => void
+  /** 内联视图：由底部导航切换显示 */
 }
 
 function fmtDate(ts: number): string {
@@ -16,7 +16,7 @@ function fmtDate(ts: number): string {
   return `${d.getMonth() + 1}月${d.getDate()}日`
 }
 
-export function DiaryPage({ onBack }: DiaryPageProps) {
+export function DiaryPage(_props: DiaryPageProps) {
   const { loading, entries, addEntry, updateEntry, removeEntry } = useDiaryStore()
   const toast = useToast()
   const haptic = useHapticFeedback()
@@ -75,13 +75,10 @@ export function DiaryPage({ onBack }: DiaryPageProps) {
   }
 
   return (
-    <div className="diary-page">
-      <div className="diary-header">
-        <button className="diary-back" onClick={onBack} aria-label="返回">
-          <Icon name="arrowLeft" size={20} />
-        </button>
-        <span className="diary-title">训练日记</span>
-        <span className="diary-count">{entries.length} 条</span>
+    <div className="diary-view">
+      <div className="diary-view__head">
+        <span className="diary-view__title">训练日记</span>
+        <span className="diary-view__count">{entries.length} 条</span>
       </div>
 
       <div className="diary-body">

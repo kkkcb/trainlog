@@ -8,6 +8,7 @@ import { getTodayString, formatDateParts } from './utils/date'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { CalendarPet } from './components/PetCompanion'
+import { TabBar, type HomeTab } from './components/TabBar'
 import { BottomSheet } from './components/BottomSheet'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
@@ -23,7 +24,7 @@ import { App as CapApp } from '@capacitor/app'
 import avatarImg from './assets/avatar.jpg'
 import './App.css'
 
-type Page = 'home' | 'form' | 'settings' | 'backup' | 'diary'
+type Page = 'home' | 'form' | 'settings' | 'backup'
 
 export default function App() {
   const { loading, records, addRecord, updateRecord, deleteRecordById, reload } = useTrainingStore()
@@ -37,6 +38,8 @@ export default function App() {
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
   // 喂养信号：成功记录训练时 +1，驱动宠物庆祝动画
   const [feedSignal, setFeedSignal] = useState(0)
+  // 首页底部标签：日历 / 训记
+  const [homeTab, setHomeTab] = useState<HomeTab>('calendar')
 
   const calendar = useCalendar()
   const { tagDefinitions, addTag, removeTag, updateTagMetrics } = useTagSettings()
@@ -205,13 +208,13 @@ export default function App() {
     pushPage('settings')
   }
 
-  const handleOpenDiary = () => {
-    pushPage('diary')
-  }
-
-  const handleDiaryBack = () => {
-    history.back()
-  }
+  const handleHomeTabChange = useCallback(
+    (tab: HomeTab) => {
+      haptic.onTap()
+      setHomeTab(tab)
+    },
+    [haptic]
+  )
 
   const handleSettingsBack = () => {
     history.back()
@@ -258,9 +261,6 @@ export default function App() {
               {isViewingToday && <span className="app__today-pill">今天</span>}
             </div>
             <div className="app__header-actions">
-              <button className="app__settings-btn" onClick={handleOpenDiary} aria-label="训练日记">
-                <Icon name="notebook" size={20} strokeWidth={1.9} />
-              </button>
               <button className="app__settings-btn" onClick={handleOpenSettings} aria-label="设置">
                 <Icon name="settings" size={21} strokeWidth={1.9} />
               </button>
@@ -268,43 +268,53 @@ export default function App() {
           </header>
 
           <main className="app__main">
-            <div className="app__calendar-card">
-              <CalendarGrid
-                calendar={calendar}
-                trainingDates={trainingDates}
-                tagsByDate={tagsByDate}
-                selectedDate={selectedDate}
-                onSelectDate={setSelectedDate}
-                onLongPressDate={handleLongPressDate}
-                pet={
-                  <CalendarPet
-                    candidates={petCandidates}
-                    records={records}
+            {homeTab === 'calendar' ? (
+              <>
+                <div className="app__calendar-card">
+                  <CalendarGrid
+                    calendar={calendar}
                     trainingDates={trainingDates}
+                    tagsByDate={tagsByDate}
                     selectedDate={selectedDate}
-                    feedSignal={feedSignal}
-                    onQuickAdd={(date) => {
-                      setSelectedDate(date)
-                      setQuickAddDate(date)
-                    }}
+                    onSelectDate={setSelectedDate}
+                    onLongPressDate={handleLongPressDate}
+                    pet={
+                      <CalendarPet
+                        candidates={petCandidates}
+                        records={records}
+                        trainingDates={trainingDates}
+                        selectedDate={selectedDate}
+                        feedSignal={feedSignal}
+                        onQuickAdd={(date) => {
+                          setSelectedDate(date)
+                          setQuickAddDate(date)
+                        }}
+                      />
+                    }
                   />
-                }
-              />
-              <p className="app__calendar-hint">宠物住在日历上 · 戳它 / 双击 / 长按它有惊喜</p>
-            </div>
+                  <p className="app__calendar-hint">宠物住在日历上 · 戳它 / 双击 / 长按它有惊喜</p>
+                </div>
 
-            <TrainingList
-              records={dateRecords}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
+                <TrainingList
+                  records={dateRecords}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
 
-            <StatsPage records={records} />
+                <StatsPage records={records} />
+              </>
+            ) : (
+              <DiaryPage />
+            )}
           </main>
 
-          <button className="app__fab" onClick={handleAdd} aria-label="添加训练">
-            <Icon name="plus" size={26} strokeWidth={2.4} />
-          </button>
+          {homeTab === 'calendar' && (
+            <button className="app__fab" onClick={handleAdd} aria-label="添加训练">
+              <Icon name="plus" size={26} strokeWidth={2.4} />
+            </button>
+          )}
+
+          <TabBar active={homeTab} onChange={handleHomeTabChange} />
         </>
       )}
 
@@ -340,8 +350,6 @@ export default function App() {
           onBack={handleBackupBack}
         />
       )}
-
-      {currentPage === 'diary' && <DiaryPage onBack={handleDiaryBack} />}
 
       <BottomSheet
         isOpen={!!deleteTarget}

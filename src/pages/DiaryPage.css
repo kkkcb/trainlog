@@ -1,56 +1,26 @@
-.diary-page {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
+/* 训记标签页：内联视图（由底部 Dock 切换） */
+.diary-view {
   display: flex;
   flex-direction: column;
-  background: var(--color-bg-primary);
-  background-image: radial-gradient(
-    ellipse 80% 50% at 50% -20%,
-    rgba(52, 211, 153, 0.05),
-    transparent
-  );
-  animation: form-page-in var(--duration-normal) var(--ease-out-expo) forwards;
-}
-
-.diary-header {
-  display: flex;
-  align-items: center;
   gap: var(--space-md);
-  padding: var(--space-lg) var(--space-2xl);
-  padding-top: calc(var(--space-lg) + var(--safe-area-top));
-  border-bottom: 1px solid var(--color-divider);
-  background: var(--color-bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  flex-shrink: 0;
+  animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
 }
 
-.diary-back {
+.diary-view__head {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  transition: background var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 var(--space-xs);
 }
 
-.diary-back:active {
-  background: var(--color-bg-card-hover);
-  transform: scale(0.9);
-}
-
-.diary-title {
-  flex: 1;
+.diary-view__title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   letter-spacing: -0.01em;
 }
 
-.diary-count {
+.diary-view__count {
   font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
   font-weight: var(--font-weight-medium);
@@ -58,11 +28,6 @@
 }
 
 .diary-body {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: var(--space-lg) var(--space-2xl) calc(var(--space-5xl) + var(--safe-area-bottom));
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
