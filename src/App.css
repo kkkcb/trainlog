@@ -12,7 +12,6 @@
 .app__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--space-md);
   padding: var(--space-lg) var(--space-2xl) var(--space-sm);
   padding-top: calc(var(--space-lg) + var(--safe-area-top));
@@ -20,12 +19,28 @@
   animation: fade-in-up var(--duration-slow) var(--ease-out-expo) both;
 }
 
+/* 个人头像：圆形 + 强调色细环 */
+.app__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 3.5px rgba(52, 211, 153, 0.55);
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.app__avatar:hover {
+  transform: scale(1.06) rotate(-3deg);
+}
+
 /* 日期标题：当前选中日 */
 .app__header-main {
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
-  min-width: 0;
 }
 
 .app__date {

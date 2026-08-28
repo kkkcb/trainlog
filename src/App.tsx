@@ -19,6 +19,7 @@ import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
+import avatarImg from './assets/avatar.jpg'
 import './App.css'
 
 type Page = 'home' | 'form' | 'settings' | 'backup'
@@ -241,6 +242,7 @@ export default function App() {
       {currentPage === 'home' && (
         <>
           <header className="app__header">
+            <img className="app__avatar" src={avatarImg} alt="我的头像" />
             <div className="app__header-main">
               <h1 className="app__date">{dateMain}</h1>
               <span className="app__weekday">{dateWeek}</span>
