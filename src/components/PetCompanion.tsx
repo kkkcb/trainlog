@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import type { TrainingRecord } from '../types'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { getTodayString } from '../utils/date'
 import './PetCompanion.css'
@@ -195,14 +196,11 @@ export function CalendarPet({
   }
 
   // ---------- 喂食庆祝 ----------
-  const firstFeedRef = useRef(true)
   const [party, setParty] = useState(false)
   const [burstKey, setBurstKey] = useState(0)
   useEffect(() => {
-    if (firstFeedRef.current) {
-      firstFeedRef.current = false
-      return
-    }
+    // feedSignal 初始为 0，只在真正 +1 后庆祝（StrictMode 双跑时为 0 直接跳过）
+    if (feedSignal <= 0) return
     setParty(true)
     setBurstKey((k) => k + 1)
     if (stage !== 'egg') say(FED_MSGS[stage][Math.floor(Math.random() * FED_MSGS[stage].length)], 2400)

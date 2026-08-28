@@ -116,6 +116,7 @@ export default function App() {
   }, [selectedDate, records])
 
   // 宠物候选格：本月、今天及之前的日期
+  const todayStr = getTodayString()
   const petCandidates = useMemo(() => {
     return calendar.calendarDays
       .filter((d) => d.month === 'current' && d.fullDate <= todayStr)
@@ -251,8 +252,6 @@ export default function App() {
           </header>
 
           <main className="app__main">
-            <PetCompanion records={records} feedSignal={feedSignal} />
-
             <div className="app__calendar-card">
               <CalendarGrid
                 calendar={calendar}
@@ -261,8 +260,20 @@ export default function App() {
                 selectedDate={selectedDate}
                 onSelectDate={setSelectedDate}
                 onLongPressDate={handleLongPressDate}
+                pet={
+                  <CalendarPet
+                    candidates={petCandidates}
+                    records={records}
+                    trainingDates={trainingDates}
+                    feedSignal={feedSignal}
+                    onQuickAdd={(date) => {
+                      setSelectedDate(date)
+                      setQuickAddDate(date)
+                    }}
+                  />
+                }
               />
-              <p className="app__calendar-hint">长按日期快速打卡 · 点选查看当日记录</p>
+              <p className="app__calendar-hint">宠物住在日历上 · 戳它 / 双击 / 长按它有惊喜</p>
             </div>
 
             <TrainingList
