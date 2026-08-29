@@ -194,6 +194,20 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
     }
   }
 
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const handleCopy = (m: LifeMessage) => {
+    navigator.clipboard
+      ?.writeText(m.content)
+      .then(() => {
+        haptic.onTap()
+        setCopiedId(m.id)
+        if (copyTimer.current) clearTimeout(copyTimer.current)
+        copyTimer.current = setTimeout(() => setCopiedId(null), 1200)
+      })
+      .catch(() => {})
+  }
+
   const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
 
   return (
@@ -252,7 +266,13 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
                       {openReason[m.id] && <div className="life-reason__body">{m.reasoning}</div>}
                     </div>
                   )}
-                  <div className={`life-msg life-msg--${m.role}`}>{m.content}</div>
+                  <div
+                    className={`life-msg life-msg--${m.role} ${copiedId === m.id ? 'life-msg--copied' : ''}`}
+                    onClick={() => handleCopy(m)}
+                    title="点击复制"
+                  >
+                    {copiedId === m.id ? '已复制' : m.content}
+                  </div>
                   <div className="life-msg__ops">
                     <button onClick={() => handleDeleteMsg(m.id)} aria-label="删除这条">
                       删除

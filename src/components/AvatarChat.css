@@ -201,6 +201,13 @@
   word-break: break-all;
 }
 
+.life-msg--copied {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary) !important;
+  border-color: transparent !important;
+}
+
 /* ---------- 消息操作 / 思考过程 ---------- */
 
 .life-msg-wrap {
