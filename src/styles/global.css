@@ -137,8 +137,10 @@ body {
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
-  background: var(--gradient-bg);
-  background-attachment: fixed;
+  background-color: var(--color-bg-primary);
+  background-image: var(--gradient-bg);
+  background-repeat: no-repeat;
+  background-size: 100% 100vh;
   overflow-x: hidden;
   min-height: 100vh;
   min-height: 100dvh;
