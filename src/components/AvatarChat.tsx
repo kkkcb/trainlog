@@ -44,7 +44,9 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
   const [thinking, setThinking] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [openReason, setOpenReason] = useState<Record<string, boolean>>({})
+  const [copiedId, setCopiedId] = useState<string | null>(null)
   const listRef = useRef<HTMLDivElement>(null)
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const activeIdRef = useRef<string | null>(null)
   activeIdRef.current = activeId
 
@@ -194,8 +196,8 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
     }
   }
 
-  const [copiedId, setCopiedId] = useState<string | null>(null)
-  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
+
   const handleCopy = (m: LifeMessage) => {
     navigator.clipboard
       ?.writeText(m.content)
@@ -207,8 +209,6 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
       })
       .catch(() => {})
   }
-
-  const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
 
   return (
     <div className="life-overlay" onClick={onClose}>
