@@ -12,7 +12,7 @@ import {
   type LifeMessage,
   type LifeSession,
 } from '../utils/life'
-import avatarBlink from '../assets/avatar-blink.gif'
+import avatarImg from '../assets/avatar.jpg'
 import './AvatarChat.css'
 
 interface AvatarChatProps {
@@ -214,7 +214,7 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
     <div className="life-overlay" onClick={onClose}>
       <div className="life-sheet" onClick={(e) => e.stopPropagation()}>
         <div className="life-head">
-          <img className="life-avatar" src={avatarBlink} alt="" draggable={false} />
+          <img className="life-avatar" src={avatarImg} alt="" draggable={false} />
           <div className="life-head-info">
             <span className="life-name">kei</span>
             <span className={`life-status ${thinking ? 'life-status--thinking' : ''}`}>
