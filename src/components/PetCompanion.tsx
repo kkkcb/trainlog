@@ -312,6 +312,7 @@ export function CalendarPet({
           <div className={wrapClass}>
             <PetArt stage={stage} />
           </div>
+          {stage !== 'egg' && <PetLids seed={posIdx} />}
         </div>
 
         {particles.map((p) => (
@@ -367,6 +368,29 @@ export function CalendarPet({
         </div>
       )}
     </>
+  )
+}
+
+/* ---------- 眨眼动效（3D 图片通用的眼睑投影方案）---------- */
+
+function PetLids({ seed = 0 }: { seed?: number }) {
+  const timing = useRef({
+    dur: (4.4 + ((seed * 7919) % 23) / 10).toFixed(2) + 's',
+    delay: (((seed * 3571) % 31) / 10).toFixed(2) + 's',
+  }).current
+  return (
+    <span
+      className="pet-lids"
+      style={
+        {
+          '--blink-dur': timing.dur,
+          '--blink-delay': timing.delay,
+        } as React.CSSProperties
+      }
+    >
+      <i className="pet-lids__lid" />
+      <i className="pet-lids__lid" />
+    </span>
   )
 }
 
@@ -488,6 +512,7 @@ function MiniPet({
         <div className={`cal-pet__body ${walking ? 'cal-pet__body--walk' : ''}`}>
           <MiniArt kind={kind} />
         </div>
+        <PetLids seed={posIdx + 3} />
       </div>    </div>
   )
 }

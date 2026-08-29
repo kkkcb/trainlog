@@ -52,6 +52,41 @@
   inset: 16% 24% 44% 24%;
 }
 
+/* 小伙伴：迷你尺寸 */
+.cal-pet--mini {
+  z-index: 2;
+}
+
+.cal-pet--mini .cal-pet__scaler {
+  inset: 16% 24% 44% 24%;
+}
+
+/* ---------- 眨眼动效（眼睑投影条，通用适配 3D 素材）---------- */
+
+.pet-lids {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: pet-blink var(--blink-dur, 5.2s) var(--blink-delay, 0s) infinite;
+}
+
+.pet-lids__lid {
+  position: absolute;
+  width: 13%;
+  height: 5.5%;
+  border-radius: var(--radius-full);
+  background: rgba(15, 20, 26, 0.42);
+  opacity: 0;
+}
+
+.pet-lids__lid:nth-child(1) { left: 29%; top: 43%; }
+.pet-lids__lid:nth-child(2) { left: 58%; top: 43%; }
+
+@keyframes pet-blink {
+  0%, 88%, 96%, 100% { opacity: 0; }
+  90%, 94% { opacity: 1; }
+}
+
 .cal-pet--spawn .cal-pet__scaler {
   animation: pet-spawn 0.55s var(--ease-spring) both;
 }
