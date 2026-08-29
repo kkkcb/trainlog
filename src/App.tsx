@@ -24,7 +24,7 @@ import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
-import avatarImg from './assets/avatar.jpg'
+import avatarBlink from './assets/avatar-blink.gif'
 import './App.css'
 
 type Page = 'home' | 'form' | 'settings' | 'backup'
@@ -308,7 +308,11 @@ export default function App() {
               }}
               aria-label="和 kei 对话"
             >
-              <img src={avatarImg} alt="我的头像" />
+              <img src={avatarBlink} alt="我的头像" className="app__avatar-anim" />
+              <span className="avatar-lids" aria-hidden>
+                <i />
+                <i />
+              </span>
               <span className="app__avatar-life-dot" />
             </button>
             <div className="app__header-main">
