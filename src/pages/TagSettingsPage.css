@@ -394,3 +394,34 @@
   color: var(--color-accent);
   border-color: rgba(52, 211, 153, 0.4);
 }
+
+/* 宠物军团设置 */
+.pet-setting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pet-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 2px;
+}
+
+.pet-setting__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.pet-setting__name small {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  margin-left: 2px;
+}
+
+.pet-setting__name--locked {
+  color: var(--color-text-tertiary);
+}

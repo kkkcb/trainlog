@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { TrainingRecord } from '../types'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { getTodayString } from '../utils/date'
+import type { PetSettings } from '../utils/petSettings'
 // 宠物美术资源：Microsoft Fluent Emoji 3D（MIT License）· https://github.com/microsoft/fluentui-emoji
 import eggArt from '../assets/pets3d/egg.png'
 import hatchArt from '../assets/pets3d/hatch.png'
@@ -57,9 +58,21 @@ interface CalendarPetProps {
   selectedDate: string
   feedSignal?: number
   onQuickAdd?: (date: string) => void
+  /** 宠物显示设置：主宠/小伙伴独立开关 */
+  settings?: PetSettings
 }
 
 type MiniKind = 'dog' | 'cat' | 'frog' | 'panda' | 'rabbit' | 'unicorn'
+
+/** 小伙伴展示名（设置页用） */
+export const MINI_LABELS: Record<MiniKind, string> = {
+  dog: '柴犬',
+  cat: '猫咪',
+  frog: '青蛙',
+  panda: '熊猫',
+  rabbit: '兔兔',
+  unicorn: '独角兽',
+}
 
 const MINI_DEFS: Array<{ unlock: number; kind: MiniKind }> = [
   { unlock: 2, kind: 'dog' },
@@ -102,9 +115,15 @@ export function CalendarPet({
   selectedDate,
   feedSignal = 0,
   onQuickAdd,
+  settings,
 }: CalendarPetProps) {
   const haptic = useHapticFeedback()
   const today = getTodayString()
+  const showMain = settings?.showMain !== false
+  const miniEnabled = useCallback(
+    (kind: MiniKind) => settings?.enabledMinis?.[kind] !== false,
+    [settings]
+  )
 
   const totalWorkouts = useMemo(() => Object.keys(records).length, [records])
   const stage = stageFor(totalWorkouts)
@@ -291,7 +310,7 @@ export function CalendarPet({
 
   const scalerStyle = { transform: `scale(${scaleFor(stage, totalWorkouts)})` }
 
-  return (
+  const mainPet = (
     <>
       <div
         className={`cal-pet ${walking ? 'cal-pet--walking' : ''}`}
@@ -311,7 +330,7 @@ export function CalendarPet({
         <div className="cal-pet__scaler" style={scalerStyle}>
           <div className={wrapClass}>
             <PetArt stage={stage} />
-          </div>
+          </div>
         </div>
 
         {particles.map((p) => (
@@ -333,9 +352,9 @@ export function CalendarPet({
         ))}
       </div>
 
-      {/* 小伙伴军团 */}
+      {/* 小伙伴军团（按设置过滤） */}
       {MINI_DEFS.map((def, i) =>
-        totalWorkouts >= def.unlock ? (
+        totalWorkouts >= def.unlock && miniEnabled(def.kind) ? (
           <MiniPet
             key={`${def.kind}-${i}`}
             kind={def.kind}
@@ -366,6 +385,28 @@ export function CalendarPet({
           </div>
         </div>
       )}
+    </>
+  )
+
+  return (
+    <>
+      {showMain && mainPet}
+      {/* 主宠隐藏时小伙伴仍独立活动 */}
+      {!showMain &&
+        MINI_DEFS.map((def, i) =>
+          totalWorkouts >= def.unlock && miniEnabled(def.kind) ? (
+            <MiniPet
+              key={`${def.kind}-${i}`}
+              kind={def.kind}
+              candidates={candidates}
+              avoidIdxes={[]}
+              today={today}
+              party={party}
+              rushIdx={rushIdx}
+              spawnDelay={i * 260}
+            />
+          ) : null
+        )}
     </>
   )
 }
@@ -487,7 +528,7 @@ function MiniPet({
       >
         <div className={`cal-pet__body ${walking ? 'cal-pet__body--walk' : ''}`}>
           <MiniArt kind={kind} />
-        </div>
+        </div>
       </div>    </div>
   )
 }

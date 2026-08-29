@@ -12,7 +12,9 @@ import { TabBar, type HomeTab } from './components/TabBar'
 import { AvatarChat } from './components/AvatarChat'
 import { BottomSheet } from './components/BottomSheet'
 import { loadDiary } from './utils/storage'
+import { loadAIConfig } from './utils/life'
 import type { LifeContext } from './utils/life'
+import { loadPetSettings, type PetSettings } from './utils/petSettings'
 import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
@@ -45,9 +47,16 @@ export default function App() {
   const [homeTab, setHomeTab] = useState<HomeTab>('calendar')
   // 「另一个你」聊天
   const [lifeOpen, setLifeOpen] = useState(false)
+  // 宠物军团显示设置
+  const [petSettings, setPetSettings] = useState<PetSettings>({ showMain: true, enabledMinis: {} })
 
   const calendar = useCalendar()
   const { tagDefinitions, addTag, removeTag, updateTagMetrics } = useTagSettings()
+
+  useEffect(() => {
+    loadAIConfig().catch(() => {})
+    loadPetSettings().then(setPetSettings).catch(() => {})
+  }, [])
 
   useEffect(() => {
     const handler = () => {
@@ -341,6 +350,7 @@ export default function App() {
                         trainingDates={trainingDates}
                         selectedDate={selectedDate}
                         feedSignal={feedSignal}
+                        settings={petSettings}
                         onQuickAdd={(date) => {
                           setSelectedDate(date)
                           setQuickAddDate(date)
@@ -394,6 +404,7 @@ export default function App() {
       {currentPage === 'settings' && (
         <TagSettingsPage
           tagDefinitions={tagDefinitions}
+          totalWorkouts={Object.keys(records).length}
           onAddTag={addTag}
           onRemoveTag={removeTag}
           onUpdateTagMetrics={updateTagMetrics}

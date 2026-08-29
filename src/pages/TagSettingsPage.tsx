@@ -9,12 +9,19 @@ import {
   DEFAULT_SYSTEM_PROMPT,
   type AIConfig,
 } from '../utils/life'
+import {
+  loadPetSettings,
+  savePetSettings,
+  DEFAULT_PET_SETTINGS,
+  type PetSettings,
+} from '../utils/petSettings'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { useToast } from '../components/useToast'
 import './TagSettingsPage.css'
 
 interface TagSettingsPageProps {
   tagDefinitions: TagDefinition[]
+  totalWorkouts: number
   onAddTag: (def: TagDefinition) => void
   onRemoveTag: (name: string) => void
   onUpdateTagMetrics: (name: string, metrics: MetricType[]) => void
@@ -26,6 +33,7 @@ const ALL_METRICS: MetricType[] = ['duration', 'distance']
 
 export function TagSettingsPage({
   tagDefinitions,
+  totalWorkouts,
   onAddTag,
   onRemoveTag,
   onUpdateTagMetrics,
@@ -40,9 +48,21 @@ export function TagSettingsPage({
   const haptic = useHapticFeedback()
   const [ai, setAi] = useState<AIConfig>(DEFAULT_AI_CONFIG)
   const [aiSaved, setAiSaved] = useState(false)
+  const [pets, setPets] = useState<PetSettings>(DEFAULT_PET_SETTINGS)
   useEffect(() => {
     loadAIConfig().then(setAi).catch(() => {})
+    loadPetSettings().then(setPets).catch(() => {})
   }, [])
+  const togglePet = (kind: string | null) => {
+    haptic.onTap()
+    setPets((prev) => {
+      const next = kind
+        ? { ...prev, enabledMinis: { ...prev.enabledMinis, [kind]: prev.enabledMinis[kind] === false } }
+        : { ...prev, showMain: !prev.showMain }
+      savePetSettings(next).catch(() => {})
+      return next
+    })
+  }
   const handleSaveAI = async () => {
     await saveAIConfig(ai)
     haptic.onSuccess()
@@ -152,6 +172,52 @@ export function TagSettingsPage({
             <p>还没有标签，添加一个开始吧</p>
           </div>
         )}
+
+        {/* 宠物军团显示设置 */}
+        <div className="ai-card">
+          <div className="ai-card__head">
+            <span className="ai-card__title">宠物军团</span>
+            <span className="ai-card__hint">按训练次数解锁 · 点击开关显示</span>
+          </div>
+          <div className="pet-setting-list">
+            <div className="pet-setting">
+              <span className="pet-setting__name">主宠 · 进化系</span>
+              <button
+                className={`ai-switch ${pets.showMain ? 'ai-switch--on' : ''}`}
+                onClick={() => togglePet(null)}
+                role="switch"
+                aria-checked={pets.showMain}
+                aria-label="主宠开关"
+              >
+                <span className="ai-switch__knob" />
+              </button>
+            </div>
+            {[
+              { kind: 'dog', label: '柴犬', unlock: 2 },
+              { kind: 'cat', label: '猫咪', unlock: 3 },
+              { kind: 'frog', label: '青蛙', unlock: 4 },
+              { kind: 'panda', label: '熊猫', unlock: 5 },
+              { kind: 'rabbit', label: '兔兔', unlock: 6 },
+              { kind: 'unicorn', label: '独角兽', unlock: 7 },
+            ].map((m) => (
+              <div key={m.kind} className="pet-setting">
+                <span className={`pet-setting__name ${totalWorkouts < m.unlock ? 'pet-setting__name--locked' : ''}`}>
+                  {m.label}
+                  <small>{totalWorkouts < m.unlock ? ` · ${m.unlock} 次解锁` : ''}</small>
+                </span>
+                <button
+                  className={`ai-switch ${pets.enabledMinis[m.kind] !== false ? 'ai-switch--on' : ''}`}
+                  onClick={() => togglePet(m.kind)}
+                  role="switch"
+                  aria-checked={pets.enabledMinis[m.kind] !== false}
+                  aria-label={`${m.label}开关`}
+                >
+                  <span className="ai-switch__knob" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* AI 生命配置 */}
         <div className="ai-card">
