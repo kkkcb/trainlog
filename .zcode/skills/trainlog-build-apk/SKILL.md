@@ -85,6 +85,8 @@ cp android/app/build/outputs/apk/release/app-release.apk dist/trainlog.apk      
 
 **警告：绝不把 APK 放进 `public/`**——vite 会把 public/ 打进下一次构建产物，APK 套 APK 体积滚雪球（实测 3.2MB→6.2MB）。
 
+**端口约定**：`5173` 是用户的另一个应用（HerFit），**TrainLog 禁用该端口**。预览固定用 `npm run preview -- --port 4173`（服务 dist/，gitignored 无污染）；dev 热更如需指定则用 4300+ 端口。
+
 下载链接走 preview 服务器（服务 dist/，gitignored 无污染）：
 
 ```bash
