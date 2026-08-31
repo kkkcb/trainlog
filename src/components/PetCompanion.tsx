@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect, react-hooks/refs, react-hooks/immutability, react-hooks/purity -- 宠物为游戏式命令式动画逻辑(定时游走/冲刺/粒子),非声明式数据流 */
+/* eslint-disable react-hooks/set-state-in-effect -- 游戏式命令式动画逻辑(定时游走/冲刺/粒子) */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { TrainingRecord } from '../types'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
@@ -64,15 +64,7 @@ interface CalendarPetProps {
 
 type MiniKind = 'dog' | 'cat' | 'frog' | 'panda' | 'rabbit' | 'unicorn'
 
-/** 小伙伴展示名（设置页用） */
-export const MINI_LABELS: Record<MiniKind, string> = {
-  dog: '柴犬',
-  cat: '猫咪',
-  frog: '青蛙',
-  panda: '熊猫',
-  rabbit: '兔兔',
-  unicorn: '独角兽',
-}
+
 
 const MINI_DEFS: Array<{ unlock: number; kind: MiniKind }> = [
   { unlock: 2, kind: 'dog' },

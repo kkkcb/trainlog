@@ -15,6 +15,8 @@ export function useDiaryStore() {
   }, [])
 
   useEffect(() => {
+    // reload 为 async 加载器,setState 均在 await 之后,非同步级联
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     reload()
   }, [reload])
 
