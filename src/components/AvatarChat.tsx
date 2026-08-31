@@ -4,6 +4,7 @@ import {
   loadAIConfig,
   renderContext,
   chatWithLife,
+  analyzeWorkoutImage,
   loadLifeSessions,
   saveLifeSessions,
   newMsgId,
@@ -19,6 +20,8 @@ interface AvatarChatProps {
   open: boolean
   onClose: () => void
   context: LifeContext
+  /** 确认生成：把识别结果写入训练记录 */
+  onCreateRecord?: (r: { date: string; type: string; startTime: string; durationMin: number; distanceKm: number }) => Promise<void>
 }
 
 const GREETING_TODAY = (n: number) =>
@@ -33,7 +36,7 @@ function fmtSessionTime(ts: number): string {
   return `${sameYear ? '' : d.getFullYear() + '/'}${d.getMonth() + 1}月${d.getDate()}日`
 }
 
-export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
+export function AvatarChat({ open, onClose, context, onCreateRecord }: AvatarChatProps) {
   const haptic = useHapticFeedback()
   const [msgs, setMsgs] = useState<LifeMessage[]>([])
   const [sessions, setSessions] = useState<LifeSession[]>([])
@@ -210,6 +213,95 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
 
   const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
 
+  // ---------- 截图打卡：发截图 → kei 识别 → 确认生成 ----------
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [pendingImage, setPendingImage] = useState<string | null>(null)
+  const [confirmPending, setConfirmPending] = useState<null | {
+    date: string
+    type: string
+    startTime: string
+    durationMin: number
+    distanceKm: number
+  }>(null)
+  const [scanBusy, setScanBusy] = useState(false)
+
+  const handlePickImage = () => {
+    haptic.onTap()
+    fileRef.current?.click()
+  }
+
+  const handleFileChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file || !file.type.startsWith('image/')) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      setPendingImage(String(reader.result))
+      setError(null)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const clearPendingImage = () => setPendingImage(null)
+
+  /** 发送截图 → 识别 → 总结 + 确认按钮 */
+  const sendImage = async () => {
+    if (!pendingImage || scanBusy || thinking) return
+    haptic.onTap()
+    setError(null)
+    const userMsg: LifeMessage = { id: newMsgId(), role: 'user', content: '📸 运动截图', at: Date.now() }
+    const next = [...msgs, userMsg]
+    setMsgs(next)
+    const img = pendingImage
+    setPendingImage(null)
+    setScanBusy(true)
+    try {
+      const config = await loadAIConfig()
+      const data = await analyzeWorkoutImage(config, img)
+      haptic.onSuccess()
+      const dur = data.durationMin > 0 ? `${Math.round(data.durationMin)} 分钟` : ''
+      const dist = data.distanceKm > 0 ? `${data.distanceKm} 公里` : ''
+      const parts = [data.type, dur, dist].filter(Boolean).join(' · ')
+      persist([
+        ...next,
+        {
+          id: newMsgId(),
+          role: 'assistant',
+          content: `识别到：${data.date} ${parts}`,
+          confirm: { ...data, state: 'pending' as const },
+          at: Date.now(),
+        },
+      ])
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e))
+      haptic.onSelect()
+    } finally {
+      setScanBusy(false)
+    }
+  }
+
+  /** 确认生成训练记录 */
+  const handleConfirmGenerate = async () => {
+    if (!confirmPending || !onCreateRecord) return
+    haptic.onSuccess()
+    await onCreateRecord(confirmPending)
+    const done: LifeMessage = {
+      id: newMsgId(),
+      role: 'assistant',
+      content: '✅ 已生成训练记录，日历上看到了。',
+      at: Date.now(),
+    }
+    persist([...msgs, done])
+    setConfirmPending(null)
+  }
+
+  const dismissConfirm = () => {
+    haptic.onTap()
+    persist(msgs.map((m) => (m.confirm ? { ...m, confirm: { ...m.confirm, state: 'dismissed' as const } } : m)))
+    setConfirmPending(null)
+  }
+  // ---------- 截图打卡结束 ----------
+
   return (
     <div className="life-overlay" onClick={onClose}>
       <div className="life-sheet" onClick={(e) => e.stopPropagation()}>
@@ -254,7 +346,7 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
             {msgs.map((m) => {
               const isLastAssistant = m.role === 'assistant' && m.id === lastAssistantId
               return (
-                <div key={m.id} className={`life-msg-wrap life-msg-wrap--${m.role}`}>
+                <div className={`life-msg-wrap life-msg-wrap--${m.role}`}>
                   {m.role === 'assistant' && m.reasoning && (
                     <div className="life-reason">
                       <button
@@ -273,6 +365,19 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
                   >
                     {copiedId === m.id ? '已复制' : m.content}
                   </div>
+                  {m.confirm?.state === 'pending' && (
+                    <div className="life-confirm">
+                      <button className="life-confirm__yes" onClick={handleConfirmGenerate}>
+                        ✓ 确认生成
+                      </button>
+                      <button className="life-confirm__no" onClick={dismissConfirm}>
+                        忽略
+                      </button>
+                    </div>
+                  )}
+                  {m.confirm?.state === 'confirmed' && (
+                    <div className="life-confirm-done">✓ 已生成训练记录</div>
+                  )}
                   <div className="life-msg__ops">
                     <button onClick={() => handleDeleteMsg(m.id)} aria-label="删除这条">
                       删除
@@ -333,7 +438,40 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
           )}
         </div>
 
+        {/* 待发送截图预览 */}
+        {pendingImage && (
+          <div className="life-imgrow">
+            <img className="life-imgrow__thumb" src={pendingImage} alt="待识别截图" />
+            <span className="life-imgrow__label">识图打卡就绪 · 发送即识别</span>
+            <button
+              className="life-imgrow__cancel"
+              onClick={clearPendingImage}
+              aria-label="移除截图"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
         <div className="life-inputrow">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleFileChosen}
+          />
+          <button
+            className="life-iconbtn life-camera"
+            onClick={handlePickImage}
+            aria-label="发运动截图"
+            title="发运动截图，kei 自动识别记录"
+          >
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+          </button>
           <input
             className="life-input"
             placeholder="跟自己说点什么…"
@@ -341,13 +479,16 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
             maxLength={200}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') send()
+              if (e.key === 'Enter') {
+                if (pendingImage) sendImage()
+                else send()
+              }
             }}
           />
           <button
-            className={`life-send ${input.trim() ? 'life-send--on' : ''}`}
-            onClick={send}
-            disabled={!input.trim() || thinking}
+            className={`life-send ${input.trim() || pendingImage ? 'life-send--on' : ''}`}
+            onClick={() => (pendingImage ? sendImage() : send())}
+            disabled={(!input.trim() && !pendingImage) || thinking}
             aria-label="发送"
           >
             ➤

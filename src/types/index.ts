@@ -21,6 +21,8 @@ export interface TrainingRecord {
   tags: TrainingTag[]
   createdAt: number
   updatedAt: number
+  /** AI 识图来源的备注（如开始时间） */
+  note?: string
 }
 
 /** 训练日记：随手收集的训练技巧与心得 */

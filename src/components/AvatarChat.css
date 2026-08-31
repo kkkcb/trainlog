@@ -497,3 +497,38 @@
 .life-camera:active {
   color: var(--color-accent);
 }
+
+/* 确认生成按钮组（识图结果） */
+.life-confirm {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: 5px;
+}
+
+.life-confirm__yes {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(52, 211, 153, 0.28);
+}
+
+.life-confirm__no {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+/* 用户发的截图缩略 */
+.life-msg--user .life-msg__shot {
+  display: block;
+  width: 180px;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}

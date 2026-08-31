@@ -64,6 +64,17 @@ export interface LifeMessage {
   content: string
   reasoning?: string
   at: number
+  /** 用户发的截图（dataURL） */
+  image?: string
+  /** 识图结果待确认：确认后生成训练记录 */
+  confirm?: {
+    date: string
+    type: string
+    startTime: string
+    durationMin: number
+    distanceKm: number
+    state: 'pending' | 'confirmed' | 'dismissed'
+  }
 }
 
 const LIFE_CHAT_KEY = 'trainlog_life_chat'
@@ -226,17 +237,18 @@ export async function chatWithLife(
 export interface WorkoutExtraction {
   date: string
   type: string
+  startTime: string
   durationMin: number
   distanceKm: number
 }
 
-/** 把运动 App 截图交给视觉模型，提取日期/类型/时长/距离 */
+/** 把运动 App 截图交给视觉模型，提取日期/开始时间/类型/时长/距离 */
 export async function analyzeWorkoutImage(config: AIConfig, dataUrl: string): Promise<WorkoutExtraction> {
   if (!config.apiKey) {
     throw new Error('还没有点亮生命：先去 设置 → AI生命 填入 API Key')
   }
   const prompt =
-    '这是运动App截图。提取信息,只输出严格JSON,不要其他文字:{"date":"YYYY-MM-DD","type":"跑步或骑行或其他","durationMin":数字,"distanceKm":数字}。若无日期用截图显示的日期;时长按分钟换算(00:19:50→19.8)'
+    '这是运动App截图。提取信息,只输出严格JSON,不要其他文字:{"date":"YYYY-MM-DD","startTime":"HH:MM","type":"跑步或骑行或其他","durationMin":数字,"distanceKm":数字}。date取截图顶部日期,startTime取当天开始时间如10:35;时长按分钟换算(00:19:50→19.8)'
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 60000)
   try {
@@ -274,6 +286,7 @@ export async function analyzeWorkoutImage(config: AIConfig, dataUrl: string): Pr
     if (!parsed.date || !parsed.type) throw new Error('截图里没找到日期或运动类型')
     return {
       date: String(parsed.date),
+      startTime: String(parsed.startTime || ''),
       type: String(parsed.type || '训练'),
       durationMin: Number(parsed.durationMin) || 0,
       distanceKm: Number(parsed.distanceKm) || 0,
