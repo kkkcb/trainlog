@@ -1,29 +1,18 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { DiaryEntry } from '../types'
 import { DIARY_TAGS } from '../types'
 import { useDiaryStore } from '../hooks/useDiaryStore'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { useToast } from '../components/useToast'
-import { analyzeWorkoutImage, loadAIConfig } from '../utils/life'
 import { Icon } from '../components/icons'
 import './DiaryPage.css'
-
-interface DiaryPageProps {
-  /** AI 识图打卡：从运动截图创建训练记录 */
-  onCreateRecord?: (r: {
-    date: string
-    type: string
-    durationMin: number
-    distanceKm: number
-  }) => Promise<void>
-}
 
 function fmtDate(ts: number): string {
   const d = new Date(ts)
   return `${d.getMonth() + 1}月${d.getDate()}日`
 }
 
-export function DiaryPage({ onCreateRecord }: DiaryPageProps) {
+export function DiaryPage() {
   const { loading, entries, addEntry, updateEntry, removeEntry } = useDiaryStore()
   const toast = useToast()
   const haptic = useHapticFeedback()
@@ -44,49 +33,6 @@ export function DiaryPage({ onCreateRecord }: DiaryPageProps) {
   )
 
   const canSave = text.trim().length > 0
-
-  // ---------- AI 识图打卡 ----------
-  const fileRef = useRef<HTMLInputElement>(null)
-  const [scanning, setScanning] = useState(false)
-  const [scanError, setScanError] = useState<string | null>(null)
-
-  const handleScanPick = () => {
-    haptic.onTap()
-    fileRef.current?.click()
-  }
-
-  const handleScanFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    e.target.value = ''
-    if (!file) return
-    setScanError(null)
-    setScanning(true)
-    try {
-      const reader = new FileReader()
-      const dataUrl = await new Promise<string>((resolve, reject) => {
-        reader.onload = () => resolve(String(reader.result))
-        reader.onerror = () => reject(new Error('读取图片失败'))
-        reader.readAsDataURL(file)
-      })
-      const config = await loadAIConfig()
-      const data = await analyzeWorkoutImage(config, dataUrl)
-      if (onCreateRecord) {
-        await onCreateRecord({ date: data.date, type: data.type, durationMin: data.durationMin, distanceKm: data.distanceKm })
-      }
-      haptic.onSuccess()
-      const parts = [
-        data.durationMin > 0 ? `${Math.round(data.durationMin)} 分钟` : '',
-        data.distanceKm > 0 ? `${data.distanceKm} 公里` : '',
-      ].filter(Boolean)
-      toast.show(`已记录：${data.type} ${parts.join(' · ')}`, 'success')
-    } catch (e) {
-      setScanError(e instanceof Error ? e.message : String(e))
-      haptic.onSelect()
-    } finally {
-      setScanning(false)
-    }
-  }
-  // ---------- 识图打卡结束 ----------
 
   const handleSave = async () => {
     if (!canSave) return
@@ -132,29 +78,6 @@ export function DiaryPage({ onCreateRecord }: DiaryPageProps) {
       </div>
 
       <div className="diary-body">
-        {/* AI 识图打卡 */}
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          style={{ display: 'none' }}
-          onChange={handleScanFile}
-        />
-        <button className="diary-scan" onClick={handleScanPick} disabled={scanning}>
-          {scanning ? (
-            <>
-              <Icon name="notebook" size={17} className="diary-scan__spin" />
-              正在识别截图…
-            </>
-          ) : (
-            <>
-              <Icon name="plus" size={17} />
-              截图打卡：发运动截图，AI 自动记录
-            </>
-          )}
-        </button>
-        {scanError && <p className="diary-scan__error">⚠ {scanError}</p>}
-
         {/* 收集框 */}
         <div className="diary-compose">
           <textarea
