@@ -48,6 +48,17 @@ export function AvatarChat({ open, onClose, context, onCreateRecord }: AvatarCha
   const [error, setError] = useState<string | null>(null)
   const [openReason, setOpenReason] = useState<Record<string, boolean>>({})
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  // 截图打卡状态（必须在 early return 之前声明）
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [pendingImage, setPendingImage] = useState<string | null>(null)
+  const [confirmPending, setConfirmPending] = useState<null | {
+    date: string
+    type: string
+    startTime: string
+    durationMin: number
+    distanceKm: number
+  }>(null)
+  const [scanBusy, setScanBusy] = useState(false)
   const listRef = useRef<HTMLDivElement>(null)
   const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const activeIdRef = useRef<string | null>(null)
@@ -214,16 +225,8 @@ export function AvatarChat({ open, onClose, context, onCreateRecord }: AvatarCha
   const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
 
   // ---------- 截图打卡：发截图 → kei 识别 → 确认生成 ----------
-  const fileRef = useRef<HTMLInputElement>(null)
-  const [pendingImage, setPendingImage] = useState<string | null>(null)
-  const [confirmPending, setConfirmPending] = useState<null | {
-    date: string
-    type: string
-    startTime: string
-    durationMin: number
-    distanceKm: number
-  }>(null)
-  const [scanBusy, setScanBusy] = useState(false)
+  // （hook 声明已移至组件顶部，严禁放在 if(!open) return 之后）
+
 
   const handlePickImage = () => {
     haptic.onTap()
