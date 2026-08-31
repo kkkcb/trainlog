@@ -384,13 +384,7 @@ export default function App() {
             )}
           </main>
 
-          {homeTab === 'calendar' && (
-            <button className="app__fab" onClick={handleAdd} aria-label="添加训练">
-              <Icon name="plus" size={26} strokeWidth={2.4} />
-            </button>
-          )}
-
-          <TabBar active={homeTab} onChange={handleHomeTabChange} />
+          <TabBar active={homeTab} onChange={handleHomeTabChange} onAdd={handleAdd} />
         </>
       )}
 

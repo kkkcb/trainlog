@@ -14,7 +14,7 @@ export function TrainingList({ records, onEdit, onDelete }: TrainingListProps) {
       <div className="training-list">
         <div className="training-list-empty">
           <p className="training-list-empty__text">这一天还没有记录</p>
-          <p className="training-list-empty__hint">点右下角 + 添加，或长按日期快速打卡</p>
+          <p className="training-list-empty__hint">点下方 + 添加，或长按日期快速打卡</p>
         </div>
       </div>
     )

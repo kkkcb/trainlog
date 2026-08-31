@@ -157,7 +157,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  padding: var(--space-xs) var(--space-xl) calc(168px + var(--safe-area-bottom));
+  padding: var(--space-xs) var(--space-xl) calc(112px + var(--safe-area-bottom));
 }
 
 /* 关键：子元素禁止收缩，否则内容超屏时月历卡片会被压扁裁切 */
@@ -184,32 +184,6 @@
   color: var(--color-text-tertiary);
   padding: 0 var(--space-md) var(--space-md);
   letter-spacing: 0.02em;
-}
-
-.app__fab {
-  position: fixed;
-  /* 悬浮在底部标签栏上方，与栏保持干净分离（栏 ≈ 16+75px 高） */
-  bottom: calc(var(--bottom-bar-height) + var(--space-2xl) + var(--space-lg) + var(--safe-area-bottom));
-  right: calc(var(--space-2xl) + var(--safe-area-right));
-  width: 54px;
-  height: 54px;
-  border-radius: 18px;
-  background: var(--gradient-accent);
-  color: var(--color-text-inverse);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-fab);
-  transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
-  z-index: 50;
-  animation: scale-in var(--duration-normal) var(--ease-spring) both;
-}
-
-.app__fab:active {
-  transform: scale(0.88) rotate(90deg);
-  box-shadow:
-    0 1px 4px rgba(255, 133, 82, 0.2),
-    0 4px 12px rgba(255, 133, 82, 0.15);
 }
 
 .app-loading {
