@@ -1,5 +1,5 @@
 :root {
-  /* 深空石墨暗色主题 */
+  /* 「铁与热」暗色主题：石墨铁底 × 垩白暖字 × 余烬橙强调（训练记录是热的） */
   --color-bg-primary: #0b0e11;
   --color-bg-secondary: #15191e;
   --color-bg-tertiary: #1d232b;
@@ -9,11 +9,11 @@
   --color-bg-overlay: rgba(4, 6, 9, 0.62);
   --color-bg-glass: rgba(18, 22, 27, 0.68);
 
-  --color-accent: #34d399;
-  --color-accent-hover: #2dd4a0;
-  --color-accent-dim: rgba(52, 211, 153, 0.14);
-  --color-accent-glow: rgba(52, 211, 153, 0.28);
-  --color-accent-surface: rgba(52, 211, 153, 0.1);
+  --color-accent: #ff8552;
+  --color-accent-hover: #ff9a6b;
+  --color-accent-dim: rgba(255, 133, 82, 0.14);
+  --color-accent-glow: rgba(255, 133, 82, 0.28);
+  --color-accent-surface: rgba(255, 133, 82, 0.1);
 
   --color-violet: #a78bfa;
   --color-violet-dim: rgba(167, 139, 250, 0.14);
@@ -24,18 +24,18 @@
   --color-pink: #f472b6;
   --color-pink-dim: rgba(244, 114, 182, 0.14);
 
-  --color-text-primary: #f3f5f7;
-  --color-text-secondary: #9aa4b2;
-  --color-text-tertiary: #5f6b7a;
-  --color-text-inverse: #0b0e11;
-  --color-text-accent: #34d399;
+  --color-text-primary: #f2efe8;
+  --color-text-secondary: #a8a49b;
+  --color-text-tertiary: #6f6b63;
+  --color-text-inverse: #1c0f06;
+  --color-text-accent: #ff8552;
 
   --color-border: rgba(255, 255, 255, 0.09);
   --color-border-light: rgba(255, 255, 255, 0.05);
   --color-divider: rgba(255, 255, 255, 0.06);
 
-  --color-danger: #f87171;
-  --color-danger-dim: rgba(248, 113, 113, 0.14);
+  --color-danger: #f43f5e;
+  --color-danger-dim: rgba(244, 63, 94, 0.14);
   --color-warning: #fbbf24;
   --color-info: #60a5fa;
 
@@ -56,6 +56,8 @@
   --radius-full: 9999px;
 
   --font-sans: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* 展示数字：运动系窄体——训练日志的本体是数字（日期/次数/天数），中文回落系统字体 */
+  --font-display-num: 'Barlow Condensed', 'Noto Sans SC', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
   --font-size-2xs: 9px;
@@ -101,13 +103,13 @@
   --min-touch-target: 44px;
 
   /* 卡片：顶部内侧高光 + 深投影 */
-  --glow-accent: 0 8px 32px rgba(52, 211, 153, 0.12);
+  --glow-accent: 0 8px 32px rgba(255, 133, 82, 0.12);
   --glow-subtle: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 2px 8px rgba(0, 0, 0, 0.35);
   --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 28px rgba(0, 0, 0, 0.35);
-  --shadow-fab: 0 10px 30px rgba(52, 211, 153, 0.3), 0 18px 40px rgba(52, 211, 153, 0.14);
+  --shadow-fab: 0 10px 30px rgba(255, 133, 82, 0.3), 0 18px 40px rgba(255, 133, 82, 0.14);
 
-  --gradient-accent: linear-gradient(135deg, #38dfa2 0%, #0ea571 100%);
-  --gradient-bar: linear-gradient(90deg, rgba(52, 211, 153, 0.35) 0%, #34d399 100%);
+  --gradient-accent: linear-gradient(135deg, #ffa06b 0%, #f0662f 100%);
+  --gradient-bar: linear-gradient(90deg, rgba(255, 133, 82, 0.35) 0%, #ff8552 100%);
   --gradient-violet: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
   --gradient-blue: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
   --gradient-orange: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
@@ -178,8 +180,15 @@ a {
 }
 
 ::selection {
-  background: rgba(52, 211, 153, 0.28);
+  background: rgba(255, 133, 82, 0.28);
   color: var(--color-text-primary);
+}
+
+/* 键盘可达性：可见焦点环（outline:none 只针对默认轮廓，不吞 :focus-visible） */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar {

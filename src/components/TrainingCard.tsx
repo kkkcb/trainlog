@@ -10,7 +10,7 @@ interface TrainingCardProps {
 
 /** 按标签名哈希取色，保证同名标签颜色稳定 */
 const TAG_COLORS = [
-  '#10b981', '#8b5cf6', '#3b82f6', '#f59e0b', '#ec4899',
+  '#e8562b', '#8b5cf6', '#3b82f6', '#f59e0b', '#ec4899',
   '#14b8a6', '#f97316', '#6366f1', '#84cc16',
 ]
 

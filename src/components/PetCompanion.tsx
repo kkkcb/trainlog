@@ -252,7 +252,7 @@ export function CalendarPet({
         angle: (i / 12) * Math.PI * 2 + Math.random(),
         dist: 30 + Math.random() * 34,
         size: 9 + Math.random() * 8,
-        color: ['#34d399', '#fbbf24', '#f472b6', '#60a5fa'][i % 4],
+        color: ['#ff8552', '#fbbf24', '#f472b6', '#60a5fa'][i % 4],
         star: i % 2 === 0,
       }))
     )

@@ -3,7 +3,7 @@
   inset: 0;
   background: var(--color-bg-primary);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52, 211, 153, 0.03), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 133, 82, 0.03), transparent);
   background-attachment: fixed;
   z-index: 100;
   display: flex;
@@ -92,7 +92,7 @@
   font-family: var(--font-mono);
   line-height: 1;
   letter-spacing: -0.04em;
-  text-shadow: 0 0 24px rgba(52, 211, 153, 0.3);
+  text-shadow: 0 0 24px rgba(255, 133, 82, 0.3);
 }
 
 .backup-page__status-label {
@@ -157,7 +157,7 @@
   color: var(--color-text-inverse);
   background: var(--gradient-accent);
   border-color: var(--color-accent);
-  box-shadow: 0 2px 12px rgba(52, 211, 153, 0.25);
+  box-shadow: 0 2px 12px rgba(255, 133, 82, 0.25);
 }
 
 .backup-page__btn--danger {
@@ -205,7 +205,7 @@
 .backup-page__status--success {
   color: var(--color-accent);
   background: var(--color-accent-surface);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  border: 1px solid rgba(255, 133, 82, 0.2);
 }
 
 .backup-page__status--error {

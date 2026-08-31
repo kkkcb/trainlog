@@ -3,7 +3,7 @@
   inset: 0;
   background: var(--color-bg-primary);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52, 211, 153, 0.03), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 133, 82, 0.03), transparent);
   background-attachment: fixed;
   z-index: 100;
   display: flex;
@@ -101,7 +101,7 @@
 .tag-settings__add-btn--active {
   color: var(--color-accent);
   background: var(--color-accent-surface);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  border: 1px solid rgba(255, 133, 82, 0.2);
 }
 
 .tag-settings__add-btn--active:active {
@@ -173,7 +173,7 @@
 
 .tag-settings__metric--active {
   background: var(--color-accent-surface);
-  border-color: rgba(52, 211, 153, 0.2);
+  border-color: rgba(255, 133, 82, 0.2);
 }
 
 .tag-settings__metric:active {
@@ -246,7 +246,7 @@
 
 .ai-card {
   background: var(--color-bg-card);
-  border: 1px solid rgba(52, 211, 153, 0.25);
+  border: 1px solid rgba(255, 133, 82, 0.25);
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-lg);
   display: flex;
@@ -287,7 +287,7 @@
 
 .ai-card__input:focus,
 .ai-card__prompt:focus {
-  border-color: rgba(52, 211, 153, 0.5);
+  border-color: rgba(255, 133, 82, 0.5);
 }
 
 .ai-card__prompt {
@@ -392,7 +392,7 @@
 
 .ai-card__reset:active {
   color: var(--color-accent);
-  border-color: rgba(52, 211, 153, 0.4);
+  border-color: rgba(255, 133, 82, 0.4);
 }
 
 /* 宠物军团设置 */

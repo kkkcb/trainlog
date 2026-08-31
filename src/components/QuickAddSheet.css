@@ -145,7 +145,7 @@
 .quick-add-sheet__btn--active {
   color: var(--color-text-inverse);
   background: var(--gradient-accent);
-  box-shadow: 0 6px 18px rgba(52, 211, 153, 0.35);
+  box-shadow: 0 6px 18px rgba(255, 133, 82, 0.35);
 }
 
 .quick-add-sheet__btn:active {

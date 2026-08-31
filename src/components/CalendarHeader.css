@@ -31,7 +31,7 @@
 
 .calendar-header__today:active {
   background: var(--color-accent-dim);
-  border-color: rgba(52, 211, 153, 0.25);
+  border-color: rgba(255, 133, 82, 0.25);
 }
 
 .calendar-header__nav {

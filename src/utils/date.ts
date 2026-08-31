@@ -44,3 +44,14 @@ export function formatDateParts(iso: string): { main: string; week: string } {
     week: WEEKDAY_NAMES[d.getDay()],
   }
 }
+
+/** "2026-08-27" -> { day: "27", month: "2026年8月", week: "周四" }（头部排版签名用） */
+export function formatDateBlocks(iso: string): { day: string; month: string; week: string } {
+  const d = parseISO(iso)
+  if (Number.isNaN(d.getTime())) return { day: '', month: iso, week: '' }
+  return {
+    day: String(d.getDate()),
+    month: `${d.getFullYear()}年${d.getMonth() + 1}月`,
+    week: WEEKDAY_NAMES[d.getDay()],
+  }
+}

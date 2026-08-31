@@ -35,9 +35,9 @@ function getRange(period: Period): [string, string] {
 
 const PERIOD_LABELS: Record<Period, string> = { week: '本周', month: '本月', year: '本年' }
 
-/** 分类条形图配色，按名次循环 */
+/** 分类条形图配色，按名次循环（名次越高越「热」） */
 const BAR_COLORS = [
-  'linear-gradient(90deg, #34d399, #10b981)',
+  'linear-gradient(90deg, #ffa06b, #f0662f)',
   'linear-gradient(90deg, #a78bfa, #8b5cf6)',
   'linear-gradient(90deg, #60a5fa, #3b82f6)',
   'linear-gradient(90deg, #fbbf24, #f59e0b)',
@@ -86,20 +86,14 @@ export function StatsPage({ records }: StatsPageProps) {
         ))}
       </div>
 
-      <div className="stats__summary">
-        <div className="stats__summary-item">
-          <span className="stats__summary-icon stats__summary-icon--green">
-            <Icon name="calendar" size={16} />
-          </span>
-          <span className="stats__summary-value">{stats.totalDays}</span>
-          <span className="stats__summary-label">训练天数</span>
+      <div className="stats__ledger">
+        <div className="stats__ledger-cell">
+          <span className="stats__ledger-label">训练天数</span>
+          <span className="stats__ledger-num">{stats.totalDays}</span>
         </div>
-        <div className="stats__summary-item">
-          <span className="stats__summary-icon stats__summary-icon--violet">
-            <Icon name="dumbbell" size={16} />
-          </span>
-          <span className="stats__summary-value">{stats.totalSessions}</span>
-          <span className="stats__summary-label">记录总数</span>
+        <div className="stats__ledger-cell">
+          <span className="stats__ledger-label">记录总数</span>
+          <span className="stats__ledger-num">{stats.totalSessions}</span>
         </div>
       </div>
 

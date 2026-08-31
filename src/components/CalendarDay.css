@@ -18,11 +18,13 @@
 }
 
 .calendar-day__number {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-family: var(--font-display-num);
+  font-size: 17px;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
   transition: color var(--duration-fast) var(--ease-out-expo);
 }
 
@@ -34,7 +36,7 @@
 /* 今天：淡绿底 + 描边圆环 */
 .calendar-day--today:not(.calendar-day--selected) {
   background: var(--color-accent-surface);
-  box-shadow: inset 0 0 0 1.5px rgba(52, 211, 153, 0.45);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 133, 82, 0.45);
 }
 
 .calendar-day--today:not(.calendar-day--selected) .calendar-day__number {
@@ -45,7 +47,7 @@
 /* 选中：实心渐变圆 */
 .calendar-day--selected {
   background: var(--gradient-accent);
-  box-shadow: 0 4px 14px rgba(52, 211, 153, 0.35);
+  box-shadow: 0 4px 14px rgba(255, 133, 82, 0.35);
 }
 
 .calendar-day--selected .calendar-day__number {

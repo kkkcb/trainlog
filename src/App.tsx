@@ -4,7 +4,7 @@ import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
 import { exportAllData, importAllData } from './utils/storage'
-import { getTodayString, formatDateParts } from './utils/date'
+import { getTodayString, formatDateBlocks } from './utils/date'
 import { CalendarGrid } from './components/CalendarGrid'
 import { TrainingList } from './components/TrainingList'
 import { CalendarPet } from './components/PetCompanion'
@@ -153,7 +153,7 @@ export default function App() {
   }, [calendar.calendarDays, todayStr])
 
   const isViewingToday = selectedDate === getTodayString()
-  const { main: dateMain, week: dateWeek } = formatDateParts(selectedDate)
+  const { day: dateDay, month: dateMonth, week: dateWeek } = formatDateBlocks(selectedDate)
 
   // 「另一个你」的实时状态上下文
   const [diaryCountForLife, setDiaryCountForLife] = useState(0)
@@ -327,11 +327,14 @@ export default function App() {
               <img src={avatarImg} alt="我的头像" />
               <span className="app__avatar-life-dot" />
             </button>
-            <div className="app__header-main">
-              <h1 className="app__date">{dateMain}</h1>
-              <span className="app__weekday">{dateWeek}</span>
+            <h1 className="app__header-main">
+              <span className="app__date-day">{dateDay}</span>
+              <span className="app__date-eyebrow">
+                <span className="app__date-month">{dateMonth}</span>
+                <span className="app__date-week">{dateWeek}</span>
+              </span>
               {isViewingToday && <span className="app__today-pill">今天</span>}
-            </div>
+            </h1>
             <div className="app__header-actions">
               <button className="app__settings-btn" onClick={handleOpenSettings} aria-label="设置">
                 <Icon name="settings" size={21} strokeWidth={1.9} />
