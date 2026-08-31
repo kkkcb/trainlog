@@ -196,8 +196,6 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
     }
   }
 
-  const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
-
   const handleCopy = (m: LifeMessage) => {
     navigator.clipboard
       ?.writeText(m.content)
@@ -209,6 +207,8 @@ export function AvatarChat({ open, onClose, context }: AvatarChatProps) {
       })
       .catch(() => {})
   }
+
+  const lastAssistantId = [...msgs].reverse().find((m) => m.role === 'assistant')?.id
 
   return (
     <div className="life-overlay" onClick={onClose}>

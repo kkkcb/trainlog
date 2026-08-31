@@ -51,7 +51,7 @@ export default function App() {
   const [petSettings, setPetSettings] = useState<PetSettings>({ showMain: true, enabledMinis: {} })
 
   const calendar = useCalendar()
-  const { tagDefinitions, addTag, removeTag, updateTagMetrics } = useTagSettings()
+  const { tagDefinitions, addTag, removeTag } = useTagSettings()
 
   useEffect(() => {
     loadAIConfig().catch(() => {})
@@ -414,7 +414,6 @@ export default function App() {
           totalWorkouts={Object.keys(records).length}
           onAddTag={addTag}
           onRemoveTag={removeTag}
-          onUpdateTagMetrics={updateTagMetrics}
           onOpenBackup={handleOpenBackup}
           onBack={handleSettingsBack}
         />

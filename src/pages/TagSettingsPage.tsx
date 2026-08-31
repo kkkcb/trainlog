@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { TagDefinition, MetricType } from '../types'
-import { METRIC_LABELS } from '../types'
+import type { TagDefinition } from '../types'
 import { Icon } from '../components/icons'
 import {
   loadAIConfig,
@@ -24,19 +23,16 @@ interface TagSettingsPageProps {
   totalWorkouts: number
   onAddTag: (def: TagDefinition) => void
   onRemoveTag: (name: string) => void
-  onUpdateTagMetrics: (name: string, metrics: MetricType[]) => void
   onOpenBackup: () => void
   onBack: () => void
 }
 
-const ALL_METRICS: MetricType[] = ['duration', 'distance']
 
 export function TagSettingsPage({
   tagDefinitions,
   totalWorkouts,
   onAddTag,
   onRemoveTag,
-  onUpdateTagMetrics,
   onOpenBackup,
   onBack,
 }: TagSettingsPageProps) {
@@ -84,14 +80,6 @@ export function TagSettingsPage({
       e.preventDefault()
       handleAdd()
     }
-  }
-
-  const toggleMetric = (tagName: string, metric: MetricType) => {
-    const def = tagDefinitions.find((d) => d.name === tagName)
-    if (!def) return
-    const has = def.metrics.includes(metric)
-    const updated = has ? def.metrics.filter((m) => m !== metric) : [...def.metrics, metric]
-    onUpdateTagMetrics(tagName, updated)
   }
 
   const handleDelete = (name: string) => {
@@ -144,24 +132,6 @@ export function TagSettingsPage({
                 >
                   {confirmDelete === def.name ? '确认删除' : '删除'}
                 </button>
-              </div>
-              <div className="tag-settings__metrics">
-                {ALL_METRICS.map((metric) => {
-                  const active = def.metrics.includes(metric)
-                  return (
-                    <button
-                      key={metric}
-                      className={`tag-settings__metric ${active ? 'tag-settings__metric--active' : ''}`}
-                      onClick={() => toggleMetric(def.name, metric)}
-                    >
-                      <span className="tag-settings__metric-check">
-                        {active && <Icon name="check" size={10} strokeWidth={3.4} />}
-                      </span>
-                      <span className="tag-settings__metric-label">{METRIC_LABELS[metric].label}</span>
-                      <span className="tag-settings__metric-unit">({METRIC_LABELS[metric].unit})</span>
-                    </button>
-                  )
-                })}
               </div>
             </div>
           ))}

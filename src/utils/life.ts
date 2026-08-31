@@ -15,6 +15,8 @@ export const DEFAULT_SYSTEM_PROMPT = `你是 kei——住在主人头像里的�
 export interface AIConfig {
   apiKey: string
   model: string
+  /** 识图用的视觉模型（截图提取训练数据） */
+  visionModel: string
   endpoint: string
   systemPrompt: string
   /** 深度思考开关：开启返回思考过程，关闭秒回 */
@@ -24,6 +26,7 @@ export interface AIConfig {
 export const DEFAULT_AI_CONFIG: AIConfig = {
   apiKey: '', // 由主人在 设置 → AI生命 中手动填写，保存在本机数据库，长期生效
   model: 'glm-5.3',
+  visionModel: 'glm-5.3-flash',
   endpoint: 'https://api.z.ai/api/coding/paas/v4/chat/completions',
   systemPrompt: DEFAULT_SYSTEM_PROMPT,
   thinkingEnabled: true,
@@ -215,5 +218,67 @@ export async function chatWithLife(
     return { content, reasoning }
   } finally {
     clearTimeout(timeout)
+  }
+}
+
+/* ---------- AI 识图：运动截图 → 训练记录 ---------- */
+
+export interface WorkoutExtraction {
+  date: string
+  type: string
+  durationMin: number
+  distanceKm: number
+}
+
+/** 把运动 App 截图交给视觉模型，提取日期/类型/时长/距离 */
+export async function analyzeWorkoutImage(config: AIConfig, dataUrl: string): Promise<WorkoutExtraction> {
+  if (!config.apiKey) {
+    throw new Error('还没有点亮生命：先去 设置 → AI生命 填入 API Key')
+  }
+  const prompt =
+    '这是运动App截图。提取信息,只输出严格JSON,不要其他文字:{"date":"YYYY-MM-DD","type":"跑步或骑行或其他","durationMin":数字,"distanceKm":数字}。若无日期用截图显示的日期;时长按分钟换算(00:19:50→19.8)'
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 60000)
+  try {
+    const res = await fetch(config.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${config.apiKey}`,
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: config.visionModel || 'glm-5.3-flash',
+        thinking: { type: 'disabled' },
+        max_tokens: 500,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'image_url', image_url: { url: dataUrl } },
+              { type: 'text', text: prompt },
+            ],
+          },
+        ],
+      }),
+    })
+    if (!res.ok) {
+      const text = await res.text().catch(() => '')
+      throw new Error(`接口 ${res.status}：${text.slice(0, 100) || '请求失败'}`)
+    }
+    const data = await res.json()
+    const raw = String(data?.choices?.[0]?.message?.content ?? '').trim()
+    const jsonMatch = raw.match(/\{[\s\S]*?\}/)
+    if (!jsonMatch) throw new Error('没能从截图识别出训练数据')
+    const parsed = JSON.parse(jsonMatch[0])
+    if (!parsed.date || !parsed.type) throw new Error('截图里没找到日期或运动类型')
+    return {
+      date: String(parsed.date),
+      type: String(parsed.type || '训练'),
+      durationMin: Number(parsed.durationMin) || 0,
+      distanceKm: Number(parsed.distanceKm) || 0,
+    }
+  } finally {
+    clearTimeout(timer)
   }
 }
