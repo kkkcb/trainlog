@@ -6,11 +6,9 @@ export type HomeTab = 'calendar' | 'diary'
 interface TabBarProps {
   active: HomeTab
   onChange: (tab: HomeTab) => void
-  /** 中央添加按钮：快速记录 */
-  onAdd?: () => void
 }
 
-export function TabBar({ active, onChange, onAdd }: TabBarProps) {
+export function TabBar({ active, onChange }: TabBarProps) {
   return (
     <nav className="tab-bar">
       <button
@@ -22,11 +20,6 @@ export function TabBar({ active, onChange, onAdd }: TabBarProps) {
         </span>
         <span className="tab-bar__label">日历</span>
       </button>
-      {onAdd && (
-        <button className="tab-bar__add" onClick={onAdd} aria-label="添加训练">
-          <Icon name="plus" size={22} strokeWidth={2.6} />
-        </button>
-      )}
       <button
         className={`tab-bar__item ${active === 'diary' ? 'tab-bar__item--active' : ''}`}
         onClick={() => onChange('diary')}

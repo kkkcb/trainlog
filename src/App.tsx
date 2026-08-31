@@ -384,7 +384,7 @@ export default function App() {
             )}
           </main>
 
-          <TabBar active={homeTab} onChange={handleHomeTabChange} onAdd={handleAdd} />
+          <TabBar active={homeTab} onChange={handleHomeTabChange} />
         </>
       )}
 
@@ -412,6 +412,7 @@ export default function App() {
           onAddTag={addTag}
           onRemoveTag={removeTag}
           onOpenBackup={handleOpenBackup}
+          onAddRecord={handleAdd}
           onBack={handleSettingsBack}
         />
       )}

@@ -242,6 +242,29 @@
   border-color: var(--color-accent);
 }
 
+/* 添加训练记录入口 */
+.tag-settings__add-record {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+  background: var(--color-accent-surface);
+  border: 1px dashed rgba(255, 133, 82, 0.45);
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.tag-settings__add-record:active {
+  transform: scale(0.98);
+  background: var(--color-accent-dim);
+}
+
 /* ---------- AI 生命配置 ---------- */
 
 .ai-card {

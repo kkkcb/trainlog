@@ -64,30 +64,3 @@
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.08em;
 }
-
-/* 中央添加按钮：固定于栏内、微微高出栏体的余烬圆钮 */
-.tab-bar__add {
-  align-self: center;
-  flex-shrink: 0;
-  width: 46px;
-  height: 46px;
-  margin: 0 var(--space-xs);
-  transform: translateY(-12px);
-  border-radius: var(--radius-full);
-  background: var(--gradient-accent);
-  color: var(--color-text-inverse);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 0 5px var(--color-bg-primary),
-    0 10px 24px rgba(255, 133, 82, 0.38);
-  transition: transform var(--duration-fast) var(--ease-spring), box-shadow var(--duration-fast) var(--ease-out-expo);
-}
-
-.tab-bar__add:active {
-  transform: translateY(-12px) scale(0.9) rotate(90deg);
-  box-shadow:
-    0 0 0 5px var(--color-bg-primary),
-    0 4px 12px rgba(255, 133, 82, 0.3);
-}

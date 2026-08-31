@@ -24,6 +24,7 @@ interface TagSettingsPageProps {
   onAddTag: (def: TagDefinition) => void
   onRemoveTag: (name: string) => void
   onOpenBackup: () => void
+  onAddRecord: () => void
   onBack: () => void
 }
 
@@ -34,6 +35,7 @@ export function TagSettingsPage({
   onAddTag,
   onRemoveTag,
   onOpenBackup,
+  onAddRecord,
   onBack,
 }: TagSettingsPageProps) {
   const [newTagName, setNewTagName] = useState('')
@@ -102,6 +104,17 @@ export function TagSettingsPage({
       </div>
 
       <div className="tag-settings__body">
+        <button
+          className="tag-settings__add-record"
+          onClick={() => {
+            haptic.onTap()
+            onAddRecord()
+          }}
+        >
+          <Icon name="plus" size={17} strokeWidth={2.4} />
+          添加训练记录
+        </button>
+
         <div className="tag-settings__add">
           <input
             className="tag-settings__input"
