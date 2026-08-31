@@ -214,6 +214,15 @@ button {
   touch-action: manipulation;
 }
 
+/* 禁用双击缩放（页面级），保留滚动与捏合 */
+button,
+a,
+[role='button'],
+.calendar-day,
+.cal-pet {
+  touch-action: manipulation;
+}
+
 button,
 [role="button"] {
   -webkit-user-select: none;

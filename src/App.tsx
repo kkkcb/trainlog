@@ -58,6 +58,13 @@ export default function App() {
     loadPetSettings().then(setPetSettings).catch(() => {})
   }, [])
 
+  // 从设置页返回首页时重读宠物设置（设置页内独立保存）
+  useEffect(() => {
+    if (currentPage === 'home') {
+      loadPetSettings().then(setPetSettings).catch(() => {})
+    }
+  }, [currentPage])
+
   useEffect(() => {
     const handler = () => {
       pageStackRef.current.pop()
