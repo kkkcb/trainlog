@@ -181,7 +181,10 @@ export function TagSettingsPage({
           </div>
           <div className="pet-setting-list">
             <div className="pet-setting">
-              <span className="pet-setting__name">主宠 · 进化系</span>
+              <span className="pet-setting__name">
+                主宠
+                <small> · 会随训练进化</small>
+              </span>
               <button
                 className={`ai-switch ${pets.showMain ? 'ai-switch--on' : ''}`}
                 onClick={() => togglePet(null)}
