@@ -13,10 +13,12 @@ interface PlanEditorPageProps {
   onSave: (exercises: PlanExercise[]) => void
   onDelete: () => void
   onBack: () => void
+  /** 换一天排（页头 ‹ › 步进器） */
+  onDateChange?: (iso: string) => void
 }
 
 /** 排计划：某日期的动作清单（动作名/组数/次数/重量） */
-export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, onBack }: PlanEditorPageProps) {
+export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, onBack, onDateChange }: PlanEditorPageProps) {
   const haptic = useHapticFeedback()
   const [exercises, setExercises] = useState<PlanExercise[]>(() =>
     initial.length > 0 ? initial.map((e) => ({ ...e })) : [makeExercise({ name: '' })]
@@ -51,13 +53,32 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
 
   const canSave = exercises.every((e) => e.name.trim().length > 0)
 
+  const shiftDate = (delta: number) => {
+    const d = new Date(`${date}T00:00:00`)
+    d.setDate(d.getDate() + delta)
+    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    onDateChange?.(iso)
+  }
+
+  const dateLabel = date.slice(5).replace('-', '/')
+
   return (
     <div className="plan-page">
       <header className="plan-page__header">
         <button className="plan-page__back" onClick={onBack} aria-label="返回">
           <Icon name="arrowLeft" size={20} />
         </button>
-        <span className="plan-page__title">训练计划 · {date.slice(5).replace('-', '/')}</span>
+        {onDateChange && (
+          <button className="plan-page__date-step" onClick={() => shiftDate(-1)} aria-label="前一天">
+            ‹
+          </button>
+        )}
+        <span className="plan-page__title">{dateLabel}</span>
+        {onDateChange && (
+          <button className="plan-page__date-step" onClick={() => shiftDate(1)} aria-label="后一天">
+            ›
+          </button>
+        )}
         <button
           className={`plan-page__save ${canSave ? 'plan-page__save--on' : ''}`}
           disabled={!canSave}

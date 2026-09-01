@@ -1,0 +1,113 @@
+/* 训练 tab 主页 */
+.workout-hub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* 开始训练：英雄按钮 */
+.workout-hub__start {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-3xl) var(--space-xl);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(ellipse 120% 90% at 50% -20%, rgba(255, 160, 107, 0.34), transparent),
+    var(--color-bg-card);
+  border: 1px solid rgba(255, 133, 82, 0.35);
+  box-shadow: 0 12px 36px rgba(255, 133, 82, 0.16);
+  transition: transform var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__start:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 16px rgba(255, 133, 82, 0.2);
+}
+
+.workout-hub__start-title {
+  font-size: 26px;
+  font-weight: var(--font-weight-black);
+  color: var(--color-accent);
+  letter-spacing: 0.06em;
+}
+
+.workout-hub__start-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workout-hub__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.workout-hub__section-title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.14em;
+}
+
+.workout-hub__plan-new {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  color: var(--color-accent);
+  background: var(--color-accent-surface);
+  border: 1px dashed rgba(255, 133, 82, 0.4);
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__plan-new:active {
+  transform: scale(0.98);
+}
+
+.workout-hub__plans {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.workout-hub__plan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  text-align: left;
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__plan:active {
+  transform: scale(0.98);
+}
+
+.workout-hub__plan-date {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.workout-hub__plan-exs {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

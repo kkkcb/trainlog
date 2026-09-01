@@ -19,6 +19,7 @@ import { QuickAddSheet } from './components/QuickAddSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { PlanEditorPage } from './pages/PlanEditorPage'
 import { WorkoutPage } from './pages/WorkoutPage'
+import { WorkoutHubPage } from './pages/WorkoutHubPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
 import { DiaryPage } from './pages/DiaryPage'
@@ -377,8 +378,7 @@ export default function App() {
           </header>
 
           <main className="app__main">
-            {homeTab === 'calendar' ? (
-              <>
+            {homeTab === 'calendar' ? (              <>
                 <div className="app__calendar-card">
                   <CalendarGrid
                     calendar={calendar}
@@ -406,7 +406,7 @@ export default function App() {
                   <p className="app__calendar-hint">宠物住在日历上 · 戳它 / 双击 / 长按它有惊喜</p>
                 </div>
 
-                {planForDay && planForDay.exercises.length > 0 ? (
+                {planForDay && planForDay.exercises.length > 0 && (
                   <div className="app__day-plan">
                     <div className="app__day-plan-info">
                       <b>今日计划 · {planForDay.exercises.length} 个动作</b>
@@ -421,15 +421,6 @@ export default function App() {
                       </button>
                     </div>
                   </div>
-                ) : (
-                  <div className="app__day-plan app__day-plan--quiet">
-                    <button className="app__day-plan-quiet" onClick={() => { haptic.onTap(); startWorkout(selectedDate) }}>
-                      ⚡ 沉浸训练
-                    </button>
-                    <button className="app__day-plan-quiet" onClick={() => { haptic.onTap(); openPlanEditor(selectedDate) }}>
-                      给这天排个计划
-                    </button>
-                  </div>
                 )}
 
                 <TrainingList
@@ -440,6 +431,12 @@ export default function App() {
 
                 <StatsPage records={records} />
               </>
+            ) : homeTab === 'workout' ? (
+              <WorkoutHubPage
+                plans={plans}
+                onStartWorkout={startWorkout}
+                onEditPlan={openPlanEditor}
+              />
             ) : (
               <DiaryPage />
             )}
@@ -491,9 +488,11 @@ export default function App() {
 
       {currentPage === 'plan' && planDate && (
         <PlanEditorPage
+          key={planDate}
           date={planDate}
           initial={plans[planDate]?.exercises ?? []}
           hasExisting={!!plans[planDate]}
+          onDateChange={setPlanDate}
           onSave={(exs) => {
             savePlan(planDate, exs)
             toast.show('计划已保存', 'success')

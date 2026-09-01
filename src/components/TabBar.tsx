@@ -1,7 +1,7 @@
 import { Icon } from './icons'
 import './TabBar.css'
 
-export type HomeTab = 'calendar' | 'diary'
+export type HomeTab = 'calendar' | 'workout' | 'diary'
 
 interface TabBarProps {
   active: HomeTab
@@ -19,6 +19,15 @@ export function TabBar({ active, onChange }: TabBarProps) {
           <Icon name="calendar" size={20} strokeWidth={active === 'calendar' ? 2.2 : 1.9} />
         </span>
         <span className="tab-bar__label">日历</span>
+      </button>
+      <button
+        className={`tab-bar__item ${active === 'workout' ? 'tab-bar__item--active' : ''}`}
+        onClick={() => onChange('workout')}
+      >
+        <span className="tab-bar__icon-wrap">
+          <Icon name="dumbbell" size={20} strokeWidth={active === 'workout' ? 2.2 : 1.9} />
+        </span>
+        <span className="tab-bar__label">训练</span>
       </button>
       <button
         className={`tab-bar__item ${active === 'diary' ? 'tab-bar__item--active' : ''}`}
