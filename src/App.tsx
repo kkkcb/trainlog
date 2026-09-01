@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react'
-import type { TrainingRecord, TrainingTag } from './types'
+import type { TrainingRecord, TrainingTag, SessionExercise } from './types'
 import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
@@ -16,11 +16,15 @@ import { loadAIConfig } from './utils/life'
 import type { LifeContext } from './utils/life'
 import { loadPetSettings, type PetSettings } from './utils/petSettings'
 import { QuickAddSheet } from './components/QuickAddSheet'
+import { ActionSheet } from './components/ActionSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
+import { PlanEditorPage } from './pages/PlanEditorPage'
+import { WorkoutPage } from './pages/WorkoutPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
 import { DiaryPage } from './pages/DiaryPage'
 import { StatsPage } from './components/StatsPage'
+import { usePlanStore } from './utils/workoutStore'
 import { Icon } from './components/icons'
 import { useToast } from './components/useToast'
 import { useHapticFeedback } from './hooks/useHapticFeedback'
@@ -29,10 +33,11 @@ import { App as CapApp } from '@capacitor/app'
 import avatarImg from './assets/avatar.jpg'
 import './App.css'
 
-type Page = 'home' | 'form' | 'settings' | 'backup'
+type Page = 'home' | 'form' | 'settings' | 'backup' | 'plan' | 'workout'
 
 export default function App() {
   const { loading, records, addRecord, updateRecord, deleteRecordById, reload } = useTrainingStore()
+  const { plans, savePlan, removePlan } = usePlanStore()
   const toast = useToast()
   const haptic = useHapticFeedback()
 
@@ -41,6 +46,10 @@ export default function App() {
   const [editingRecord, setEditingRecord] = useState<TrainingRecord | undefined>()
   const [deleteTarget, setDeleteTarget] = useState<TrainingRecord | null>(null)
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
+  // 动作训练：排计划 / 开练 / 长按菜单
+  const [planDate, setPlanDate] = useState<string | null>(null)
+  const [workoutDate, setWorkoutDate] = useState<string | null>(null)
+  const [longPressTarget, setLongPressTarget] = useState<string | null>(null)
   // 喂养信号：成功记录训练时 +1，驱动宠物庆祝动画
   const [feedSignal, setFeedSignal] = useState(0)
   // 首页底部标签：日历 / 训记
@@ -72,6 +81,8 @@ export default function App() {
       setCurrentPage(prev)
       setEditingRecord(undefined)
       setQuickAddDate(null)
+      setPlanDate(null)
+      setWorkoutDate(null)
     }
     window.addEventListener('popstate', handler)
     return () => window.removeEventListener('popstate', handler)
@@ -251,7 +262,32 @@ export default function App() {
   const handleLongPressDate = (fullDate: string) => {
     haptic.onSelect()
     setSelectedDate(fullDate)
-    setQuickAddDate(fullDate)
+    setLongPressTarget(fullDate)
+  }
+
+  const planDatesSet = useMemo(
+    () => new Set(Object.keys(plans).filter((d) => plans[d].exercises.length > 0)),
+    [plans]
+  )
+  const planForDay = plans[selectedDate]
+
+  const openPlanEditor = (date: string) => {
+    setPlanDate(date)
+    pushPage('plan')
+  }
+
+  const startWorkout = (date: string) => {
+    setWorkoutDate(date)
+    pushPage('workout')
+  }
+
+  const handleWorkoutSave = (data: { detail: SessionExercise[]; tags: TrainingTag[]; note: string }) => {
+    if (workoutDate) {
+      addRecord(workoutDate, data)
+      setFeedSignal((n) => n + 1)
+      toast.show('训练已保存，喂饱宠物了', 'success')
+    }
+    history.back()
   }
 
   const handleQuickAdd = async (date: string, tagNames: string[]) => {
@@ -349,6 +385,7 @@ export default function App() {
                   <CalendarGrid
                     calendar={calendar}
                     trainingDates={trainingDates}
+                    planDates={planDatesSet}
                     tagsByDate={tagsByDate}
                     selectedDate={selectedDate}
                     onSelectDate={setSelectedDate}
@@ -370,6 +407,23 @@ export default function App() {
                   />
                   <p className="app__calendar-hint">宠物住在日历上 · 戳它 / 双击 / 长按它有惊喜</p>
                 </div>
+
+                {planForDay && planForDay.exercises.length > 0 && (
+                  <div className="app__day-plan">
+                    <div className="app__day-plan-info">
+                      <b>今日计划 · {planForDay.exercises.length} 个动作</b>
+                      <span>{planForDay.exercises.map((e) => e.name).join(' · ')}</span>
+                    </div>
+                    <div className="app__day-plan-actions">
+                      <button className="app__day-plan-start" onClick={() => { haptic.onTap(); startWorkout(selectedDate) }}>
+                        开始训练
+                      </button>
+                      <button className="app__day-plan-edit" onClick={() => { haptic.onTap(); openPlanEditor(selectedDate) }}>
+                        编辑
+                      </button>
+                    </div>
+                  </div>
+                )}
 
                 <TrainingList
                   records={dateRecords}
@@ -427,6 +481,44 @@ export default function App() {
           onBack={handleBackupBack}
         />
       )}
+
+      {currentPage === 'plan' && planDate && (
+        <PlanEditorPage
+          date={planDate}
+          initial={plans[planDate]?.exercises ?? []}
+          hasExisting={!!plans[planDate]}
+          onSave={(exs) => {
+            savePlan(planDate, exs)
+            toast.show('计划已保存', 'success')
+            history.back()
+          }}
+          onDelete={() => {
+            removePlan(planDate)
+            toast.show('已删除这天的计划', 'info')
+            history.back()
+          }}
+          onBack={() => history.back()}
+        />
+      )}
+
+      {currentPage === 'workout' && workoutDate && (
+        <WorkoutPage
+          plan={plans[workoutDate] ?? null}
+          tagNames={tagDefinitions.map((d) => d.name)}
+          onSave={handleWorkoutSave}
+          onExit={() => history.back()}
+        />
+      )}
+
+      <ActionSheet
+        isOpen={!!longPressTarget}
+        title={longPressTarget ? `${longPressTarget.slice(5).replace('-', '/')} 这一天` : ''}
+        actions={[
+          { label: '快速打卡', description: '选标签记一笔，老样子', onSelect: () => longPressTarget && setQuickAddDate(longPressTarget) },
+          { label: '编辑这天的计划', description: '排动作/组数/重量，当天可按计划开练', onSelect: () => longPressTarget && openPlanEditor(longPressTarget) },
+        ]}
+        onCancel={() => setLongPressTarget(null)}
+      />
 
       <BottomSheet
         isOpen={!!deleteTarget}

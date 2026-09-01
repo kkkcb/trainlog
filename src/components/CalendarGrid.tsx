@@ -14,6 +14,7 @@ interface CalendarGridProps {
     isToday: (fullDate: string) => boolean
   }
   trainingDates: Set<string>
+  planDates?: Set<string>
   tagsByDate: Record<string, string[]>
   selectedDate: string
   onSelectDate: (date: string) => void
@@ -27,6 +28,7 @@ const WEEKDAYS = ['一', '二', '三', '四', '五', '六', '日']
 export function CalendarGrid({
   calendar,
   trainingDates,
+  planDates,
   tagsByDate,
   selectedDate,
   onSelectDate,
@@ -65,6 +67,7 @@ export function CalendarGrid({
               isToday={calendar.isToday(day.fullDate)}
               isSelected={day.fullDate === selectedDate}
               hasTraining={hasTraining}
+              hasPlan={planDates?.has(day.fullDate)}
               tags={dayTags}
               onClick={onSelectDate}
               onLongPress={onLongPressDate}

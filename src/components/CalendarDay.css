@@ -103,3 +103,24 @@
   color: var(--color-text-tertiary);
   opacity: 0.35;
 }
+
+/* 有训练计划的日期：右上角小火苗角标（区别于打卡点） */
+.calendar-day__plan-mark {
+  position: absolute;
+  top: 7%;
+  right: 10%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--color-accent);
+  transform: rotate(-45deg);
+  opacity: 0.9;
+}
+
+.calendar-day--selected .calendar-day__plan-mark {
+  background: var(--color-text-inverse);
+}
+
+.calendar-day--other .calendar-day__plan-mark {
+  opacity: 0.35;
+}

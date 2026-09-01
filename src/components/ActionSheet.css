@@ -1,0 +1,82 @@
+.action-sheet__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: var(--color-bg-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: overlay-in var(--duration-normal) var(--ease-out-expo) forwards;
+}
+
+.action-sheet {
+  width: 100%;
+  max-width: var(--max-content-width);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  border-top: 1px solid var(--color-border);
+  padding-bottom: var(--safe-area-bottom);
+  animation: sheet-in var(--duration-normal) var(--ease-out-expo) forwards;
+}
+
+.action-sheet__title {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  padding: var(--space-lg) 0 var(--space-sm);
+}
+
+.action-sheet__list {
+  padding: var(--space-sm) var(--space-lg) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.action-sheet__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  text-align: left;
+  transition: transform var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo);
+}
+
+.action-sheet__item:active {
+  transform: scale(0.98);
+  background: var(--color-bg-elevated);
+}
+
+.action-sheet__item-label {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+}
+
+.action-sheet__item-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.action-sheet__item--danger .action-sheet__item-label {
+  color: var(--color-danger);
+}
+
+.action-sheet__cancel {
+  display: block;
+  width: calc(100% - 2 * var(--space-lg));
+  margin: var(--space-md) var(--space-lg) var(--space-lg);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+}

@@ -8,6 +8,7 @@ interface CalendarDayProps {
   isToday: boolean
   isSelected: boolean
   hasTraining: boolean
+  hasPlan?: boolean
   tags?: string[]
   onClick: (fullDate: string) => void
   onLongPress?: (fullDate: string) => void
@@ -20,6 +21,7 @@ export const CalendarDay = memo(function CalendarDay({
   isToday,
   isSelected,
   hasTraining,
+  hasPlan,
   tags,
   onClick,
   onLongPress,
@@ -29,6 +31,7 @@ export const CalendarDay = memo(function CalendarDay({
   if (isToday) className += ' calendar-day--today'
   if (isSelected) className += ' calendar-day--selected'
   if (hasTraining) className += ' calendar-day--training'
+  if (hasPlan) className += ' calendar-day--planned'
   if (tags && tags.length > 0) className += ' calendar-day--has-tags'
 
   const hasTags = tags && tags.length > 0
@@ -74,6 +77,7 @@ export const CalendarDay = memo(function CalendarDay({
       <span className="calendar-day__number">{date}</span>
       {hasTraining && !tagText && <span className="calendar-day__dot" />}
       {tagText && <span className="calendar-day__tags">{tagText}</span>}
+      {hasPlan && <span className="calendar-day__plan-mark" />}
     </button>
   )
 })

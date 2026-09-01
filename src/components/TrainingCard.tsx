@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { TrainingRecord } from '../types'
 import { Icon } from './icons'
 import './TrainingCard.css'
@@ -23,6 +24,9 @@ function tagColor(name: string): string {
 }
 
 export function TrainingCard({ record, onEdit, onDelete }: TrainingCardProps) {
+  const [detailOpen, setDetailOpen] = useState(false)
+  const detail = record.detail?.filter((e) => e.sets.length > 0) ?? []
+
   return (
     <div className="training-card">
       <div className="training-card__header">
@@ -60,6 +64,27 @@ export function TrainingCard({ record, onEdit, onDelete }: TrainingCardProps) {
           </button>
         </div>
       </div>
+      {detail.length > 0 && (
+        <div className="training-card__detail">
+          <button className="training-card__detail-toggle" onClick={() => setDetailOpen((v) => !v)}>
+            <i className={`training-card__detail-arrow ${detailOpen ? 'training-card__detail-arrow--open' : ''}`}>▸</i>
+            动作明细 · {detail.length} 个动作
+          </button>
+          {detailOpen && (
+            <div className="training-card__detail-list">
+              {detail.map((ex) => (
+                <div key={ex.name} className="training-card__detail-ex">
+                  <span className="training-card__detail-name">{ex.name}</span>
+                  <span className="training-card__detail-sets">
+                    {ex.sets.length} 组 ·{' '}
+                    {ex.sets.map((g) => `${g.weight === 0 ? '徒手' : g.weight}×${g.reps}`).join(' / ')}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
