@@ -16,7 +16,6 @@ import { loadAIConfig } from './utils/life'
 import type { LifeContext } from './utils/life'
 import { loadPetSettings, type PetSettings } from './utils/petSettings'
 import { QuickAddSheet } from './components/QuickAddSheet'
-import { ActionSheet } from './components/ActionSheet'
 import { TrainingFormPage } from './pages/TrainingFormPage'
 import { PlanEditorPage } from './pages/PlanEditorPage'
 import { WorkoutPage } from './pages/WorkoutPage'
@@ -46,10 +45,9 @@ export default function App() {
   const [editingRecord, setEditingRecord] = useState<TrainingRecord | undefined>()
   const [deleteTarget, setDeleteTarget] = useState<TrainingRecord | null>(null)
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
-  // 动作训练：排计划 / 开练 / 长按菜单
+  // 动作训练：排计划 / 开练
   const [planDate, setPlanDate] = useState<string | null>(null)
   const [workoutDate, setWorkoutDate] = useState<string | null>(null)
-  const [longPressTarget, setLongPressTarget] = useState<string | null>(null)
   // 喂养信号：成功记录训练时 +1，驱动宠物庆祝动画
   const [feedSignal, setFeedSignal] = useState(0)
   // 首页底部标签：日历 / 训记
@@ -262,7 +260,7 @@ export default function App() {
   const handleLongPressDate = (fullDate: string) => {
     haptic.onSelect()
     setSelectedDate(fullDate)
-    setLongPressTarget(fullDate)
+    setQuickAddDate(fullDate)
   }
 
   const planDatesSet = useMemo(
@@ -408,7 +406,7 @@ export default function App() {
                   <p className="app__calendar-hint">宠物住在日历上 · 戳它 / 双击 / 长按它有惊喜</p>
                 </div>
 
-                {planForDay && planForDay.exercises.length > 0 && (
+                {planForDay && planForDay.exercises.length > 0 ? (
                   <div className="app__day-plan">
                     <div className="app__day-plan-info">
                       <b>今日计划 · {planForDay.exercises.length} 个动作</b>
@@ -422,6 +420,15 @@ export default function App() {
                         编辑
                       </button>
                     </div>
+                  </div>
+                ) : (
+                  <div className="app__day-plan app__day-plan--quiet">
+                    <button className="app__day-plan-quiet" onClick={() => { haptic.onTap(); startWorkout(selectedDate) }}>
+                      ⚡ 沉浸训练
+                    </button>
+                    <button className="app__day-plan-quiet" onClick={() => { haptic.onTap(); openPlanEditor(selectedDate) }}>
+                      给这天排个计划
+                    </button>
                   </div>
                 )}
 
@@ -509,16 +516,6 @@ export default function App() {
           onExit={() => history.back()}
         />
       )}
-
-      <ActionSheet
-        isOpen={!!longPressTarget}
-        title={longPressTarget ? `${longPressTarget.slice(5).replace('-', '/')} 这一天` : ''}
-        actions={[
-          { label: '快速打卡', description: '选标签记一笔，老样子', onSelect: () => longPressTarget && setQuickAddDate(longPressTarget) },
-          { label: '编辑这天的计划', description: '排动作/组数/重量，当天可按计划开练', onSelect: () => longPressTarget && openPlanEditor(longPressTarget) },
-        ]}
-        onCancel={() => setLongPressTarget(null)}
-      />
 
       <BottomSheet
         isOpen={!!deleteTarget}

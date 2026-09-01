@@ -286,3 +286,23 @@
 .app__day-plan-edit:active {
   transform: scale(0.94);
 }
+
+/* 无计划时的安静入口行 */
+.app__day-plan--quiet {
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px dashed var(--color-border);
+  box-shadow: none;
+  background: transparent;
+  justify-content: flex-start;
+  gap: var(--space-lg);
+}
+
+.app__day-plan-quiet {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  padding: 4px 0;
+}
+
+.app__day-plan-quiet:active {
+  color: var(--color-accent);
+}
