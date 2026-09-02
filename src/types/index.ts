@@ -94,6 +94,17 @@ export const DEFAULT_REST_SEC = 90
 
 /** 常用动作快捷选择 */
 export const COMMON_EXERCISES = [
-  '卧推', '上斜卧推', '深蹲', '硬拉', '划船', '高位下拉',
-  '推举', '侧平举', '二头弯举', '三头下压', '引体向上', '卷腹',
+  '卧推', '上斜卧推', '深蹲', '硬拉', '杠铃划船', '高位下拉',
+  '站姿推举', '侧平举', '哑铃弯举', '绳索下压', '引体向上', '卷腹',
 ]
+
+/** 动作图解素材库条目（生成于 src/data/exerciseLibrary.ts） */
+export interface ExerciseLibraryEntry {
+  slug: string
+  /** 中文名（与 COMMON_EXERCISES/计划动作名对齐） */
+  zh: string
+  en: string
+  equipment: string
+  muscle: string
+  frames: number
+}

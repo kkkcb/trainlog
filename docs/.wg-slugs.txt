@@ -1,0 +1,303 @@
+total 302
+barbell-glute-bridge|Barbell Glute Bridge|Barbell|Glutes
+barbell-row|Barbell Row|Barbell|Back
+bench-press|Bench Press|Barbell|Chest
+close-grip-bench-press|Close-Grip Bench Press|Barbell|Triceps
+deadlift|Deadlift|Barbell|Posterior Chain
+decline-bench-press|Decline Bench Press|Barbell|Chest
+drag-curl|Drag Curl|Barbell|Biceps
+ez-bar-curl|EZ-Bar Curl|Barbell|Biceps
+front-squat|Front Squat|Barbell|Quads
+good-morning|Good Morning|Barbell|Hamstrings
+hip-thrust|Hip Thrust|Barbell|Glutes
+incline-bench-press|Incline Bench Press|Barbell|Chest
+landmine-press|Landmine Press|Barbell|Shoulders
+landmine-romanian-deadlift|Landmine Romanian Deadlift|Barbell|Hamstrings
+landmine-squat|Landmine Squat|Barbell|Quads
+meadows-row|Meadows Row|Barbell|Back
+overhead-press|Overhead Press|Barbell|Shoulders
+pendlay-row|Pendlay Row|Barbell|Back
+push-press|Push Press|Barbell|Shoulders
+rack-pull|Rack Pull|Barbell|Back
+reverse-curl|Reverse Curl|Barbell|Forearms
+romanian-deadlift|Romanian Deadlift|Barbell|Hamstrings
+shrug|Barbell Shrug|Barbell|Upper Back
+skull-crusher|Skull Crusher|Barbell|Triceps
+squat|Squat|Barbell|Quads
+sumo-deadlift|Sumo Deadlift|Barbell|Posterior Chain
+trap-bar-deadlift|Trap Bar Deadlift|Barbell|Posterior Chain
+upright-row|Upright Row|Barbell|Shoulders
+wrist-curl|Wrist Curl|Barbell|Forearms
+decline-sit-up|Decline Sit-Up|Bench|Core
+ab-wheel|Ab Wheel Rollout|Bodyweight|Core
+archer-push-up|Archer Push-up|Bodyweight|Chest
+arm-circles|Arm Circles|Bodyweight|Shoulders
+assisted-pistol-squat|Assisted Pistol Squat|Bodyweight|Quads
+back-extension|Back Extension|Bodyweight|Lower Back
+bear-crawl|Bear Crawl|Bodyweight|Core
+bear-plank|Bear Plank|Bodyweight|Core
+bench-dip|Bench Dip|Bodyweight|Triceps
+bicycle-crunch|Bicycle Crunch|Bodyweight|Core
+bird-dog|Bird Dog|Bodyweight|Core
+bodyweight-squat|Bodyweight Squat|Bodyweight|Quads
+burpee|Burpee|Bodyweight|Legs
+butterfly-stretch|Butterfly Stretch|Bodyweight|Hips
+calf-raise|Calf Raise|Bodyweight|Calves
+cat-cow-stretch|Cat-Cow Stretch|Bodyweight|Mobility
+chest-dip|Chest Dip|Bodyweight|Chest
+childs-pose|Child's Pose|Bodyweight|Back
+chin-up|Chin-up|Bodyweight|Biceps
+clamshell|Clamshell|Bodyweight|Glutes
+copenhagen-plank|Copenhagen Plank|Bodyweight|Core
+cossack-squat|Cossack Squat|Bodyweight|Quads
+crab-walk|Crab Walk|Bodyweight|Triceps
+cross-body-shoulder-stretch|Cross-Body Shoulder Stretch|Bodyweight|Shoulders
+crunch|Crunch|Bodyweight|Core
+curtsy-lunge|Curtsy Lunge|Bodyweight|Glutes
+dead-bug|Dead Bug|Bodyweight|Core
+decline-push-up|Decline Push-up|Bodyweight|Chest
+diamond-push-up|Diamond Push-up|Bodyweight|Triceps
+dip|Dip|Bodyweight|Triceps
+donkey-kick|Donkey Kick|Bodyweight|Glutes
+dragon-flag|Dragon Flag|Bodyweight|Core
+explosive-push-up|Explosive Push-up|Bodyweight|Chest
+fast-feet|Fast Feet|Bodyweight|Calves
+feet-elevated-pike-push-up|Feet-Elevated Pike Push-up|Bodyweight|Shoulders
+fire-hydrant|Fire Hydrant|Bodyweight|Glutes
+flutter-kick|Flutter Kick|Bodyweight|Core
+forward-lunge|Forward Lunge|Bodyweight|Quads
+frog-pump|Frog Pump|Bodyweight|Glutes
+glute-bridge|Glute Bridge|Bodyweight|Glutes
+glute-bridge-march|Glute Bridge March|Bodyweight|Glutes
+glute-focused-back-extension|Glute-Focused Back Extension|Bodyweight|Glutes
+half-burpee|Half Burpee|Bodyweight|Core
+hamstring-stretch|Hamstring Stretch|Bodyweight|Hamstrings
+handstand-push-up|Handstand Push-up|Bodyweight|Shoulders
+hanging-leg-raise|Hanging Leg Raise|Bodyweight|Core
+heel-tap|Heel Tap|Bodyweight|Core
+high-knees|High Knees|Bodyweight|Legs
+hindu-push-up|Hindu Push-up|Bodyweight|Chest
+hip-airplane|Hip Airplane|Bodyweight|Glutes
+hollow-body-hold|Hollow Body Hold|Bodyweight|Core
+hollow-rock|Hollow Rock|Bodyweight|Core
+inchworm|Inchworm|Bodyweight|Core
+incline-push-up|Incline Push-up|Bodyweight|Chest
+inverted-row|Inverted Row|Bodyweight|Back
+jump-squat|Jump Squat|Bodyweight|Quads
+jumping-jack|Jumping Jack|Bodyweight|Legs
+knee-push-up|Knee Push-up|Bodyweight|Chest
+kneeling-hip-flexor-stretch|Kneeling Hip Flexor Stretch|Bodyweight|Hips
+l-sit-hold|L-Sit Hold|Bodyweight|Core
+lateral-lunge|Lateral Lunge|Bodyweight|Quads
+lateral-shuffle|Lateral Shuffle|Bodyweight|Legs
+leg-swings-stretch|Leg Swings|Bodyweight|Mobility
+lying-hamstring-walkout|Lying Hamstring Walkout|Bodyweight|Hamstrings
+lying-leg-raise|Lying Leg Raise|Bodyweight|Core
+mountain-climber|Mountain Climber|Bodyweight|Core
+neutral-grip-pull-up|Neutral-Grip Pull-up|Bodyweight|Lats
+nordic-hamstring-curl|Nordic Hamstring Curl|Bodyweight|Hamstrings
+pike-push-up|Pike Push-up|Bodyweight|Shoulders
+pistol-squat|Pistol Squat|Bodyweight|Quads
+plank|Plank|Bodyweight|Core
+plank-jack|Plank Jack|Bodyweight|Core
+plank-shoulder-tap|Plank Shoulder Tap|Bodyweight|Core
+prone-t-raise|Prone T Raise|Bodyweight|Upper Back
+prone-y-raise|Prone Y Raise|Bodyweight|Upper Back
+pull-up|Pull-up|Bodyweight|Lats
+push-up|Push-up|Bodyweight|Chest
+push-up-shoulder-tap|Push-up Shoulder Tap|Bodyweight|Core
+reverse-crunch|Reverse Crunch|Bodyweight|Core
+reverse-snow-angel|Reverse Snow Angel|Bodyweight|Upper Back
+russian-twist|Russian Twist|Bodyweight|Core
+scapular-push-up|Scapular Push-up|Bodyweight|Upper Back
+seal-jack|Seal Jack|Bodyweight|Chest
+seated-forward-fold-stretch|Seated Forward Fold|Bodyweight|Hamstrings
+seated-knee-tuck|Seated Knee Tuck|Bodyweight|Core
+shrimp-squat|Shrimp Squat|Bodyweight|Quads
+side-lying-hip-abduction|Side-Lying Hip Abduction|Bodyweight|Glutes
+side-lying-leg-raise|Side-Lying Leg Raise|Bodyweight|Glutes
+side-plank|Side Plank|Bodyweight|Core
+side-plank-hip-dip|Side Plank Hip Dip|Bodyweight|Core
+single-leg-calf-raise|Single-Leg Calf Raise|Bodyweight|Calves
+single-leg-glute-bridge|Single-Leg Glute Bridge|Bodyweight|Glutes
+sissy-squat|Sissy Squat|Bodyweight|Quads
+skater-hop|Skater Hop|Bodyweight|Legs
+skater-squat|Skater Squat|Bodyweight|Quads
+sprawl|Sprawl|Bodyweight|Legs
+squat-thrust|Squat Thrust|Bodyweight|Core
+standing-quad-stretch|Standing Quad Stretch|Bodyweight|Quads
+superman|Superman|Bodyweight|Lower Back
+superman-hold|Superman Hold|Bodyweight|Lower Back
+toe-touch|Toe Touch|Bodyweight|Core
+torso-twist-stretch|Torso Twists|Bodyweight|Mobility
+typewriter-push-up|Typewriter Push-up|Bodyweight|Chest
+v-up|V-Up|Bodyweight|Core
+wall-calf-stretch|Wall Calf Stretch|Bodyweight|Calves
+wall-sit|Wall Sit|Bodyweight|Quads
+weighted-chin-up|Weighted Chin-up|Bodyweight|Biceps
+weighted-dip|Weighted Dip|Bodyweight|Triceps
+weighted-pull-up|Weighted Pull-up|Bodyweight|Lats
+weighted-push-up|Weighted Push-up|Bodyweight|Chest
+wide-push-up|Wide Push-up|Bodyweight|Chest
+worlds-greatest-stretch|World's Greatest Stretch|Bodyweight|Mobility
+single-leg-box-squat|Single-Leg Box Squat|Box|Quads
+step-down|Step-Down|Box|Quads
+cable-crunch|Cable Crunch|Cable|Core
+cable-curl|Cable Curl|Cable|Biceps
+cable-fly|Cable Fly|Cable|Chest
+cable-front-raise|Cable Front Raise|Cable|Shoulders
+cable-kickback|Cable Kickback|Cable|Glutes
+cable-lateral-raise|Cable Lateral Raise|Cable|Shoulders
+cable-pallof-hold|Cable Pallof Hold|Cable|Core
+cable-pull-through|Cable Pull-Through|Cable|Glutes
+cable-rear-delt-fly|Cable Rear Delt Fly|Cable|Rear Delts
+cable-standing-hip-abduction|Cable Standing Hip Abduction|Cable|Glutes
+cable-standing-hip-adduction|Cable Standing Hip Adduction|Cable|Adductors
+cable-woodchop|Cable Woodchop|Cable|Core
+close-grip-lat-pulldown|Close-Grip Lat Pulldown|Cable|Lats
+face-pull|Face Pull|Cable|Upper Back
+half-kneeling-pallof-press|Half-Kneeling Pallof Press|Cable|Core
+incline-cable-fly|Incline Cable Fly|Cable|Chest
+lat-pulldown|Lat Pulldown|Cable|Lats
+overhead-tricep-extension|Overhead Tricep Extension|Cable|Triceps
+pallof-press|Pallof Press|Cable|Core
+rope-hammer-curl|Rope Hammer Curl|Cable|Biceps
+rope-tricep-pushdown|Rope Tricep Pushdown|Cable|Triceps
+seated-row|Seated Cable Row|Cable|Back
+single-arm-cable-row|Single-Arm Cable Row|Cable|Back
+straight-arm-pulldown|Straight-Arm Pulldown|Cable|Lats
+tricep-pushdown|Tricep Pushdown|Cable|Triceps
+wide-grip-lat-pulldown|Wide-Grip Lat Pulldown|Cable|Lats
+assault-bike|Assault Bike|Cardio|Legs
+battle-ropes|Battle Ropes|Cardio|Shoulders
+cycling|Cycling|Cardio|Legs
+elliptical|Elliptical|Cardio|Legs
+hiking|Hiking|Cardio|Legs
+jump-rope|Jump Rope|Cardio|Calves
+rowing|Rowing|Cardio|Back
+running|Running|Cardio|Legs
+skierg|SkiErg|Cardio|Back
+stair-climber|Stair Climber|Cardio|Legs
+swimming|Swimming|Cardio|Back
+treadmill-incline-walk|Treadmill Incline Walk|Cardio|Legs
+walking|Walking|Cardio|Legs
+chair-dip|Chair Dip|Chair|Triceps
+doorway-chest-stretch|Doorway Chest Stretch|Doorway|Chest
+doorway-row|Doorway Row|Doorway|Back
+arnold-press|Arnold Press|Dumbbell|Shoulders
+bent-over-rear-delt-raise|Bent-Over Rear Delt Raise|Dumbbell|Rear Delts
+bicep-curl|Bicep Curl|Dumbbell|Biceps
+bulgarian-split-squat|Bulgarian Split Squat|Dumbbell|Quads
+concentration-curl|Concentration Curl|Dumbbell|Biceps
+decline-dumbbell-press|Decline Dumbbell Press|Dumbbell|Chest
+deficit-reverse-lunge|Deficit Reverse Lunge|Dumbbell|Glutes
+dumbbell-bench-press|Dumbbell Bench Press|Dumbbell|Chest
+dumbbell-bent-over-row|Dumbbell Bent Over Row|Dumbbell|Back
+dumbbell-curtsy-lunge|Dumbbell Curtsy Lunge|Dumbbell|Glutes
+dumbbell-fly|Dumbbell Fly|Dumbbell|Chest
+dumbbell-glute-bridge|Dumbbell Glute Bridge|Dumbbell|Glutes
+dumbbell-hip-thrust|Dumbbell Hip Thrust|Dumbbell|Glutes
+dumbbell-lateral-lunge|Dumbbell Lateral Lunge|Dumbbell|Quads
+dumbbell-overhead-tricep-extension|Dumbbell Overhead Tricep Extension|Dumbbell|Triceps
+dumbbell-romanian-deadlift|Dumbbell Romanian Deadlift|Dumbbell|Hamstrings
+dumbbell-shrug|Dumbbell Shrug|Dumbbell|Upper Back
+dumbbell-side-bend|Dumbbell Side Bend|Dumbbell|Core
+dumbbell-skull-crusher|Two Dumbbell Skullcrusher|Dumbbell|Triceps
+dumbbell-sumo-deadlift|Dumbbell Sumo Deadlift|Dumbbell|Posterior Chain
+dumbbell-sumo-squat|Dumbbell Sumo Squat|Dumbbell|Glutes
+farmer-carry|Farmer Carry|Dumbbell|Forearms
+front-foot-elevated-split-squat|Front-Foot Elevated Split Squat|Dumbbell|Quads
+front-raise|Front Raise|Dumbbell|Shoulders
+goblet-squat|Goblet Squat|Dumbbell|Quads
+hammer-curl|Hammer Curl|Dumbbell|Biceps
+heel-elevated-goblet-squat|Heel-Elevated Goblet Squat|Dumbbell|Quads
+incline-dumbbell-curl|Incline Dumbbell Curl|Dumbbell|Biceps
+incline-dumbbell-press|Incline Dumbbell Press|Dumbbell|Chest
+lateral-raise|Lateral Raise|Dumbbell|Shoulders
+one-arm-dumbbell-row|One-Arm Dumbbell Row|Dumbbell|Back
+rear-delt-fly|Rear Delt Fly|Dumbbell|Rear Delts
+reverse-lunge|Reverse Lunge|Dumbbell|Quads
+seated-dumbbell-press|Dumbbell Seated Shoulder Press|Dumbbell|Shoulders
+single-arm-dumbbell-tricep-extension|Single Arm Dumbbell Tricep Extension|Dumbbell|Triceps
+single-dumbbell-skullcrusher|Single Dumbbell Skullcrusher|Dumbbell|Triceps
+single-leg-romanian-deadlift|Single-Leg Romanian Deadlift|Dumbbell|Hamstrings
+spider-curl|Spider Curl|Dumbbell|Biceps
+split-squat|Split Squat|Dumbbell|Quads
+standing-dumbbell-press|Standing Dumbbell Press|Dumbbell|Shoulders
+step-up|Step-Up|Dumbbell|Quads
+tricep-kickback|Tricep Kickback|Dumbbell|Triceps
+walking-lunge|Walking Lunge|Dumbbell|Quads
+weighted-russian-twist|Weighted Russian Twist|Dumbbell|Core
+wrist-extension|Wrist Extension|Dumbbell|Forearms
+kettlebell-romanian-deadlift|Kettlebell Romanian Deadlift|Kettlebell|Hamstrings
+kettlebell-swing|Kettlebell Swing|Kettlebell|Glutes
+assisted-chin-up|Assisted Chin-up|Machine|Biceps
+assisted-dip|Assisted Dip|Machine|Triceps
+assisted-pull-up|Assisted Pull-up|Machine|Lats
+belt-squat|Belt Squat|Machine|Quads
+captains-chair-knee-raise|Captain's Chair Knee Raise|Machine|Core
+chest-supported-row|Chest Supported Row|Machine|Back
+donkey-calf-raise|Donkey Calf Raise|Machine|Calves
+hack-squat|Hack Squat|Machine|Quads
+hip-abduction-machine|Hip Abduction Machine|Machine|Glutes
+hip-adduction-machine|Hip Adduction Machine|Machine|Adductors
+leg-curl|Leg Curl|Machine|Hamstrings
+leg-extension|Leg Extension|Machine|Quads
+leg-press|Leg Press|Machine|Quads
+leg-press-calf-raise|Leg Press Calf Raise|Machine|Calves
+lying-leg-curl|Lying Leg Curl|Machine|Hamstrings
+machine-chest-press|Machine Chest Press|Machine|Chest
+machine-glute-kickback|Machine Glute Kickback|Machine|Glutes
+machine-lateral-raise|Machine Lateral Raise|Machine|Shoulders
+machine-row|Machine Row|Machine|Back
+machine-shoulder-press|Machine Shoulder Press|Machine|Shoulders
+pec-deck|Pec Deck|Machine|Chest
+preacher-curl|Preacher Curl|Machine|Biceps
+reverse-hyperextension|Reverse Hyperextension|Machine|Glutes
+reverse-pec-deck|Reverse Pec Deck|Machine|Rear Delts
+seated-calf-raise|Seated Calf Raise|Machine|Calves
+seated-leg-curl|Seated Leg Curl|Machine|Hamstrings
+smith-machine-bench-press|Smith Machine Bench Press|Machine|Chest
+smith-machine-bulgarian-split-squat|Smith Machine Bulgarian Split Squat|Machine|Quads
+smith-machine-hip-thrust|Smith Machine Hip Thrust|Machine|Glutes
+smith-machine-reverse-lunge|Smith Machine Reverse Lunge|Machine|Quads
+smith-machine-romanian-deadlift|Smith Machine Romanian Deadlift|Machine|Hamstrings
+smith-machine-split-squat|Smith Machine Split Squat|Machine|Quads
+smith-machine-squat|Smith Machine Squat|Machine|Quads
+standing-calf-raise|Standing Calf Raise|Machine|Calves
+t-bar-row|T-Bar Row|Machine|Back
+plate-front-raise|Plate Front Raise|Plate|Shoulders
+weighted-crunch|Weighted Crunch|Plate|Core
+active-hang|Active Hang|Pull-up Bar|Lats
+commando-pull-up|Commando Pull-up|Pull-up Bar|Lats
+dead-hang|Dead Hang|Pull-up Bar|Forearms
+hanging-knee-raise|Hanging Knee Raise|Pull-up Bar|Core
+l-sit-pull-up|L-Sit Pull-up|Pull-up Bar|Lats
+negative-pull-up|Negative Pull-up|Pull-up Bar|Lats
+scapular-pull-up|Scapular Pull-up|Pull-up Bar|Lats
+band-pull-apart|Band Pull-Apart|Resistance Band|Upper Back
+banded-clamshell|Banded Clamshell|Resistance Band|Glutes
+banded-dead-bug|Banded Dead Bug|Resistance Band|Core
+banded-donkey-kick|Banded Donkey Kick|Resistance Band|Glutes
+banded-face-pull|Banded Face Pull|Resistance Band|Upper Back
+banded-fire-hydrant|Banded Fire Hydrant|Resistance Band|Glutes
+banded-frog-pump|Banded Frog Pump|Resistance Band|Glutes
+banded-glute-bridge|Banded Glute Bridge|Resistance Band|Glutes
+banded-hip-thrust|Banded Hip Thrust|Resistance Band|Glutes
+banded-kickback|Banded Kickback|Resistance Band|Glutes
+banded-lat-pulldown|Banded Lat Pulldown|Resistance Band|Lats
+banded-lateral-walk|Banded Lateral Walk|Resistance Band|Glutes
+banded-monster-walk|Banded Monster Walk|Resistance Band|Glutes
+banded-pallof-press|Banded Pallof Press|Resistance Band|Core
+banded-row|Banded Row|Resistance Band|Back
+banded-seated-hip-abduction|Banded Seated Hip Abduction|Resistance Band|Glutes
+banded-squat|Banded Squat|Resistance Band|Quads
+banded-standing-hip-abduction|Banded Standing Hip Abduction|Resistance Band|Glutes
+banded-woodchop|Banded Woodchop|Resistance Band|Core
+stability-ball-hamstring-curl|Stability Ball Hamstring Curl|Stability Ball|Hamstrings
+towel-hamstring-curl|Towel Hamstring Curl|Towel|Hamstrings
+towel-pull-up|Towel Pull-up|Towel|Lats
+towel-row|Towel Row|Towel|Back
+wall-handstand-push-up|Wall Handstand Push-up|Wall|Shoulders
+wall-push-up|Wall Push-up|Wall|Chest
+wall-walk|Wall Walk|Wall|Shoulders

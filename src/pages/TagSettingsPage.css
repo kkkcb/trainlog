@@ -448,3 +448,15 @@
 .pet-setting__name--locked {
   color: var(--color-text-tertiary);
 }
+
+.tag-settings__attribution {
+  margin-top: var(--space-xl);
+  text-align: center;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.tag-settings__attribution a {
+  color: var(--color-text-tertiary);
+  text-decoration: underline;
+}

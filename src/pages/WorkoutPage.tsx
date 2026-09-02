@@ -3,8 +3,10 @@ import type { SessionExercise, SetLog, TrainingTag, WorkoutMode, WorkoutPlan } f
 import { DEFAULT_REST_SEC, REST_PRESETS } from '../types'
 import { Icon } from '../components/icons'
 import { BottomSheet } from '../components/BottomSheet'
+import { ExerciseIllustration } from '../components/ExerciseIllustration'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { useToast } from '../components/useToast'
+import { loadIllustrations, saveIllustrations } from '../utils/exerciseSettings'
 import './WorkoutPage.css'
 
 interface WorkoutPageProps {
@@ -106,6 +108,17 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   const [adding, setAdding] = useState(false)
   const [newName, setNewName] = useState('')
   const [confirmDiscard, setConfirmDiscard] = useState(false)
+  // 动作图解（模式2）：默认关，训练中即点即切
+  const [illustrations, setIllustrations] = useState(false)
+  useEffect(() => {
+    loadIllustrations().then(setIllustrations).catch(() => {})
+  }, [])
+  const toggleIllustrations = () => {
+    setIllustrations((v) => {
+      saveIllustrations(!v).catch(() => {})
+      return !v
+    })
+  }
 
   // 挂载即提示恢复了未完成会话（放 effect 避免渲染期副作用）
   useEffect(() => {
@@ -285,6 +298,13 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
               自由
             </button>
           </div>
+          <button
+            className={`workout__mode-btn ${illustrations ? 'workout__mode-btn--on' : ''}`}
+            onClick={() => { haptic.onTap(); toggleIllustrations() }}
+            aria-label={illustrations ? '关闭动作图解' : '开启动作图解'}
+          >
+            图解
+          </button>
         </div>
         <button className="workout__finish" onClick={finish} disabled={phase === 'summary'}>
           结束
@@ -330,6 +350,7 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
           {curEx ? (
             <>
               <div className="workout__stage">
+                {illustrations && <ExerciseIllustration name={curEx.name} size={150} />}
                 <h2 className="workout__ex-name">{curEx.name}</h2>
                 <div className="workout__count" key={`${cur}-${doneCount}-${resting ? 'r' : ''}`}>
                   {resting ? (

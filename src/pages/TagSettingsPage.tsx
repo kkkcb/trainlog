@@ -16,6 +16,7 @@ import {
 } from '../utils/petSettings'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { useToast } from '../components/useToast'
+import { loadIllustrations, saveIllustrations } from '../utils/exerciseSettings'
 import './TagSettingsPage.css'
 
 interface TagSettingsPageProps {
@@ -47,9 +48,11 @@ export function TagSettingsPage({
   const [ai, setAi] = useState<AIConfig>(DEFAULT_AI_CONFIG)
   const [aiSaved, setAiSaved] = useState(false)
   const [pets, setPets] = useState<PetSettings>(DEFAULT_PET_SETTINGS)
+  const [illustrations, setIllustrations] = useState(false)
   useEffect(() => {
     loadAIConfig().then(setAi).catch(() => {})
     loadPetSettings().then(setPets).catch(() => {})
+    loadIllustrations().then(setIllustrations).catch(() => {})
   }, [])
   const togglePet = (kind: string | null) => {
     haptic.onTap()
@@ -205,6 +208,33 @@ export function TagSettingsPage({
           </div>
         </div>
 
+        {/* 动作图解显示设置 */}
+        <div className="ai-card">
+          <div className="ai-card__head">
+            <span className="ai-card__title">动作图解</span>
+            <span className="ai-card__hint">训练时显示动作演示动画 · 小白建议开</span>
+          </div>
+          <div className="pet-setting-list">
+            <div className="pet-setting">
+              <span className="pet-setting__name">训练时显示动作演示</span>
+              <button
+                className={`ai-switch ${illustrations ? 'ai-switch--on' : ''}`}
+                onClick={() => {
+                  haptic.onTap()
+                  const next = !illustrations
+                  setIllustrations(next)
+                  saveIllustrations(next).catch(() => {})
+                }}
+                role="switch"
+                aria-checked={illustrations}
+                aria-label="动作图解开关"
+              >
+                <span className="ai-switch__knob" />
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* AI 生命配置 */}
         <div className="ai-card">
           <div className="ai-card__head">
@@ -268,6 +298,13 @@ export function TagSettingsPage({
           <Icon name="database" size={17} />
           <span>数据备份 / 导入导出</span>
         </button>
+
+        <p className="tag-settings__attribution">
+          动作插画 © Bryl Lim · CC BY-SA 4.0 ·{' '}
+          <a href="https://github.com/bryllim/workout-guide" target="_blank" rel="noreferrer">
+            bryllim/workout-guide
+          </a>
+        </p>
       </div>
     </div>
   )
