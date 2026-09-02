@@ -14,6 +14,8 @@ interface WorkoutHubPageProps {
   onEditPlan: (date: string) => void
   /** 导入的计划交给编辑器预填（date=编辑器里用步进器再定） */
   onImportPlan: (exercises: PlanExercise[]) => void
+  /** 打开动作库 */
+  onOpenLibrary: () => void
 }
 
 const WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
@@ -27,8 +29,8 @@ function dateLabel(iso: string, today: string): string {
   return base
 }
 
-/** 训练 tab：开始训练（可选计划/自由/导入）/ 制订计划 / 已排的计划 */
-export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan }: WorkoutHubPageProps) {
+/** 训练 tab：开始训练（可选计划/自由/导入）/ 动作库 / 制订计划 / 已排的计划 */
+export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan, onOpenLibrary }: WorkoutHubPageProps) {
   const haptic = useHapticFeedback()
   const today = getTodayString()
 
@@ -168,6 +170,17 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
           }}
         >
           ＋ 排一天的训练动作（组数 / 次数 / 重量）
+        </button>
+        <button
+          className="workout-hub__library"
+          onClick={() => {
+            haptic.onTap()
+            onOpenLibrary()
+          }}
+        >
+          <b>动作库</b>
+          <span>看图学动作 · 按部位筛选 · 小白入门</span>
+          <i>›</i>
         </button>
       </div>
 

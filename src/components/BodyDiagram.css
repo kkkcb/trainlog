@@ -1,0 +1,37 @@
+.body-diagram {
+  width: 96px;
+  height: 176px;
+  display: block;
+}
+
+.body-diagram__base {
+  fill: var(--color-bg-elevated);
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+}
+
+.body-diagram__part {
+  cursor: pointer;
+}
+
+.body-diagram__region {
+  fill: var(--color-bg-tertiary);
+  opacity: 0.75;
+  transition: fill var(--duration-fast) var(--ease-out-expo);
+}
+
+.body-diagram__part:hover .body-diagram__region {
+  fill: var(--color-accent-dim);
+}
+
+.body-diagram__region--on {
+  fill: var(--color-accent);
+  opacity: 0.9;
+}
+
+.body-diagram__label {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  fill: var(--color-text-inverse);
+  pointer-events: none;
+}

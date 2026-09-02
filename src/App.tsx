@@ -20,6 +20,7 @@ import { TrainingFormPage } from './pages/TrainingFormPage'
 import { PlanEditorPage } from './pages/PlanEditorPage'
 import { WorkoutPage } from './pages/WorkoutPage'
 import { WorkoutHubPage } from './pages/WorkoutHubPage'
+import { ExerciseLibraryPage } from './pages/ExerciseLibraryPage'
 import { TagSettingsPage } from './pages/TagSettingsPage'
 import { BackupPage } from './pages/BackupPage'
 import { DiaryPage } from './pages/DiaryPage'
@@ -33,7 +34,7 @@ import { App as CapApp } from '@capacitor/app'
 import avatarImg from './assets/avatar.jpg'
 import './App.css'
 
-type Page = 'home' | 'form' | 'settings' | 'backup' | 'plan' | 'workout'
+type Page = 'home' | 'form' | 'settings' | 'backup' | 'plan' | 'workout' | 'library'
 
 export default function App() {
   const { loading, records, addRecord, updateRecord, deleteRecordById, reload } = useTrainingStore()
@@ -275,6 +276,10 @@ export default function App() {
     pushPage('plan')
   }
 
+  const openLibrary = () => {
+    pushPage('library')
+  }
+
   const startWorkout = (date: string, plan?: WorkoutPlan) => {
     setWorkoutPlanOverride(plan ?? null)
     setWorkoutDate(date)
@@ -437,6 +442,7 @@ export default function App() {
                 onStartWorkout={startWorkout}
                 onEditPlan={openPlanEditor}
                 onImportPlan={(exs) => openPlanEditor(getTodayString(), exs)}
+                onOpenLibrary={openLibrary}
               />
             ) : (
               <DiaryPage />
@@ -485,6 +491,10 @@ export default function App() {
           onImported={handleBackupImported}
           onBack={handleBackupBack}
         />
+      )}
+
+      {currentPage === 'library' && (
+        <ExerciseLibraryPage onBack={() => history.back()} />
       )}
 
       {currentPage === 'plan' && planDate && (

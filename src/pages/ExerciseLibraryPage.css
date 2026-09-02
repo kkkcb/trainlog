@@ -1,0 +1,199 @@
+/* 动作库页（全屏，复用表单页外壳模式） */
+.exlib {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary);
+  animation: plan-page-in var(--duration-normal) var(--ease-out-expo) forwards;
+}
+
+.exlib__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-2xl);
+  padding-top: calc(var(--space-lg) + var(--safe-area-top));
+  border-bottom: 1px solid var(--color-divider);
+  flex-shrink: 0;
+}
+
+.exlib__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+}
+
+.exlib__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.exlib__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-lg) var(--space-2xl) calc(60px + var(--safe-area-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* 人体肌肉图 */
+.exlib__body-map {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3xl);
+}
+
+.exlib__diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.exlib__side-btn {
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid transparent;
+}
+
+.exlib__side-btn--on {
+  color: var(--color-accent);
+  border-color: rgba(255, 133, 82, 0.4);
+  background: var(--color-accent-surface);
+}
+
+.exlib__hint {
+  text-align: center;
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-tertiary);
+}
+
+.exlib__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.exlib__chip {
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid transparent;
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.exlib__chip--on {
+  color: var(--color-accent);
+  border-color: rgba(255, 133, 82, 0.4);
+  background: var(--color-accent-surface);
+}
+
+/* 动作列表 */
+.exlib__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.exlib__item {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.exlib__item--open {
+  border-color: rgba(255, 133, 82, 0.3);
+}
+
+.exlib__item-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+}
+
+.exlib__item-thumb {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  overflow: hidden;
+}
+
+.exlib__item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.exlib__item-info b {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.exlib__item-info span {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.exlib__item-arrow {
+  font-style: normal;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.exlib__item-arrow--open {
+  transform: rotate(90deg);
+}
+
+.exlib__item-detail {
+  border-top: 1px solid var(--color-divider);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.exlib__item-tip {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+.exlib__item-meta {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-tertiary);
+}
+
+.exlib__empty {
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+  padding: var(--space-2xl) 0;
+}

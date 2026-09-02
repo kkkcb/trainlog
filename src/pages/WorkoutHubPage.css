@@ -220,3 +220,44 @@
 .workout-hub__import-go:disabled {
   opacity: 0.4;
 }
+
+/* 动作库入口 */
+.workout-hub__library {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  text-align: left;
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__library:active {
+  transform: scale(0.98);
+}
+
+.workout-hub__library b {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+.workout-hub__library span {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workout-hub__library i {
+  font-style: normal;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
