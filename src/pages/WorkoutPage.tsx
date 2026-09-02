@@ -378,15 +378,35 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                     跳过休息，提前开练
                   </button>
                 ) : (
-                  <button
-                    className={`workout__go ${doneCount >= curEx.targetSets && mode === 'planned' ? 'workout__go--extra' : ''}`}
-                    onClick={completeSet}
-                    disabled={doneCount >= curEx.targetSets && mode === 'planned'}
-                  >
-                    {mode === 'planned' && doneCount >= curEx.targetSets
-                      ? '已按计划完成，切下一动作'
-                      : '✓ 完成这一组'}
-                  </button>
+                  <>
+                    <button
+                      className={`workout__go ${doneCount >= curEx.targetSets && mode === 'planned' ? 'workout__go--extra' : ''}`}
+                      onClick={() => {
+                        // 计划模式做满预设：主按钮直接切下一动作（还有下一动作时）
+                        if (mode === 'planned' && doneCount >= curEx.targetSets && cur < exs.length - 1) {
+                          haptic.onTap()
+                          switchExercise(cur + 1)
+                          return
+                        }
+                        completeSet()
+                      }}
+                      disabled={mode === 'planned' && doneCount >= curEx.targetSets && cur >= exs.length - 1}
+                    >
+                      {mode === 'planned' && doneCount >= curEx.targetSets
+                        ? cur < exs.length - 1
+                          ? '已按计划完成，切下一动作 ›'
+                          : '本动作已按计划完成 ✓'
+                        : '✓ 完成这一组'}
+                    </button>
+                    {cur < exs.length - 1 && doneCount < curEx.targetSets && (
+                      <button
+                        className="workout__skip-ex"
+                        onClick={() => { haptic.onSelect(); switchExercise(cur + 1) }}
+                      >
+                        结束此动作（已练 {doneCount} 组），切下一个 ›
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
 

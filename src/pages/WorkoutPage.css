@@ -525,3 +525,15 @@
   transform: scale(0.97);
   color: var(--color-accent);
 }
+
+/* 结束此动作：没做满预设也能切下一个动作 */
+.workout__skip-ex {
+  margin-top: var(--space-md);
+  padding: var(--space-sm) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.workout__skip-ex:active {
+  color: var(--color-accent);
+}

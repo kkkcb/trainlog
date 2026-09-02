@@ -83,6 +83,18 @@ describe('WorkoutPage 动作训练', () => {
     expect(screen.getByText('第 1')).toBeTruthy()
   })
 
+  it('没做满预设也能「结束此动作」切下一个，已练组保留', () => {
+    const { container } = renderWorkout()
+    const stageName = () => container.querySelector('.workout__ex-name')?.textContent
+    completeSet()
+    // 卧推预设 2 组只做了 1 组，主动结束此动作
+    fireEvent.click(screen.getByText(/结束此动作（已练 1 组）/))
+    expect(stageName()).toBe('深蹲')
+    // 小结里卧推按实际 1 组归档
+    fireEvent.click(screen.getByText('结束'))
+    fireEvent.click(screen.getByText('保存记录'))
+  })
+
   it('结束→小结→保存，归档动作明细', () => {
     const onSave = vi.fn()
     renderWorkout(onSave)
