@@ -9,7 +9,6 @@ interface CalendarDayProps {
   isSelected: boolean
   hasTraining: boolean
   hasPlan?: boolean
-  tags?: string[]
   onClick: (fullDate: string) => void
   onLongPress?: (fullDate: string) => void
 }
@@ -22,7 +21,6 @@ export const CalendarDay = memo(function CalendarDay({
   isSelected,
   hasTraining,
   hasPlan,
-  tags,
   onClick,
   onLongPress,
 }: CalendarDayProps) {
@@ -32,12 +30,6 @@ export const CalendarDay = memo(function CalendarDay({
   if (isSelected) className += ' calendar-day--selected'
   if (hasTraining) className += ' calendar-day--training'
   if (hasPlan) className += ' calendar-day--planned'
-  if (tags && tags.length > 0) className += ' calendar-day--has-tags'
-
-  const hasTags = tags && tags.length > 0
-  const displayTags = hasTags ? tags.slice(0, 2) : null
-  const hasMore = tags && tags.length > 2
-  const tagText = displayTags ? displayTags.join(' ') + (hasMore ? ' +' : '') : null
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressedRef = useRef(false)
@@ -93,8 +85,7 @@ export const CalendarDay = memo(function CalendarDay({
       onContextMenu={(e) => { e.preventDefault(); onLongPress?.(fullDate) }}
     >
       <span className="calendar-day__number">{date}</span>
-      {hasTraining && !tagText && <span className="calendar-day__dot" />}
-      {tagText && <span className="calendar-day__tags">{tagText}</span>}
+      {hasTraining && <span className="calendar-day__dot" />}
       {hasPlan && <span className="calendar-day__plan-mark" />}
     </button>
   )

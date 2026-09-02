@@ -36,7 +36,7 @@ export function TabBar({ active, onChange }: TabBarProps) {
         <span className="tab-bar__icon-wrap">
           <Icon name="notebook" size={20} strokeWidth={active === 'diary' ? 2.2 : 1.9} />
         </span>
-        <span className="tab-bar__label">训记</span>
+        <span className="tab-bar__label">日记</span>
       </button>
     </nav>
   )

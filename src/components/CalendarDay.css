@@ -77,32 +77,6 @@
   opacity: 0.4;
 }
 
-/* 有标签的日期：小胶囊文字替代圆点 */
-.calendar-day__tags {
-  position: absolute;
-  bottom: 3px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 9px;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-accent);
-  line-height: 1.15;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 6px);
-  letter-spacing: 0.02em;
-}
-
-.calendar-day--selected .calendar-day__tags {
-  color: var(--color-text-inverse);
-  opacity: 0.9;
-}
-
-.calendar-day--other .calendar-day__tags {
-  color: var(--color-text-tertiary);
-  opacity: 0.35;
-}
 
 /* 有训练计划的日期：右上角小火苗角标（区别于打卡点） */
 .calendar-day__plan-mark {

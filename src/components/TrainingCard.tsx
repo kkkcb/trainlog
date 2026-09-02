@@ -9,11 +9,8 @@ interface TrainingCardProps {
   onDelete: (record: TrainingRecord) => void
 }
 
-/** 按标签名哈希取色，保证同名标签颜色稳定 */
-const TAG_COLORS = [
-  '#e8562b', '#8b5cf6', '#3b82f6', '#f59e0b', '#ec4899',
-  '#14b8a6', '#f97316', '#6366f1', '#84cc16',
-]
+/** 按标签名哈希取色：余烬橙明度阶，同一「训练=热」的语言（同名标签颜色稳定） */
+const TAG_COLORS = ['#ffceb3', '#ffab85', '#ff8552', '#e2602e', '#b8491f']
 
 function tagColor(name: string): string {
   let hash = 0

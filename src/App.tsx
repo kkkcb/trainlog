@@ -140,27 +140,6 @@ export default function App() {
     return dates
   }, [monthPrefix, records])
 
-  const tagsByDate = useMemo(() => {
-    const result: Record<string, string[]> = {}
-    const seen: Record<string, Set<string>> = {}
-    Object.values(records).forEach((r) => {
-      if (r.date.startsWith(monthPrefix) && r.tags.length > 0) {
-        if (!seen[r.date]) {
-          seen[r.date] = new Set()
-          result[r.date] = []
-        }
-        const s = seen[r.date]
-        r.tags.forEach((tag) => {
-          if (!s.has(tag.name)) {
-            s.add(tag.name)
-            result[r.date].push(tag.name)
-          }
-        })
-      }
-    })
-    return result
-  }, [monthPrefix, records])
-
   const dateRecords = useMemo(() => {
     return Object.values(records)
       .filter((r) => r.date === selectedDate)
@@ -400,7 +379,6 @@ export default function App() {
                     calendar={calendar}
                     trainingDates={trainingDates}
                     planDates={planDatesSet}
-                    tagsByDate={tagsByDate}
                     selectedDate={selectedDate}
                     onSelectDate={setSelectedDate}
                     onLongPressDate={handleLongPressDate}
