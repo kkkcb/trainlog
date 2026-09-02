@@ -59,7 +59,7 @@
 }
 
 .workout__mode-btn {
-  padding: 5px 14px;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
@@ -265,8 +265,8 @@
 }
 
 .workout__stepper button {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
   font-size: 19px;
   line-height: 1;
@@ -322,41 +322,6 @@
   opacity: 0.75;
 }
 
-/* 组间休息 */
-.workout__rest {
-  margin-top: var(--space-lg);
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-full);
-  background: var(--color-accent-surface);
-  border: 1px solid rgba(255, 133, 82, 0.3);
-}
-
-.workout__rest-num {
-  font-family: var(--font-display-num);
-  font-size: 22px;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-accent);
-  min-width: 52px;
-  text-align: center;
-}
-
-.workout__rest-label {
-  flex: 1;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-.workout__rest-skip {
-  padding: 5px 14px;
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-tertiary);
-  background: var(--color-bg-tertiary);
-}
 
 /* 休息时长预设 */
 .workout__rest-presets {
@@ -375,7 +340,7 @@
 }
 
 .workout__preset {
-  padding: 5px 13px;
+  padding: 8px 15px;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-family: var(--font-display-num);
@@ -403,7 +368,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 12px;
+  padding: 9px 14px;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-family: var(--font-display-num);
@@ -534,4 +499,29 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
   background: var(--color-bg-tertiary);
+}
+
+/* 组间休息：倒计时升为舞台主视觉 */
+.workout__count-num--rest {
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.workout__rest-skip-big {
+  margin-top: var(--space-lg);
+  width: 100%;
+  max-width: 340px;
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout__rest-skip-big:active {
+  transform: scale(0.97);
+  color: var(--color-accent);
 }

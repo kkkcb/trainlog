@@ -26,7 +26,8 @@
 
   --color-text-primary: #f2efe8;
   --color-text-secondary: #a8a49b;
-  --color-text-tertiary: #6f6b63;
+  /* 暖石灰阶：全底色实测 ≥4.5:1（WCAG AA，含 9-11px 小字使用场景） */
+  --color-text-tertiary: #908a80;
   --color-text-inverse: #1c0f06;
   --color-text-accent: #ff8552;
 

@@ -4,13 +4,52 @@ import { DEFAULT_REST_SEC, REST_PRESETS } from '../types'
 import { Icon } from '../components/icons'
 import { BottomSheet } from '../components/BottomSheet'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
+import { useToast } from '../components/useToast'
 import './WorkoutPage.css'
 
 interface WorkoutPageProps {
+  date: string
   plan: WorkoutPlan | null
   tagNames: string[]
+  /** 有未保存内容时置 true，供系统返回键拦截 */
+  onDirtyChange?: (dirty: boolean) => void
   onSave: (data: { detail: SessionExercise[]; tags: TrainingTag[]; note: string }) => void
   onExit: () => void
+}
+
+const SESSION_KEY = 'trainlog_workout_session'
+
+interface SavedSession {
+  date: string
+  mode: WorkoutMode
+  exs: SessionExercise[]
+  cur: number
+  weight: number
+  reps: number
+  restSec: number
+  restEndsAt: number | null
+  startedAt: number
+}
+
+function loadSavedSession(date: string): SavedSession | null {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY)
+    if (!raw) return null
+    const s = JSON.parse(raw) as SavedSession
+    // 只恢复同一天的会话；跨天视为过期
+    if (s.date !== date || !Array.isArray(s.exs) || s.exs.length === 0) return null
+    return s
+  } catch {
+    return null
+  }
+}
+
+function clearSavedSession(): void {
+  try {
+    localStorage.removeItem(SESSION_KEY)
+  } catch {
+    // ignore
+  }
 }
 
 /** "8-12" → 建议次数取中值 10；"10" → 10；解析失败 → 10 */
@@ -35,24 +74,46 @@ function initFromPlan(plan: WorkoutPlan | null): SessionExercise[] {
 /**
  * 训练进行中页：解决「做到第几组忘了」。
  * 计划/自由两种模式随时切换：计划严格按预设槽位点亮，自由不锁组数参数随改。
+ * 会话随写随存（localStorage）：锁屏/杀后台后重进可无缝续练。
  */
-export function WorkoutPage({ plan, tagNames, onSave, onExit }: WorkoutPageProps) {
+export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExit }: WorkoutPageProps) {
   const haptic = useHapticFeedback()
-  const [startedAt] = useState(() => Date.now())
+  const toast = useToast()
 
-  const [mode, setMode] = useState<WorkoutMode>(plan ? 'planned' : 'free')
-  const [exs, setExs] = useState<SessionExercise[]>(() => initFromPlan(plan))
-  const [cur, setCur] = useState(0)
-  const [weight, setWeight] = useState(() => (plan ? plan.exercises[0]?.weight ?? 0 : 20))
-  const [reps, setReps] = useState(() => suggestReps(plan?.exercises[0]?.reps ?? '10'))
-  const [restSec, setRestSec] = useState(DEFAULT_REST_SEC)
-  const [restEndsAt, setRestEndsAt] = useState<number | null>(null)
+  // 恢复上次未完成的会话（仅限同一天）；restEndsAt 已过期则直接视为休息结束
+  const [saved] = useState(() => loadSavedSession(date))
+  const [startedAt] = useState(() => saved?.startedAt ?? Date.now())
+
+  const [mode, setMode] = useState<WorkoutMode>(() => saved?.mode ?? (plan ? 'planned' : 'free'))
+  const [exs, setExs] = useState<SessionExercise[]>(() => saved?.exs ?? initFromPlan(plan))
+  const [cur, setCur] = useState(() => Math.min(saved?.cur ?? 0, Math.max(0, (saved?.exs.length ?? 1) - 1)))
+  const [weight, setWeight] = useState(() => {
+    if (saved) return saved.weight
+    return plan ? plan.exercises[0]?.weight ?? 0 : 20
+  })
+  const [reps, setReps] = useState(() => {
+    if (saved) return saved.reps
+    return suggestReps(plan?.exercises[0]?.reps ?? '10')
+  })
+  const [restSec, setRestSec] = useState(() => saved?.restSec ?? DEFAULT_REST_SEC)
+  const [restEndsAt, setRestEndsAt] = useState<number | null>(() => {
+    if (!saved?.restEndsAt) return null
+    return Date.now() >= saved.restEndsAt ? null : saved.restEndsAt
+  })
   const [now, setNow] = useState(() => Date.now())
   const [phase, setPhase] = useState<'run' | 'summary'>('run')
   const [tags, setTags] = useState<string[]>([])
   const [adding, setAdding] = useState(false)
   const [newName, setNewName] = useState('')
   const [confirmDiscard, setConfirmDiscard] = useState(false)
+
+  // 挂载即提示恢复了未完成会话（放 effect 避免渲染期副作用）
+  useEffect(() => {
+    if (saved) {
+      toast.show('已恢复上次没练完的训练', 'info')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 仅挂载时提示一次
+  }, [])
 
   const curEx = exs[cur]
   const doneCount = curEx?.sets.length ?? 0
@@ -77,6 +138,40 @@ export function WorkoutPage({ plan, tagNames, onSave, onExit }: WorkoutPageProps
     }, 400)
     return () => clearInterval(t)
   }, [restEndsAt, haptic])
+
+  // 会话随写随存：锁屏/杀后台后重进可续练（保存/放弃时显式清除）
+  useEffect(() => {
+    if (phase !== 'run' || totalDone === 0) return
+    try {
+      const snapshot: SavedSession = {
+        date,
+        mode,
+        exs,
+        cur,
+        weight,
+        reps,
+        restSec,
+        restEndsAt,
+        startedAt,
+      }
+      localStorage.setItem(SESSION_KEY, JSON.stringify(snapshot))
+    } catch {
+      // 存储失败不影响训练
+    }
+  }, [date, mode, exs, cur, weight, reps, restSec, restEndsAt, startedAt, totalDone, phase])
+
+  // 向宿主上报「有未保存内容」，供系统返回键/手势拦截
+  const dirty = totalDone > 0 && phase === 'run'
+  useEffect(() => {
+    onDirtyChange?.(dirty)
+  }, [dirty, onDirtyChange])
+
+  // 宿主（系统返回键/手势）请求退出 → 走丢弃确认
+  useEffect(() => {
+    const handler = () => setConfirmDiscard(true)
+    window.addEventListener('workout:exit-request', handler)
+    return () => window.removeEventListener('workout:exit-request', handler)
+  }, [])
 
   const applyTarget = (idx: number) => {
     const ex = exs[idx]
@@ -154,11 +249,18 @@ export function WorkoutPage({ plan, tagNames, onSave, onExit }: WorkoutPageProps
 
   const save = () => {
     haptic.onSuccess()
+    clearSavedSession()
     onSave({
       detail: exs.filter((e) => e.sets.length > 0),
       tags: tags.map((name) => ({ name })),
       note: `动作训练 · ${mode === 'planned' ? '计划' : '自由'}模式`,
     })
+  }
+
+  const discardAndExit = () => {
+    haptic.onSelect()
+    clearSavedSession()
+    onExit()
   }
 
   return (
@@ -229,8 +331,15 @@ export function WorkoutPage({ plan, tagNames, onSave, onExit }: WorkoutPageProps
             <>
               <div className="workout__stage">
                 <h2 className="workout__ex-name">{curEx.name}</h2>
-                <div className="workout__count" key={`${cur}-${doneCount}`}>
-                  {mode === 'planned' && doneCount >= curEx.targetSets ? (
+                <div className="workout__count" key={`${cur}-${doneCount}-${resting ? 'r' : ''}`}>
+                  {resting ? (
+                    <>
+                      <span className="workout__count-num workout__count-num--rest" role="timer" aria-label={`休息剩余 ${restLeft} 秒`}>
+                        {restLeft}
+                      </span>
+                      <span className="workout__count-total">秒后开始</span>
+                    </>
+                  ) : mode === 'planned' && doneCount >= curEx.targetSets ? (
                     <span className="workout__count-done">本动作完成 ✓</span>
                   ) : (
                     <>
@@ -261,13 +370,13 @@ export function WorkoutPage({ plan, tagNames, onSave, onExit }: WorkoutPageProps
                 </div>
 
                 {resting ? (
-                  <div className="workout__rest">
-                    <span className="workout__rest-num">{restLeft}s</span>
-                    <span className="workout__rest-label">组间休息</span>
-                    <button className="workout__rest-skip" onClick={() => { haptic.onTap(); setRestEndsAt(null) }}>
-                      跳过
-                    </button>
-                  </div>
+                  <button
+                    className="workout__rest-skip-big"
+                    onClick={() => { haptic.onTap(); setRestEndsAt(null) }}
+                    aria-label="跳过休息"
+                  >
+                    跳过休息，提前开练
+                  </button>
                 ) : (
                   <button
                     className={`workout__go ${doneCount >= curEx.targetSets && mode === 'planned' ? 'workout__go--extra' : ''}`}
@@ -360,7 +469,7 @@ export function WorkoutPage({ plan, tagNames, onSave, onExit }: WorkoutPageProps
         confirmText={totalDone > 0 ? '不保存退出' : '退出'}
         cancelText={totalDone > 0 ? '继续训练' : '再看看'}
         danger
-        onConfirm={() => { haptic.onSelect(); onExit() }}
+        onConfirm={discardAndExit}
         onCancel={() => setConfirmDiscard(false)}
       />
     </div>

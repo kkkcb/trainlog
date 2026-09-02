@@ -49,6 +49,11 @@ export default function App() {
   // 动作训练：排计划 / 开练
   const [planDate, setPlanDate] = useState<string | null>(null)
   const [workoutDate, setWorkoutDate] = useState<string | null>(null)
+  const [workoutDirty, setWorkoutDirty] = useState(false)
+  const workoutDirtyRef = useRef(false)
+  useEffect(() => {
+    workoutDirtyRef.current = workoutDirty
+  }, [workoutDirty])
   // 喂养信号：成功记录训练时 +1，驱动宠物庆祝动画
   const [feedSignal, setFeedSignal] = useState(0)
   // 首页底部标签：日历 / 训记
@@ -75,6 +80,12 @@ export default function App() {
 
   useEffect(() => {
     const handler = () => {
+      // 有未保存训练时拦下返回，交给 WorkoutPage 的丢弃确认
+      if (pageStackRef.current[pageStackRef.current.length - 1] === 'workout' && workoutDirtyRef.current) {
+        history.pushState(null, '')
+        window.dispatchEvent(new Event('workout:exit-request'))
+        return
+      }
       pageStackRef.current.pop()
       const prev = pageStackRef.current[pageStackRef.current.length - 1] ?? 'home'
       setCurrentPage(prev)
@@ -101,6 +112,11 @@ export default function App() {
         return
       }
       if (currentPage !== 'home') {
+        // 训练中有未保存内容：不后退，让 WorkoutPage 弹丢弃确认
+        if (currentPage === 'workout' && workoutDirty) {
+          window.dispatchEvent(new Event('workout:exit-request'))
+          return
+        }
         history.back()
         return
       }
@@ -109,7 +125,7 @@ export default function App() {
     return () => {
       listener.then((l) => l.remove()).catch(() => {})
     }
-  }, [quickAddDate, deleteTarget, currentPage])
+  }, [quickAddDate, deleteTarget, currentPage, workoutDirty])
 
   const monthPrefix = useMemo(
     () => `${calendar.year}-${String(calendar.month + 1).padStart(2, '0')}`,
@@ -509,8 +525,10 @@ export default function App() {
 
       {currentPage === 'workout' && workoutDate && (
         <WorkoutPage
+          date={workoutDate}
           plan={plans[workoutDate] ?? null}
           tagNames={tagDefinitions.map((d) => d.name)}
+          onDirtyChange={setWorkoutDirty}
           onSave={handleWorkoutSave}
           onExit={() => history.back()}
         />

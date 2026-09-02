@@ -1,4 +1,4 @@
-import { useRef, useCallback, memo } from 'react'
+import { useRef, useCallback, useEffect, memo } from 'react'
 import './CalendarDay.css'
 
 interface CalendarDayProps {
@@ -41,14 +41,31 @@ export const CalendarDay = memo(function CalendarDay({
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const longPressedRef = useRef(false)
+  const startYRef = useRef(0)
 
-  const handleTouchStart = useCallback(() => {
+  // 卸载时兜底清理，防止长按 timer 在格子消失后仍弹出浮层
+  useEffect(() => () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+  }, [])
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     longPressedRef.current = false
+    startYRef.current = e.touches[0]?.clientY ?? 0
     timerRef.current = setTimeout(() => {
       longPressedRef.current = true
       onLongPress?.(fullDate)
     }, 500)
   }, [fullDate, onLongPress])
+
+  // 手指滑动（滚动日历）即取消长按，避免滚动途中误弹打卡
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!timerRef.current) return
+    const y = e.touches[0]?.clientY ?? 0
+    if (Math.abs(y - startYRef.current) > 10) {
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
+  }, [])
 
   const handleTouchEnd = useCallback(() => {
     if (timerRef.current) {
@@ -70,6 +87,7 @@ export const CalendarDay = memo(function CalendarDay({
       className={className}
       onClick={handleClick}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchEnd}
       onContextMenu={(e) => { e.preventDefault(); onLongPress?.(fullDate) }}

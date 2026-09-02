@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import { WorkoutPage } from '../pages/WorkoutPage'
+import { ToastProvider } from '../components/Toast'
 import type { WorkoutPlan } from '../types'
 
 vi.mock('../hooks/useHapticFeedback', () => ({
@@ -25,20 +26,23 @@ const PLAN: WorkoutPlan = {
 
 beforeEach(() => {
   window.HTMLElement.prototype.scrollTo = () => {}
+  localStorage.clear()
 })
 
 afterEach(cleanup)
 
 function renderWorkout(onSave = vi.fn(), onExit = vi.fn()) {
   return render(
-    <WorkoutPage plan={PLAN} tagNames={['推', '拉']} onSave={onSave} onExit={onExit} />
+    <ToastProvider>
+      <WorkoutPage date={PLAN.date} plan={PLAN} tagNames={['推', '拉']} onSave={onSave} onExit={onExit} />
+    </ToastProvider>
   )
 }
 
 const completeSet = () => {
   fireEvent.click(screen.getByText('✓ 完成这一组'))
   // 完成一组后自动进入组间休息，跳过才能继续
-  fireEvent.click(screen.getByText('跳过'))
+  fireEvent.click(screen.getByText(/跳过休息/))
 }
 
 describe('WorkoutPage 动作训练', () => {
@@ -104,5 +108,27 @@ describe('WorkoutPage 动作训练', () => {
     fireEvent.click(screen.getByText('结束'))
     fireEvent.click(screen.getByText('退出'))
     expect(onExit).toHaveBeenCalledTimes(1)
+  })
+
+  it('会话持久化：完成组后存档，重进无缝续练并提示', () => {
+    const { unmount } = renderWorkout()
+    completeSet()
+    expect(localStorage.getItem('trainlog_workout_session')).toBeTruthy()
+    unmount()
+
+    // 重进：恢复到第 2 组，而不是全新的第 1 组
+    renderWorkout()
+    expect(screen.getByText('第 2')).toBeTruthy()
+    expect(screen.getByText(/已恢复上次没练完的训练/)).toBeTruthy()
+  })
+
+  it('保存记录后清除会话存档，不会重复恢复', () => {
+    const onSave = vi.fn()
+    const { unmount } = renderWorkout(onSave)
+    completeSet()
+    fireEvent.click(screen.getByText('结束'))
+    fireEvent.click(screen.getByText('保存记录'))
+    unmount()
+    expect(localStorage.getItem('trainlog_workout_session')).toBeNull()
   })
 })

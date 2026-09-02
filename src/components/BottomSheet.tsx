@@ -57,12 +57,25 @@ export function BottomSheet({
           <p className="bottom-sheet__title">{title}</p>
         </div>
         <div className="bottom-sheet__actions">
-          <button className="bottom-sheet__btn bottom-sheet__btn--confirm" onClick={onConfirm}>
-            {confirmText}
-          </button>
-          <button className="bottom-sheet__btn bottom-sheet__btn--cancel" onClick={onCancel}>
-            {cancelText}
-          </button>
+          {danger ? (
+            <>
+              <button className="bottom-sheet__btn bottom-sheet__btn--cancel" onClick={onCancel}>
+                {cancelText}
+              </button>
+              <button className="bottom-sheet__btn bottom-sheet__btn--confirm" onClick={onConfirm}>
+                {confirmText}
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="bottom-sheet__btn bottom-sheet__btn--confirm" onClick={onConfirm}>
+                {confirmText}
+              </button>
+              <button className="bottom-sheet__btn bottom-sheet__btn--cancel" onClick={onCancel}>
+                {cancelText}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -99,7 +99,7 @@ export function TagSettingsPage({
         <button className="tag-settings__back" onClick={onBack} aria-label="返回">
           <Icon name="arrowLeft" size={20} />
         </button>
-        <span className="tag-settings__title">标签管理</span>
+        <span className="tag-settings__title">设置</span>
         <span className="tag-settings__spacer" />
       </div>
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { TagDefinition } from '../types'
 import { Icon } from './icons'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
+import { formatDateParts } from '../utils/date'
 import './QuickAddSheet.css'
 
 interface QuickAddSheetProps {
@@ -17,6 +18,8 @@ export function QuickAddSheet({ isOpen, date, tagDefinitions, onAdd, onClose }: 
   const haptic = useHapticFeedback()
 
   if (!isOpen) return null
+
+  const { main: dateMain, week: dateWeek } = formatDateParts(date)
 
   const toggleTag = (tag: string) => {
     haptic.onTap()
@@ -47,7 +50,7 @@ export function QuickAddSheet({ isOpen, date, tagDefinitions, onAdd, onClose }: 
           <span className="quick-add-sheet__title">快速添加</span>
           <span className="quick-add-sheet__date">
             <Icon name="calendar" size={13} />
-            {date}
+            {dateMain} {dateWeek}
           </span>
         </div>
         <div className="quick-add-sheet__tags">

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { TrainingRecord, TrainingTag, TagMetrics, TagDefinition, MetricType } from '../types'
 import { METRIC_LABELS } from '../types'
+import { formatDateParts } from '../utils/date'
 import { Icon } from '../components/icons'
 import './TrainingFormPage.css'
 
@@ -19,6 +20,7 @@ export function TrainingFormPage({
   onSave,
   onBack,
 }: TrainingFormPageProps) {
+  const { main: dateMain, week: dateWeek } = formatDateParts(date)
   const [tags, setTags] = useState<TrainingTag[]>(() => {
     if (!existingRecord) return []
     const validNames = new Set(tagDefinitions.map((d) => d.name))
@@ -95,7 +97,7 @@ export function TrainingFormPage({
       <div className="form-page__body">
         <div className="form-page__date">
           <Icon name="calendar" size={15} />
-          <span>{date}</span>
+          <span>{dateMain} {dateWeek}</span>
         </div>
 
         <div className="form-field">

@@ -54,7 +54,7 @@ export function DiaryPage() {
     setEditingId(entry.id)
     setText(entry.text)
     setTag(entry.tag)
-    window.scrollTo?.(0, 0)
+    document.querySelector(".app__main")?.scrollTo({ top: 0 })
   }
 
   const cancelEdit = () => {
