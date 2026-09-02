@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react'
-import type { TrainingRecord, TrainingTag, SessionExercise } from './types'
+import type { TrainingRecord, TrainingTag, SessionExercise, PlanExercise, WorkoutPlan } from './types'
 import { useTrainingStore } from './hooks/useTrainingStore'
 import { useCalendar } from './hooks/useCalendar'
 import { useTagSettings } from './hooks/useTagSettings'
@@ -48,7 +48,9 @@ export default function App() {
   const [quickAddDate, setQuickAddDate] = useState<string | null>(null)
   // 动作训练：排计划 / 开练
   const [planDate, setPlanDate] = useState<string | null>(null)
+  const [planDraft, setPlanDraft] = useState<PlanExercise[] | null>(null)
   const [workoutDate, setWorkoutDate] = useState<string | null>(null)
+  const [workoutPlanOverride, setWorkoutPlanOverride] = useState<WorkoutPlan | null>(null)
   const [workoutDirty, setWorkoutDirty] = useState(false)
   const workoutDirtyRef = useRef(false)
   useEffect(() => {
@@ -92,7 +94,9 @@ export default function App() {
       setEditingRecord(undefined)
       setQuickAddDate(null)
       setPlanDate(null)
+      setPlanDraft(null)
       setWorkoutDate(null)
+      setWorkoutPlanOverride(null)
     }
     window.addEventListener('popstate', handler)
     return () => window.removeEventListener('popstate', handler)
@@ -265,12 +269,14 @@ export default function App() {
   )
   const planForDay = plans[selectedDate]
 
-  const openPlanEditor = (date: string) => {
+  const openPlanEditor = (date: string, draft?: PlanExercise[]) => {
+    setPlanDraft(draft ?? null)
     setPlanDate(date)
     pushPage('plan')
   }
 
-  const startWorkout = (date: string) => {
+  const startWorkout = (date: string, plan?: WorkoutPlan) => {
+    setWorkoutPlanOverride(plan ?? null)
     setWorkoutDate(date)
     pushPage('workout')
   }
@@ -430,6 +436,7 @@ export default function App() {
                 plans={plans}
                 onStartWorkout={startWorkout}
                 onEditPlan={openPlanEditor}
+                onImportPlan={(exs) => openPlanEditor(getTodayString(), exs)}
               />
             ) : (
               <DiaryPage />
@@ -484,11 +491,12 @@ export default function App() {
         <PlanEditorPage
           key={planDate}
           date={planDate}
-          initial={plans[planDate]?.exercises ?? []}
+          initial={planDraft ?? plans[planDate]?.exercises ?? []}
           hasExisting={!!plans[planDate]}
           onDateChange={setPlanDate}
           onSave={(exs) => {
             savePlan(planDate, exs)
+            setPlanDraft(null)
             toast.show('计划已保存', 'success')
             history.back()
           }}
@@ -504,7 +512,7 @@ export default function App() {
       {currentPage === 'workout' && workoutDate && (
         <WorkoutPage
           date={workoutDate}
-          plan={plans[workoutDate] ?? null}
+          plan={workoutPlanOverride ?? plans[workoutDate] ?? null}
           tagNames={tagDefinitions.map((d) => d.name)}
           onDirtyChange={setWorkoutDirty}
           onSave={handleWorkoutSave}

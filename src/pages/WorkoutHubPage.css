@@ -111,3 +111,112 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* 计划选择器（点击开始训练后展开） */
+.workout-hub__chooser {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  animation: chooser-in var(--duration-normal) var(--ease-out-expo) both;
+}
+
+@keyframes chooser-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.workout-hub__chooser-label {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.12em;
+  padding: var(--space-xs) 2px 0;
+}
+
+.workout-hub__option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  text-align: left;
+  transition: transform var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__option:active {
+  transform: scale(0.98);
+  background: var(--color-bg-elevated);
+}
+
+.workout-hub__option--import {
+  background: transparent;
+  border: 1px dashed rgba(255, 133, 82, 0.4);
+}
+
+.workout-hub__option-label {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+}
+
+.workout-hub__option-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workout-hub__chooser-cancel {
+  padding: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* 导入粘贴区 */
+.workout-hub__import {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+}
+
+.workout-hub__import textarea {
+  width: 100%;
+  resize: vertical;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+.workout-hub__import textarea::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.workout-hub__import-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+}
+
+.workout-hub__import-go {
+  align-self: flex-end;
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
+}
+
+.workout-hub__import-go:disabled {
+  opacity: 0.4;
+}
