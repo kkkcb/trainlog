@@ -1,18 +1,26 @@
 import { BODY_MODEL, BODY_BASE_COLORS } from '../data/bodyModel'
-import type { ExerciseGroup } from '../data/exerciseGroups'
+import { MUSCLE_BLOCKS, type ExerciseGroup } from '../data/exerciseGroups'
 import './BodyDiagram.css'
 
 type GroupId =
   | 'chest' | 'back' | 'shoulders' | 'arms'
   | 'legs' | 'glutes' | 'core' | 'cardio'
 
+/** 图解模式：入门=按肌肉群高亮/点击，专业=按肌肉块高亮/点击 */
+export type DiagramMode = 'beginner' | 'pro'
+
 interface BodyDiagramProps {
   side: 'front' | 'back'
-  active: GroupId | 'all'
-  onToggle: (group: ExerciseGroup) => void
+  mode: DiagramMode
+  /** 当前选中的肌肉群（入门模式生效） */
+  activeGroup: GroupId | 'all'
+  /** 当前选中的肌肉块 slug（专业模式生效） */
+  activeBlock: string | 'all'
+  onPickGroup: (group: ExerciseGroup) => void
+  onPickBlock: (blockId: string) => void
 }
 
-/** 模型里的肌肉 slug → 8 大部位分组 */
+/** 模型肌肉 slug → 肌肉群 */
 const SLUG_GROUP: Record<string, ExerciseGroup> = {
   chest: 'chest',
   abs: 'core',
@@ -34,12 +42,21 @@ const SLUG_GROUP: Record<string, ExerciseGroup> = {
   gluteal: 'glutes',
 }
 
+const BLOCK_IDS = new Set(MUSCLE_BLOCKS.map((b) => b.id))
+
 /** 暗色主题下的肌肉基底色（原 #3f3f3f 在深色底上太闷） */
 const BASE_OVERRIDE = '#4d525a'
 const ACCENT = 'var(--color-accent)'
 
-/** 小白入门：点肌肉图上的部位，筛出练那里的动作。模型来自 react-native-body-highlighter (MIT) */
-export function BodyDiagram({ side, active, onToggle }: BodyDiagramProps) {
+/** 小白入门：点肌肉图上的部位筛选动作。模型来自 react-native-body-highlighter (MIT) */
+export function BodyDiagram({
+  side,
+  mode,
+  activeGroup,
+  activeBlock,
+  onPickGroup,
+  onPickBlock,
+}: BodyDiagramProps) {
   const model = BODY_MODEL[side]
 
   return (
@@ -51,7 +68,10 @@ export function BodyDiagram({ side, active, onToggle }: BodyDiagramProps) {
     >
       {model.parts.map((part, i) => {
         const group = SLUG_GROUP[part.slug]
-        const activeOn = group != null && active === group
+        const on =
+          mode === 'pro'
+            ? activeBlock === part.slug
+            : activeGroup !== 'all' && activeGroup === group
         const base = BODY_BASE_COLORS[part.slug] === '#3f3f3f' ? BASE_OVERRIDE : BODY_BASE_COLORS[part.slug]
         return (
           <g key={`${part.slug}-${i}`}>
@@ -59,9 +79,13 @@ export function BodyDiagram({ side, active, onToggle }: BodyDiagramProps) {
               <path
                 key={j}
                 d={d}
-                fill={activeOn ? ACCENT : base}
-                onClick={() => group && onToggle(group)}
-                className={`body-diagram__muscle ${group ? 'body-diagram__muscle--clickable' : ''} ${activeOn ? 'body-diagram__muscle--on' : ''}`}
+                fill={on ? ACCENT : base}
+                onClick={() => {
+                  if (!group) return
+                  if (mode === 'pro' && BLOCK_IDS.has(part.slug)) onPickBlock(part.slug)
+                  else onPickGroup(group)
+                }}
+                className={`body-diagram__muscle ${group ? 'body-diagram__muscle--clickable' : ''} ${on ? 'body-diagram__muscle--on' : ''}`}
                 aria-label={group ? part.slug : undefined}
               />
             ))}

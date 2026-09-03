@@ -197,3 +197,28 @@
   font-size: var(--font-size-sm);
   padding: var(--space-2xl) 0;
 }
+
+/* 版本切换：入门/专业 */
+.exlib__mode {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.exlib__mode-btn {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.exlib__mode-btn--on {
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
+}
