@@ -1,37 +1,20 @@
 .body-diagram {
-  width: 96px;
-  height: 176px;
+  width: 110px;
+  height: 220px;
   display: block;
 }
 
-.body-diagram__base {
-  fill: var(--color-bg-elevated);
-  stroke: var(--color-border);
-  stroke-width: 1.5;
-}
-
-.body-diagram__part {
+.body-diagram__muscle--clickable {
   cursor: pointer;
 }
 
-.body-diagram__region {
-  fill: var(--color-bg-tertiary);
-  opacity: 0.75;
-  transition: fill var(--duration-fast) var(--ease-out-expo);
-}
-
-.body-diagram__part:hover .body-diagram__region {
-  fill: var(--color-accent-dim);
-}
-
-.body-diagram__region--on {
-  fill: var(--color-accent);
-  opacity: 0.9;
+.body-diagram__muscle--on {
+  filter: drop-shadow(0 0 6px rgba(255, 133, 82, 0.55));
 }
 
 .body-diagram__label {
-  font-size: 11px;
+  font-size: 40px;
   font-weight: var(--font-weight-bold);
-  fill: var(--color-text-inverse);
+  fill: var(--color-text-primary);
   pointer-events: none;
 }
