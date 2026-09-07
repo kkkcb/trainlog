@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "check": "tsc -b && eslint . --max-warnings 0",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:library": "node scripts/build-exercise-library.mjs && node scripts/align-exercise-frames.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.0",
