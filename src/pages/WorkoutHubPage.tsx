@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { PlanExercise, WorkoutPlan } from '../types'
+import { COMMON_EXERCISES } from '../types'
 import type { PlanMap } from '../utils/workoutStore'
 import { parsePlanText } from '../utils/planImport'
 import { getTodayString } from '../utils/date'
@@ -47,6 +48,8 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
   const [importing, setImporting] = useState(false)
   const [importText, setImportText] = useState('')
   const [importError, setImportError] = useState<string | null>(null)
+  // 自由训练：预选的动作集
+  const [picked, setPicked] = useState<Set<string>>(new Set())
 
   const handleImport = () => {
     const { exercises } = parsePlanText(importText)
@@ -83,16 +86,45 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
 
       {choosing && (
         <div className="workout-hub__chooser">
-          <button
-            className="workout-hub__option"
-            onClick={() => {
-              haptic.onTap()
-              onStartWorkout(today)
-            }}
-          >
-            <span className="workout-hub__option-label">自由训练</span>
-            <span className="workout-hub__option-desc">不按计划，边练边记</span>
-          </button>
+          {/* 自由训练：先选动作（可多选），再点开始 */}
+          <div className="workout-hub__pick">
+            <p className="workout-hub__chooser-label">自由训练 · 勾选今天要练的动作</p>
+            <div className="workout-hub__pick-grid">
+              {COMMON_EXERCISES.map((name) => (
+                <button
+                  key={name}
+                  className={`workout-hub__pick-chip ${picked.has(name) ? 'workout-hub__pick-chip--on' : ''}`}
+                  onClick={() => {
+                    haptic.onTap()
+                    setPicked((prev) => {
+                      const next = new Set(prev)
+                      if (next.has(name)) next.delete(name)
+                      else next.add(name)
+                      return next
+                    })
+                  }}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+            <button
+              className={`workout-hub__pick-go ${picked.size > 0 ? 'workout-hub__pick-go--on' : ''}`}
+              disabled={picked.size === 0}
+              onClick={() => {
+                haptic.onSuccess()
+                onStartWorkout(today, {
+                  id: '__adhoc__',
+                  date: today,
+                  createdAt: Date.now(),
+                  updatedAt: Date.now(),
+                  exercises: [...picked].map((name) => ({ name, sets: 3, reps: '8-12', weight: 20 })),
+                })
+              }}
+            >
+              开始训练{picked.size > 0 ? ` · 已选 ${picked.size} 个动作` : ''}
+            </button>
+          </div>
 
           {sortedPlans.length > 0 && (
             <>

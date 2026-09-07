@@ -75,14 +75,15 @@ describe('WorkoutPage 动作训练', () => {
   })
 
   it('完成组撤销走两段确认', () => {
-    renderWorkout()
+    const { container } = renderWorkout()
+    const logVals = () => [...container.querySelectorAll('.workout__log-val')].map(v => v.textContent)
     completeSet()
-    expect(screen.getByText(/40kg×10/)).toBeTruthy()
+    expect(logVals()).toEqual(['40kg×10 ✓'])
     // 点「调整」→「撤销」→「再点一次确认撤销」
     fireEvent.click(screen.getByText('调整'))
     fireEvent.click(screen.getByText('撤销'))
     fireEvent.click(screen.getByText('再点一次确认撤销'))
-    expect(screen.queryByText(/40kg×10/)).toBeNull()
+    expect(logVals()).toEqual([])
     expect(screen.getByText('第 1')).toBeTruthy()
   })
 
@@ -103,10 +104,24 @@ describe('WorkoutPage 动作训练', () => {
   })
 
   it('重量滑条可调', () => {
-    renderWorkout()
+    const { container } = renderWorkout()
     const slider = screen.getByLabelText('重量滑块') as HTMLInputElement
     fireEvent.change(slider, { target: { value: '60' } })
-    expect(screen.getByText('60')).toBeTruthy()
+    expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('60')
+  })
+
+  it('杠铃换算：卧推显示空杆/单边选择，总重联动', () => {
+    const { container } = renderWorkout()
+    // 卧推在杠铃名单里 → 出现换算区
+    expect(container.querySelector('.workout__barbell')).toBeTruthy()
+    // 空杆20+单边10 → 总重 40(计划预设)
+    const sum = container.querySelector('.workout__barbell-sum')?.textContent ?? ''
+    expect(sum).toContain('＝')
+    // 点单边 +15 → 总重变 50
+    const chips = [...container.querySelectorAll('.workout__barbell-chip')]
+    const plus15 = chips.find(c => c.textContent === '+15')
+    fireEvent.click(plus15!)
+    expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('50')
   })
 
   it('没做满预设也能「结束此动作」切下一个，已练组保留', () => {

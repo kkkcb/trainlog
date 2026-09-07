@@ -261,3 +261,52 @@
   color: var(--color-text-tertiary);
   flex-shrink: 0;
 }
+
+/* 自由训练选动作 */
+.workout-hub__pick {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.workout-hub__pick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.workout-hub__pick-chip {
+  padding: 9px 15px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid transparent;
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__pick-chip--on {
+  color: var(--color-accent);
+  border-color: rgba(255, 133, 82, 0.4);
+  background: var(--color-accent-surface);
+}
+
+.workout-hub__pick-go {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-tertiary);
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout-hub__pick-go--on {
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
+}
+
+.workout-hub__pick-go:disabled {
+  opacity: 0.5;
+}

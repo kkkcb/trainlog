@@ -21,6 +21,26 @@ interface WorkoutPageProps {
 
 const SESSION_KEY = 'trainlog_workout_session'
 
+/** 常见空杆重量 kg：奥杆 20 / 小孔曲杆 15 / W 杆 10-11 / 技术杆 5-8；0=无杆(纯器械数字) */
+const BAR_WEIGHTS = [0, 5, 10, 15, 20]
+
+/** 杠铃动作名单（按素材库 slug 判定，训练页用中文名匹配） */
+const BARBELL_NAMES = new Set([
+  '卧推', '上斜卧推', '窄距卧推', '下斜卧推', '深蹲', '颈前深蹲', '哈克深蹲',
+  '硬拉', '罗马尼亚硬拉', '相扑硬拉', '杠铃划船', '站姿推举', '借力推举',
+  '曲杆弯举', '仰卧臂屈伸', '臀推', '杠铃耸肩', '直立划船', '高脚杯深蹲',
+])
+
+function isBarbellExercise(name: string): boolean {
+  return BARBELL_NAMES.has(name)
+}
+
+/** 从总重和空杆重推单边片重（除不尽时向下取到 2.5 的倍数） */
+function totalToPerSide(total: number, bar: number): number {
+  const per = (total - bar) / 2
+  return Math.max(0, Math.floor(per / 2.5) * 2.5)
+}
+
 interface SavedSession {
   date: string
   mode: WorkoutMode
@@ -111,6 +131,9 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   // 已完成组调整：展开的行 / 两段确认撤销中的行
   const [armedIdx, setArmedIdx] = useState<number | null>(null)
   const [confirmIdx, setConfirmIdx] = useState<number | null>(null)
+  // 杠铃换算：空杆重量 + 单边片重（跟随当前动作/重量联动）
+  const [barWeight, setBarWeight] = useState(20)
+  const [perSide, setPerSide] = useState(() => totalToPerSide(saved?.weight ?? plan?.exercises[0]?.weight ?? 20, 20))
   // 动作图解（模式2）：默认关，训练中即点即切
   const [illustrations, setIllustrations] = useState(false)
   useEffect(() => {
@@ -132,6 +155,24 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   }, [])
 
   const curEx = exs[cur]
+  const isBarbell = curEx ? isBarbellExercise(curEx.name) : false
+
+  /** 杠铃换算：改空杆或单边片 → 总重联动；驱动 weight */
+  const applyBarWeight = (bar: number, side: number) => {
+    setBarWeight(bar)
+    setPerSide(side)
+    setWeight(bar + side * 2)
+  }
+
+  // 总重被步进器/滑条改了 → 单边片重反向联动（只在杠铃动作时）
+  useEffect(() => {
+    if (!isBarbell) return
+    const expected = barWeight + perSide * 2
+    if (weight !== expected) {
+      setPerSide(totalToPerSide(weight, barWeight))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 仅在总重变化时反向联动
+  }, [weight, isBarbell])
   const doneCount = curEx?.sets.length ?? 0
   const totalDone = useMemo(() => exs.reduce((n, e) => n + e.sets.length, 0), [exs])
   const elapsedSec = Math.max(0, Math.floor((now - startedAt) / 1000))
@@ -366,6 +407,11 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
 
           {curEx ? (
             <>
+              {/* 正在训练的状态说明：当前动作 · 这组参数 */}
+              <p className="workout__doing">
+                正在完成 · <b>{curEx.name}</b>
+                {resting ? ' · 组间休息中' : ` · 第 ${doneCount + 1} 组 ${weight === 0 ? '徒手' : `${weight}kg`}×${reps}`}
+              </p>
               <div className="workout__stage">
                 {illustrations && <ExerciseIllustration name={curEx.name} size={150} />}
                 <h2 className="workout__ex-name">{curEx.name}</h2>
@@ -406,6 +452,42 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                       onChange={(e) => setWeight(Number(e.target.value))}
                       aria-label="重量滑块"
                     />
+                    {/* 杠铃动作：空杆重量 + 单边片重↔总重换算 */}
+                    {isBarbell && (
+                      <div className="workout__barbell">
+                        <div className="workout__barbell-row">
+                          <span className="workout__barbell-label">空杆</span>
+                          <div className="workout__barbell-opts">
+                            {BAR_WEIGHTS.map((b) => (
+                              <button
+                                key={b}
+                                className={`workout__barbell-chip ${barWeight === b ? 'workout__barbell-chip--on' : ''}`}
+                                onClick={() => { haptic.onTap(); applyBarWeight(b, perSide) }}
+                              >
+                                {b === 0 ? '无' : `${b}`}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="workout__barbell-row">
+                          <span className="workout__barbell-label">单边</span>
+                          <div className="workout__barbell-opts">
+                            {[0, 5, 10, 15, 20, 25].map((p) => (
+                              <button
+                                key={p}
+                                className={`workout__barbell-chip ${perSide === p ? 'workout__barbell-chip--on' : ''}`}
+                                onClick={() => { haptic.onTap(); applyBarWeight(barWeight, p) }}
+                              >
+                                {p === 0 ? '空杆' : `+${p}`}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <p className="workout__barbell-sum">
+                          单边 {perSide}kg×2 + 杆 {barWeight}kg ＝ <b>{barWeight + perSide * 2}</b>kg 总重
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <div className="workout__param">
                     <span className="workout__param-label">次数</span>
