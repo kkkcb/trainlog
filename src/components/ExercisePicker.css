@@ -1,18 +1,71 @@
-.ex-picker {
+/* 动作选择器 v2：左侧分类侧边栏 + 搜索列表 */
+.ex-picker2 {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: var(--space-sm);
+  width: 100%;
+  min-height: 320px;
+  max-height: 460px;
+}
+
+/* 侧边栏 */
+.ex-picker2__side {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  width: 100%;
+  gap: 2px;
+  overflow-y: auto;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  padding: var(--space-xs);
+  scrollbar-width: none;
 }
 
-.ex-picker__custom {
+.ex-picker2__side::-webkit-scrollbar {
+  display: none;
+}
+
+.ex-picker2__side-sec {
   display: flex;
-  gap: var(--space-sm);
+  flex-direction: column;
+  gap: 2px;
 }
 
-.ex-picker__custom input {
-  flex: 1;
+.ex-picker2__side-title {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.12em;
+  padding: var(--space-sm) 4px 2px;
+}
+
+.ex-picker2__side-item {
+  padding: 8px 6px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-align: center;
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.ex-picker2__side-item:active {
+  background: var(--color-bg-tertiary);
+}
+
+.ex-picker2__side-item--on {
+  color: var(--color-accent);
+  background: var(--color-accent-surface);
+}
+
+/* 右侧主区 */
+.ex-picker2__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   min-width: 0;
+}
+
+.ex-picker2__search {
+  width: 100%;
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
   background: var(--color-bg-primary);
@@ -20,142 +73,129 @@
   font-size: var(--font-size-sm);
 }
 
-.ex-picker__custom input::placeholder {
+.ex-picker2__search::placeholder {
   color: var(--color-text-tertiary);
 }
 
-.ex-picker__add {
+.ex-picker2__custom {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.ex-picker2__custom input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xs);
+}
+
+.ex-picker2__custom input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.ex-picker2__custom button {
   flex-shrink: 0;
   padding: 0 var(--space-md);
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-inverse);
   background: var(--gradient-accent);
 }
 
-.ex-picker__add:disabled {
+.ex-picker2__custom button:disabled {
   opacity: 0.4;
 }
 
-.ex-picker__section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.ex-picker__label {
-  font-size: var(--font-size-2xs);
-  color: var(--color-text-tertiary);
-  letter-spacing: 0.1em;
-}
-
-.ex-picker__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
-.ex-picker__chip {
-  padding: 9px 15px;
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
-  background: var(--color-bg-tertiary);
-  border: 1px solid transparent;
-}
-
-.ex-picker__chip--on {
-  color: var(--color-accent);
-  border-color: rgba(255, 133, 82, 0.4);
-  background: var(--color-accent-surface);
-}
-
-.ex-picker__lib-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  padding: 2px 0;
-}
-
-.ex-picker__arrow {
-  font-style: normal;
-  color: var(--color-text-tertiary);
-  transition: transform var(--duration-fast) var(--ease-out-expo);
-}
-
-.ex-picker__arrow--open {
-  transform: rotate(90deg);
-}
-
-.ex-picker__search {
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-}
-
-.ex-picker__search::placeholder {
-  color: var(--color-text-tertiary);
-}
-
-.ex-picker__list {
+/* 结果列表 */
+.ex-picker2__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  max-height: 240px;
-  overflow-y: auto;
   border-radius: var(--radius-md);
   background: var(--color-bg-primary);
   padding: var(--space-xs);
 }
 
-.ex-picker__row {
+.ex-picker2__row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--space-sm);
   width: 100%;
-  padding: 10px var(--space-sm);
+  padding: 6px var(--space-sm);
   border-radius: var(--radius-sm);
   text-align: left;
 }
 
-.ex-picker__row:active {
+.ex-picker2__row:active {
   background: var(--color-bg-tertiary);
 }
 
-.ex-picker__row--on {
+.ex-picker2__row--on {
   background: var(--color-accent-surface);
 }
 
-.ex-picker__row-name {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+.ex-picker2__thumb {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  overflow: hidden;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  justify-content: center;
 }
 
-.ex-picker__row-name i {
+.ex-picker2__custom-mark {
   font-style: normal;
-  font-size: var(--font-size-2xs);
+  font-size: var(--font-size-md);
   color: var(--color-text-tertiary);
 }
 
-.ex-picker__row-check {
-  font-size: var(--font-size-sm);
-  color: var(--color-accent);
-  min-width: 16px;
-  text-align: right;
+.ex-picker2__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
-.ex-picker__empty {
+.ex-picker2__info b {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ex-picker2__info span {
+  font-size: 10.5px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ex-picker2__check {
+  font-style: normal;
+  flex-shrink: 0;
+  min-width: 16px;
+  text-align: right;
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.ex-picker2__empty {
   text-align: center;
   font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
-  padding: var(--space-lg) 0;
+  padding: var(--space-xl) 0;
 }

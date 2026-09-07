@@ -182,7 +182,7 @@ export function ExerciseLibraryPage({ onBack }: ExerciseLibraryPageProps) {
                   }}
                 >
                   <span className="exlib__item-thumb">
-                    <ExerciseIllustration name={e.zh} size={56} />
+                    <ExerciseIllustration name={e.zh} size={56} animate={false} />
                   </span>
                   <span className="exlib__item-info">
                     <b>{e.zh}</b>

@@ -36,10 +36,12 @@ interface ExerciseIllustrationProps {
   name: string
   /** 显示宽度 px，默认 160 */
   size?: number
+  /** 静态首帧（列表缩略图用，不跑动画） */
+  animate?: boolean
 }
 
 /** 动作图解：3 帧轮播动画（尊重系统减弱动效设置，静态显示第 1 帧） */
-export function ExerciseIllustration({ name, size = 160 }: ExerciseIllustrationProps) {
+export function ExerciseIllustration({ name, size = 160, animate = true }: ExerciseIllustrationProps) {
   const framesList = framesByName(name)
   const [frameIdx, setFrameIdx] = useState(0)
   const [reduced, setReduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -52,10 +54,10 @@ export function ExerciseIllustration({ name, size = 160 }: ExerciseIllustrationP
   }, [])
 
   useEffect(() => {
-    if (!framesList || framesList.length < 2 || reduced) return
+    if (!animate || !framesList || framesList.length < 2 || reduced) return
     const t = setInterval(() => setFrameIdx((i) => (i + 1) % framesList.length), 600)
     return () => clearInterval(t)
-  }, [framesList, reduced])
+  }, [framesList, reduced, animate])
 
   if (!framesList) return null
   const src = framesList[Math.min(frameIdx, framesList.length - 1)]
@@ -67,7 +69,7 @@ export function ExerciseIllustration({ name, size = 160 }: ExerciseIllustrationP
       aria-label={`${name} 动作图解`}
       role="img"
     >
-      <img src={src} alt="" draggable={false} />
+      <img src={src} alt="" draggable={false} loading="lazy" />
     </div>
   )
 }
