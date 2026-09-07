@@ -11,7 +11,8 @@
     "check": "tsc -b && eslint . --max-warnings 0",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build:library": "node scripts/build-exercise-library.mjs && node scripts/align-exercise-frames.mjs"
+    "build:library": "node scripts/build-exercise-library.mjs && node scripts/align-exercise-frames.mjs",
+    "ship": "node scripts/ship.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.0",
