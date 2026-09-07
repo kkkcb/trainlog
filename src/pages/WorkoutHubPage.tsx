@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import type { PlanExercise, WorkoutPlan } from '../types'
-import { COMMON_EXERCISES } from '../types'
 import type { PlanMap } from '../utils/workoutStore'
+import { ExercisePicker } from '../components/ExercisePicker'
+import { findExerciseByName } from '../data/exerciseLibrary'
 import { parsePlanText } from '../utils/planImport'
 import { getTodayString } from '../utils/date'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
@@ -17,6 +18,12 @@ interface WorkoutHubPageProps {
   onImportPlan: (exercises: PlanExercise[]) => void
   /** 打开动作库 */
   onOpenLibrary: () => void
+}
+
+const BARBELL_DEFAULTS: Record<string, number> = {
+  '卧推': 40, '上斜卧推': 30, '窄距卧推': 40, '深蹲': 60, '硬拉': 80,
+  '罗马尼亚硬拉': 60, '相扑硬拉': 80, '杠铃划船': 50, '站姿推举': 35,
+  '借力推举': 40, '臀推': 80, '杠铃耸肩': 60,
 }
 
 const WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
@@ -86,28 +93,21 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
 
       {choosing && (
         <div className="workout-hub__chooser">
-          {/* 自由训练：先选动作（可多选），再点开始 */}
+          {/* 自由训练：自定义 + 库内选动作（可多选），再点开始 */}
           <div className="workout-hub__pick">
             <p className="workout-hub__chooser-label">自由训练 · 勾选今天要练的动作</p>
-            <div className="workout-hub__pick-grid">
-              {COMMON_EXERCISES.map((name) => (
-                <button
-                  key={name}
-                  className={`workout-hub__pick-chip ${picked.has(name) ? 'workout-hub__pick-chip--on' : ''}`}
-                  onClick={() => {
-                    haptic.onTap()
-                    setPicked((prev) => {
-                      const next = new Set(prev)
-                      if (next.has(name)) next.delete(name)
-                      else next.add(name)
-                      return next
-                    })
-                  }}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
+            <ExercisePicker
+              picked={picked}
+              onToggle={(name) => {
+                haptic.onTap()
+                setPicked((prev) => {
+                  const next = new Set(prev)
+                  if (next.has(name)) next.delete(name)
+                  else next.add(name)
+                  return next
+                })
+              }}
+            />
             <button
               className={`workout-hub__pick-go ${picked.size > 0 ? 'workout-hub__pick-go--on' : ''}`}
               disabled={picked.size === 0}
@@ -118,7 +118,16 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
                   date: today,
                   createdAt: Date.now(),
                   updatedAt: Date.now(),
-                  exercises: [...picked].map((name) => ({ name, sets: 3, reps: '8-12', weight: 20 })),
+                  exercises: [...picked].map((name) => {
+                    // 与动作库匹配的动作带上默认参数，自定义动作给通用默认
+                    const lib = findExerciseByName(name)
+                    return {
+                      name,
+                      sets: 3,
+                      reps: '8-12',
+                      weight: lib && BARBELL_DEFAULTS[name] ? BARBELL_DEFAULTS[name] : 20,
+                    }
+                  }),
                 })
               }}
             >

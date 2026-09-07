@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import type { PlanExercise } from '../types'
-import { COMMON_EXERCISES } from '../types'
 import { Icon } from '../components/icons'
 import { makeExercise } from '../utils/workoutStore'
+import { ExercisePicker } from '../components/ExercisePicker'
+import { encodePlan, decodePlan } from '../utils/planShareCode'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import './PlanEditorPage.css'
 
@@ -24,6 +25,9 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
     initial.length > 0 ? initial.map((e) => ({ ...e })) : [makeExercise({ name: '' })]
   )
   const [pickFor, setPickFor] = useState<number | null>(null)
+  const [shareCode, setShareCode] = useState<string | null>(null)
+  const [pasteCode, setPasteCode] = useState('')
+  const [pasteError, setPasteError] = useState<string | null>(null)
 
   const patch = (idx: number, part: Partial<PlanExercise>) => {
     setExercises((prev) => prev.map((e, i) => (i === idx ? { ...e, ...part } : e)))
@@ -80,6 +84,21 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
           </button>
         )}
         <button
+          className="plan-page__share"
+          onClick={() => {
+            haptic.onTap()
+            if (shareCode) { setShareCode(null); return }
+            const valid = exercises.filter((e) => e.name.trim())
+            if (valid.length === 0) return
+            const code = encodePlan(valid.map((e) => ({ ...e, name: e.name.trim() })))
+            setShareCode(code)
+            navigator.clipboard?.writeText(code).catch(() => {})
+          }}
+          aria-label="导出分享码"
+        >
+          分享
+        </button>
+        <button
           className={`plan-page__save ${canSave ? 'plan-page__save--on' : ''}`}
           disabled={!canSave}
           onClick={() => {
@@ -95,6 +114,43 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
         {hasExisting && (
           <p className="plan-page__hint">这天已有计划，保存将覆盖；删除可清空</p>
         )}
+
+        {shareCode && (
+          <div className="plan-share">
+            <p className="plan-share__label">计划分享码（已复制，发给朋友即可）</p>
+            <textarea readOnly value={shareCode} className="plan-share__code" onFocus={(e) => e.currentTarget.select()} />
+            <button className="plan-share__close" onClick={() => setShareCode(null)}>收起</button>
+          </div>
+        )}
+
+        <div className="plan-share">
+          <p className="plan-share__label">粘贴分享码导入计划</p>
+          <div className="plan-share__row">
+            <input
+              value={pasteCode}
+              onChange={(e) => { setPasteCode(e.target.value); setPasteError(null) }}
+              placeholder="TL1.xxxx 收到的分享码直接粘这里"
+            />
+            <button
+              className="plan-share__go"
+              disabled={!pasteCode.trim()}
+              onClick={() => {
+                const decoded = decodePlan(pasteCode)
+                if (!decoded) {
+                  setPasteError('分享码无效，检查是否复制完整')
+                  return
+                }
+                haptic.onSuccess()
+                setExercises(decoded.map((e) => ({ ...e })))
+                setPasteCode('')
+                setPasteError(null)
+              }}
+            >
+              导入
+            </button>
+          </div>
+          {pasteError && <p className="plan-share__error">{pasteError}</p>}
+        </div>
 
         {exercises.map((ex, idx) => (
           <div key={idx} className="plan-ex">
@@ -139,38 +195,25 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
               </div>
             </div>
             {pickFor === idx ? (
-              <div className="plan-ex__pick">
-                {COMMON_EXERCISES.map((name) => (
-                  <button
-                    key={name}
-                    className={`plan-ex__pick-chip ${ex.name === name ? 'plan-ex__pick-chip--on' : ''}`}
-                    onClick={() => {
-                      haptic.onTap()
-                      patch(idx, { name })
-                      setPickFor(null)
-                    }}
-                  >
-                    {name}
-                  </button>
-                ))}
-              </div>
+              <ExercisePicker
+                picked={new Set(ex.name ? [ex.name] : [])}
+                onToggle={(name) => {
+                  haptic.onTap()
+                  patch(idx, { name })
+                  setPickFor(null)
+                }}
+              />
             ) : (
               <button className="plan-ex__quick" onClick={() => setPickFor(idx)}>
-                常用动作
+                换动作（搜索/自定义）
               </button>
             )}
           </div>
         ))}
 
-        <div className="plan-ex__pick plan-ex__pick--static">
-          {COMMON_EXERCISES.slice(0, 6).map((name) => (
-            <button key={name} className="plan-ex__pick-chip" onClick={() => addExercise(name)}>
-              ＋{name}
-            </button>
-          ))}
-          <button className="plan-ex__pick-chip" onClick={() => addExercise()}>
-            ＋自定义
-          </button>
+        <div className="plan-page__add-zone">
+          <p className="ex-picker__label">添加动作（可搜索动作库 / 自定义）</p>
+          <ExercisePicker picked={new Set()} onToggle={(name) => addExercise(name)} />
         </div>
 
         {hasExisting && (

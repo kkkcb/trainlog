@@ -258,3 +258,96 @@
   color: var(--color-danger);
   background: var(--color-danger-dim);
 }
+
+/* 分享码面板 */
+.plan-share {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-bg-card);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.plan-share__label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.plan-share__code {
+  width: 100%;
+  min-height: 64px;
+  resize: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-2xs);
+  font-family: var(--font-mono);
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.plan-share__row {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.plan-share__row input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xs);
+}
+
+.plan-share__row input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.plan-share__go {
+  flex-shrink: 0;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
+}
+
+.plan-share__go:disabled {
+  opacity: 0.4;
+}
+
+.plan-share__close {
+  align-self: flex-end;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  padding: 4px 0;
+}
+
+.plan-share__error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+}
+
+.plan-page__share {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+  white-space: nowrap;
+}
+
+.plan-page__add-zone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
