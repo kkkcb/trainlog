@@ -13,7 +13,7 @@
 .workout__header {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   padding: var(--space-md) var(--space-2xl);
   padding-top: calc(var(--space-md) + var(--safe-area-top));
   border-bottom: 1px solid var(--color-divider);
@@ -36,13 +36,15 @@
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+  overflow: hidden;
 }
 
 /* 总时长：运动系窄体大数字 */
 .workout__clock {
   font-family: var(--font-display-num);
-  font-size: 26px;
+  font-size: 22px;
+  white-space: nowrap;
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   letter-spacing: 0.03em;
@@ -59,7 +61,8 @@
 }
 
 .workout__mode-btn {
-  padding: 8px 16px;
+  padding: 6px 12px;
+  white-space: nowrap;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
@@ -74,7 +77,8 @@
 
 .workout__finish {
   flex-shrink: 0;
-  padding: 7px 16px;
+  padding: 7px 12px;
+  white-space: nowrap;
   border-radius: var(--radius-full);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
@@ -536,4 +540,153 @@
 
 .workout__skip-ex:active {
   color: var(--color-accent);
+}
+
+/* 已完成组：行式（可挪动 + 两段确认撤销） */
+.workout__log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.workout__log-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  padding: 0 2px;
+}
+
+.workout__log-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-surface);
+  border: 1px solid rgba(255, 133, 82, 0.2);
+}
+
+.workout__log-row--armed {
+  border-color: rgba(255, 133, 82, 0.5);
+  background: var(--color-accent-dim);
+}
+
+.workout__log-row--confirm {
+  border-color: rgba(244, 63, 94, 0.5);
+  background: var(--color-danger-dim);
+}
+
+.workout__log-idx {
+  font-style: normal;
+  font-family: var(--font-display-num);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.workout__log-val {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display-num);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.workout__log-adjust {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+}
+
+.workout__log-ops {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.workout__log-op {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--space-xs);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workout__log-op:disabled {
+  opacity: 0.3;
+}
+
+.workout__log-op--undo {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  width: auto;
+  padding: 0 var(--space-sm);
+}
+
+.workout__log-confirm {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  background: var(--color-danger);
+  white-space: nowrap;
+}
+
+/* 参数滑条 */
+.workout__slider {
+  width: 100%;
+  height: 28px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.workout__slider::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-bg-primary);
+}
+
+.workout__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8.5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-bg-card);
+  box-shadow: 0 2px 8px rgba(255, 133, 82, 0.4);
+}
+
+.workout__slider::-moz-range-track {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-bg-primary);
+}
+
+.workout__slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-bg-card);
 }

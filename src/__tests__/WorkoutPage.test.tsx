@@ -74,13 +74,39 @@ describe('WorkoutPage 动作训练', () => {
     expect(stageName()).toBe('卧推')
   })
 
-  it('完成组可撤销', () => {
+  it('完成组撤销走两段确认', () => {
     renderWorkout()
     completeSet()
     expect(screen.getByText(/40kg×10/)).toBeTruthy()
-    fireEvent.click(screen.getByText(/40kg×10/))
+    // 点「调整」→「撤销」→「再点一次确认撤销」
+    fireEvent.click(screen.getByText('调整'))
+    fireEvent.click(screen.getByText('撤销'))
+    fireEvent.click(screen.getByText('再点一次确认撤销'))
     expect(screen.queryByText(/40kg×10/)).toBeNull()
     expect(screen.getByText('第 1')).toBeTruthy()
+  })
+
+  it('组顺序可挪动（滑条改重量后挪动可见）', () => {
+    const { container } = renderWorkout()
+    completeSet() // 40kg×10
+    fireEvent.change(screen.getByLabelText('重量滑块'), { target: { value: '60' } })
+    completeSet() // 60kg×10，计划模式做满自动切到深蹲
+    // 切回卧推查看已完成的两组
+    fireEvent.click(container.querySelectorAll('.workout__ex-chip')[0])
+    const vals = () => [...document.querySelectorAll('.workout__log-val')].map(v => v.textContent)
+    expect(vals()).toEqual(['40kg×10 ✓', '60kg×10 ✓'])
+    // 选中第 2 组上移 → 60kg 组排到前面
+    const adjustBtns = [...document.querySelectorAll('.workout__log-adjust')]
+    fireEvent.click(adjustBtns[1])
+    fireEvent.click(screen.getByRole('button', { name: '上移' }))
+    expect(vals()).toEqual(['60kg×10 ✓', '40kg×10 ✓'])
+  })
+
+  it('重量滑条可调', () => {
+    renderWorkout()
+    const slider = screen.getByLabelText('重量滑块') as HTMLInputElement
+    fireEvent.change(slider, { target: { value: '60' } })
+    expect(screen.getByText('60')).toBeTruthy()
   })
 
   it('没做满预设也能「结束此动作」切下一个，已练组保留', () => {

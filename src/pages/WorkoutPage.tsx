@@ -108,6 +108,9 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   const [adding, setAdding] = useState(false)
   const [newName, setNewName] = useState('')
   const [confirmDiscard, setConfirmDiscard] = useState(false)
+  // 已完成组调整：展开的行 / 两段确认撤销中的行
+  const [armedIdx, setArmedIdx] = useState<number | null>(null)
+  const [confirmIdx, setConfirmIdx] = useState<number | null>(null)
   // 动作图解（模式2）：默认关，训练中即点即切
   const [illustrations, setIllustrations] = useState(false)
   useEffect(() => {
@@ -230,6 +233,20 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
     haptic.onSelect()
     setExs((prev) =>
       prev.map((e, i) => (i === exIdx ? { ...e, sets: e.sets.filter((_, j) => j !== setIdx) } : e))
+    )
+  }
+
+  /** 组顺序挪动：与相邻组交换 */
+  const moveSet = (exIdx: number, setIdx: number, delta: number) => {
+    setExs((prev) =>
+      prev.map((e, i) => {
+        if (i !== exIdx) return e
+        const next = [...e.sets]
+        const to = setIdx + delta
+        if (to < 0 || to >= next.length) return e
+        ;[next[setIdx], next[to]] = [next[to], next[setIdx]]
+        return { ...e, sets: next }
+      })
     )
   }
 
@@ -379,6 +396,16 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                       <b>{weight === 0 ? '徒手' : weight}</b>
                       <button onClick={() => { haptic.onTap(); setWeight((w) => Math.round((w + 2.5) * 10) / 10) }}>＋</button>
                     </div>
+                    <input
+                      type="range"
+                      className="workout__slider"
+                      min={0}
+                      max={200}
+                      step={2.5}
+                      value={Math.min(weight, 200)}
+                      onChange={(e) => setWeight(Number(e.target.value))}
+                      aria-label="重量滑块"
+                    />
                   </div>
                   <div className="workout__param">
                     <span className="workout__param-label">次数</span>
@@ -387,6 +414,16 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                       <b>{reps}</b>
                       <button onClick={() => { haptic.onTap(); setReps((r) => r + 1) }}>＋</button>
                     </div>
+                    <input
+                      type="range"
+                      className="workout__slider"
+                      min={1}
+                      max={30}
+                      step={1}
+                      value={Math.min(reps, 30)}
+                      onChange={(e) => setReps(Number(e.target.value))}
+                      aria-label="次数滑块"
+                    />
                   </div>
                 </div>
 
@@ -445,16 +482,71 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                 ))}
               </div>
 
-              {/* 已完成组 */}
+              {/* 已完成组：行式，支持挪动顺序 + 两段确认撤销 */}
               {curEx.sets.length > 0 && (
                 <div className="workout__log">
+                  <div className="workout__log-head">
+                    <span>已完成 {curEx.sets.length} 组</span>
+                    <span>点「调整」挪动顺序或撤销</span>
+                  </div>
                   {curEx.sets.map((g, j) => (
-                    <button key={g.doneAt} className="workout__log-chip" onClick={() => undoSet(cur, j)}>
-                      <i>{j + 1}</i>
-                      {g.weight === 0 ? '徒手' : `${g.weight}kg`}×{g.reps} ✓
-                    </button>
+                    <div
+                      key={g.doneAt}
+                      className={`workout__log-row ${armedIdx === j ? 'workout__log-row--armed' : ''} ${confirmIdx === j ? 'workout__log-row--confirm' : ''}`}
+                    >
+                      <i className="workout__log-idx">{j + 1}</i>
+                      <span className="workout__log-val">
+                        {g.weight === 0 ? '徒手' : `${g.weight}kg`}×{g.reps} ✓
+                      </span>
+                      {armedIdx === j ? (
+                        <span className="workout__log-ops">
+                          {confirmIdx === j ? (
+                            <button
+                              className="workout__log-confirm"
+                              onClick={() => { haptic.onSelect(); setArmedIdx(null); setConfirmIdx(null); undoSet(cur, j) }}
+                            >
+                              再点一次确认撤销
+                            </button>
+                          ) : (
+                            <>
+                              <button
+                                className="workout__log-op"
+                                disabled={j === 0}
+                                aria-label="上移"
+                                onClick={() => { haptic.onTap(); moveSet(cur, j, -1); setArmedIdx(j - 1) }}
+                              >
+                                ↑
+                              </button>
+                              <button
+                                className="workout__log-op"
+                                disabled={j === curEx.sets.length - 1}
+                                aria-label="下移"
+                                onClick={() => { haptic.onTap(); moveSet(cur, j, 1); setArmedIdx(j + 1) }}
+                              >
+                                ↓
+                              </button>
+                              <button
+                                className="workout__log-op workout__log-op--undo"
+                                onClick={() => { haptic.onSelect(); setConfirmIdx(j) }}
+                              >
+                                撤销
+                              </button>
+                              <button className="workout__log-op" aria-label="收起" onClick={() => { haptic.onTap(); setArmedIdx(null) }}>
+                                ×
+                              </button>
+                            </>
+                          )}
+                        </span>
+                      ) : (
+                        <button
+                          className="workout__log-adjust"
+                          onClick={() => { haptic.onTap(); setArmedIdx(j); setConfirmIdx(null) }}
+                        >
+                          调整
+                        </button>
+                      )}
+                    </div>
                   ))}
-                  <span className="workout__log-tip">点一组可撤销</span>
                 </div>
               )}
             </>
