@@ -193,12 +193,16 @@ export function ExerciseLibraryPage({ onBack }: ExerciseLibraryPageProps) {
                 {open && (
                   <div className="exlib__item-detail">
                     <ExerciseIllustration name={e.zh} size={132} />
+                    <p className="exlib__item-targets">
+                      <b>练什么：</b>
+                      {(e.targets ?? []).map((t) => (
+                        <span key={t} className="exlib__target-chip">{t}</span>
+                      ))}
+                      {e.kind && <i className="exlib__target-kind">{e.kind}</i>}
+                    </p>
                     <p className="exlib__item-tip">{tip ?? '保持动作受控，感受目标肌肉发力。'}</p>
                     <p className="exlib__item-meta">
-                      {e.en} · {equipmentZh(e.equipment)} · 主要练
-                      {mode === 'pro'
-                        ? blockLabel(blockFor({ slug: e.slug, primaryMuscle: e.muscle }))
-                        : groupLabel(e)}
+                      {e.en} · {equipmentZh(e.equipment)}
                     </p>
                   </div>
                 )}
@@ -207,6 +211,15 @@ export function ExerciseLibraryPage({ onBack }: ExerciseLibraryPageProps) {
           })}
           {list.length === 0 && <p className="exlib__empty">这个部位还没有动作，换个分类看看</p>}
         </div>
+
+        {/* 素材来源与许可 */}
+        <p className="exlib__source">
+          动作插画与数据 302 条来自开源项目{' '}
+          <a href="https://github.com/bryllim/workout-guide" target="_blank" rel="noreferrer">
+            bryllim/workout-guide
+          </a>{' '}
+          (© Bryl Lim · CC BY-SA 4.0) · 人体图 react-native-body-highlighter (MIT)
+        </p>
       </main>
     </div>
   )

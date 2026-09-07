@@ -11,6 +11,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Arnold Press",
     "equipment": "Dumbbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -19,6 +24,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Leg Swings",
     "equipment": "Bodyweight",
     "muscle": "Mobility",
+    "targets": [
+      "柔韧",
+      "髋部",
+      "腘绳肌",
+      "股四头"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -27,6 +39,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Half Burpee",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "腿",
+      "肩",
+      "心肺"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -35,6 +54,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Half-Kneeling Pallof Press",
     "equipment": "Cable",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "臀",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -43,6 +68,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Clamshell",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -51,6 +81,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bulgarian Split Squat",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -59,6 +95,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Explosive Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -67,6 +110,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Nordic Hamstring Curl",
     "equipment": "Bodyweight",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "小腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -75,6 +124,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Burpee",
     "equipment": "Bodyweight",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "胸",
+      "肩",
+      "核心",
+      "心肺"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -83,6 +140,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Walking",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -91,6 +153,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lateral Lunge",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -99,6 +168,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Side Plank",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -107,6 +181,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Side Plank Hip Dip",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "臀"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -115,6 +195,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lateral Raise",
     "equipment": "Dumbbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -123,6 +208,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Machine Lateral Raise",
     "equipment": "Machine",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -131,6 +221,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Side-Lying Leg Raise",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -139,6 +234,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Side-Lying Hip Abduction",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -147,6 +247,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lateral Shuffle",
     "equipment": "Bodyweight",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "臀",
+      "小腿",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -155,6 +262,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Superman Hold",
     "equipment": "Bodyweight",
     "muscle": "Lower Back",
+    "targets": [
+      "下背",
+      "臀",
+      "上背",
+      "腘绳肌"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -163,6 +277,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hammer Curl",
     "equipment": "Dumbbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -171,6 +290,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Typewriter Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -179,6 +305,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single-Arm Cable Row",
     "equipment": "Cable",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -187,6 +319,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single Arm Dumbbell Tricep Extension",
     "equipment": "Dumbbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -195,6 +332,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "One-Arm Dumbbell Row",
     "equipment": "Dumbbell",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -203,6 +345,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single-Leg Romanian Deadlift",
     "equipment": "Dumbbell",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -211,6 +359,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Pistol Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -219,6 +374,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single-Leg Calf Raise",
     "equipment": "Bodyweight",
     "muscle": "Calves",
+    "targets": [
+      "小腿",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -227,6 +387,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single-Leg Glute Bridge",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -235,6 +400,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single-Leg Box Squat",
     "equipment": "Box",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -243,6 +415,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Single Dumbbell Skullcrusher",
     "equipment": "Dumbbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -251,6 +428,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Clamshell",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -259,6 +441,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Lateral Walk",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "股四头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -267,6 +455,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Woodchop",
     "equipment": "Resistance Band",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "臀"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -275,6 +469,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Lat Pulldown",
     "equipment": "Resistance Band",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -283,6 +483,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Monster Walk",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "股四头",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -291,6 +498,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Kickback",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -299,6 +512,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Row",
     "equipment": "Resistance Band",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "上背"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -307,6 +526,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Band Pull-Apart",
     "equipment": "Resistance Band",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "肩后束",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -315,6 +540,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Donkey Kick",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -323,6 +554,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Face Pull",
     "equipment": "Resistance Band",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "肩后束",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -331,6 +568,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Pallof Press",
     "equipment": "Resistance Band",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "臀",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -339,6 +582,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Squat",
     "equipment": "Resistance Band",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -347,6 +597,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Dead Bug",
     "equipment": "Resistance Band",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "臀",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -355,6 +611,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Glute Bridge",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -363,6 +625,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Hip Thrust",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -371,6 +639,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Frog Pump",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -379,6 +652,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Fire Hydrant",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -387,6 +665,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Standing Hip Abduction",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -395,6 +678,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Banded Seated Hip Abduction",
     "equipment": "Resistance Band",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -403,6 +691,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Leg Press",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -411,6 +705,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Leg Press Calf Raise",
     "equipment": "Machine",
     "muscle": "Calves",
+    "targets": [
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -419,6 +717,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Landmine Romanian Deadlift",
     "equipment": "Barbell",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -427,6 +731,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Landmine Squat",
     "equipment": "Barbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -435,6 +745,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Landmine Press",
     "equipment": "Barbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "胸",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -443,6 +759,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Mountain Climber",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "腿"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -451,6 +773,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Step-Up",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -459,6 +786,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bench Dip",
     "equipment": "Bodyweight",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -467,6 +800,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Heel-Elevated Goblet Squat",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -475,6 +814,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Neutral-Grip Pull-up",
     "equipment": "Bodyweight",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -483,6 +828,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Squat Thrust",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "腿",
+      "肩",
+      "心肺"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -491,6 +843,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Russian Twist",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -499,6 +856,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Chin-up",
     "equipment": "Bodyweight",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "背阔肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -507,6 +869,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Reverse Curl",
     "equipment": "Barbell",
     "muscle": "Forearms",
+    "targets": [
+      "前臂",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -515,6 +882,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Reverse Pec Deck",
     "equipment": "Machine",
     "muscle": "Rear Delts",
+    "targets": [
+      "肩后束",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -523,6 +895,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Inverted Row",
     "equipment": "Bodyweight",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -531,6 +909,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Reverse Crunch",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -539,6 +921,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Reverse Hyperextension",
     "equipment": "Machine",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "下背"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -547,6 +935,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Reverse Snow Angel",
     "equipment": "Bodyweight",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "肩后束",
+      "下背",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -555,6 +950,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Split Squat",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -563,6 +964,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Assault Bike",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "心肺",
+      "肩"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -571,6 +978,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Tricep Kickback",
     "equipment": "Dumbbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -579,6 +991,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Rear Delt Fly",
     "equipment": "Dumbbell",
     "muscle": "Rear Delts",
+    "targets": [
+      "肩后束",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -587,6 +1004,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bent-Over Rear Delt Raise",
     "equipment": "Dumbbell",
     "muscle": "Rear Delts",
+    "targets": [
+      "肩后束",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -595,6 +1017,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -603,6 +1031,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lying Leg Curl",
     "equipment": "Machine",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -611,6 +1044,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Prone T Raise",
     "equipment": "Bodyweight",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "肩后束",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -619,6 +1058,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Prone Y Raise",
     "equipment": "Bodyweight",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "肩后束",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -627,6 +1072,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Assisted Pistol Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -635,6 +1087,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Assisted Chin-up",
     "equipment": "Machine",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "背阔肌"
+    ],
+    "kind": "辅助·自重",
     "frames": 3
   },
   {
@@ -643,6 +1100,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Assisted Dip",
     "equipment": "Machine",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸"
+    ],
+    "kind": "辅助·自重",
     "frames": 3
   },
   {
@@ -651,6 +1113,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Assisted Pull-up",
     "equipment": "Machine",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头"
+    ],
+    "kind": "辅助·自重",
     "frames": 3
   },
   {
@@ -659,6 +1126,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Weighted Russian Twist",
     "equipment": "Dumbbell",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -667,6 +1139,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Weighted Chin-up",
     "equipment": "Bodyweight",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "背阔肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -675,6 +1152,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Weighted Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -683,6 +1166,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Weighted Crunch",
     "equipment": "Plate",
     "muscle": "Core",
+    "targets": [
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -691,6 +1178,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Weighted Dip",
     "equipment": "Bodyweight",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -699,6 +1192,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Weighted Pull-up",
     "equipment": "Bodyweight",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -707,6 +1205,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Barbell Row",
     "equipment": "Barbell",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -715,6 +1219,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Plate Front Raise",
     "equipment": "Plate",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "胸"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -723,6 +1232,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Barbell Shrug",
     "equipment": "Barbell",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -731,6 +1245,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Barbell Glute Bridge",
     "equipment": "Barbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -739,6 +1259,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Goblet Squat",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -747,6 +1273,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "High Knees",
     "equipment": "Bodyweight",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "核心",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -755,6 +1287,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lat Pulldown",
     "equipment": "Cable",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -763,6 +1300,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Copenhagen Plank",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头",
+      "臀"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -771,6 +1314,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cossack Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -779,6 +1329,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Knee Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -787,6 +1344,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Kneeling Hip Flexor Stretch",
     "equipment": "Bodyweight",
     "muscle": "Hips",
+    "targets": [
+      "髋部",
+      "股四头",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -795,6 +1358,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hamstring Stretch",
     "equipment": "Bodyweight",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "小腿",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -803,6 +1372,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hack Squat",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -811,6 +1385,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Seal Jack",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "腿",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -819,6 +1400,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Reverse Lunge",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -827,6 +1414,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Kettlebell Swing",
     "equipment": "Kettlebell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心",
+      "心肺"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -835,6 +1429,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Kettlebell Romanian Deadlift",
     "equipment": "Kettlebell",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -843,6 +1443,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Pec Deck",
     "equipment": "Machine",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -851,6 +1456,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Butterfly Stretch",
     "equipment": "Bodyweight",
     "muscle": "Hips",
+    "targets": [
+      "髋部",
+      "腹股沟",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -859,6 +1470,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Skater Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -867,6 +1485,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Skater Hop",
     "equipment": "Bodyweight",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "臀",
+      "小腿",
+      "心肺"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -875,6 +1500,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "SkiErg",
     "equipment": "Cardio",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "三头",
+      "核心",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -883,6 +1515,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Rowing",
     "equipment": "Cardio",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "腿",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -891,6 +1529,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Concentration Curl",
     "equipment": "Dumbbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -899,6 +1542,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Deficit Reverse Lunge",
     "equipment": "Dumbbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "股四头",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -907,6 +1557,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Rack Pull",
     "equipment": "Barbell",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -915,6 +1571,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Scapular Push-up",
     "equipment": "Bodyweight",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "胸",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -923,6 +1586,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Scapular Pull-up",
     "equipment": "Pull-up Bar",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "上背",
+      "前臂",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -931,6 +1601,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Ab Wheel Rollout",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -939,6 +1614,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cross-Body Shoulder Stretch",
     "equipment": "Bodyweight",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "上背",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -947,6 +1628,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Feet-Elevated Pike Push-up",
     "equipment": "Bodyweight",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头",
+      "胸",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -955,6 +1643,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Push Press",
     "equipment": "Barbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头",
+      "股四头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -963,6 +1657,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Overhead Tricep Extension",
     "equipment": "Cable",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -971,6 +1670,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Front Squat",
     "equipment": "Barbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "核心",
+      "臀"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -979,6 +1684,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Captain's Chair Knee Raise",
     "equipment": "Machine",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -987,6 +1697,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Crunch",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -995,6 +1709,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Jumping Jack",
     "equipment": "Bodyweight",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "肩",
+      "小腿",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1003,6 +1724,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wall Handstand Push-up",
     "equipment": "Wall",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头",
+      "核心",
+      "胸"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1011,6 +1739,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wall Sit",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1019,6 +1753,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wall Calf Stretch",
     "equipment": "Bodyweight",
     "muscle": "Calves",
+    "targets": [
+      "小腿",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1027,6 +1766,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wall Walk",
     "equipment": "Wall",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "核心",
+      "胸",
+      "三头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1035,6 +1781,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Fast Feet",
     "equipment": "Bodyweight",
     "muscle": "Calves",
+    "targets": [
+      "小腿",
+      "腿",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1043,6 +1795,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wide Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "三头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1051,6 +1810,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wide-Grip Lat Pulldown",
     "equipment": "Cable",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1059,6 +1823,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hip Airplane",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1067,6 +1837,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hip Adduction Machine",
     "equipment": "Machine",
     "muscle": "Adductors",
+    "targets": [
+      "内收肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1075,6 +1850,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hip Abduction Machine",
     "equipment": "Machine",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1083,6 +1863,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Trap Bar Deadlift",
     "equipment": "Barbell",
     "muscle": "Posterior Chain",
+    "targets": [
+      "后链",
+      "股四头",
+      "握力"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1091,6 +1877,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Fly",
     "equipment": "Cable",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1099,6 +1890,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dragon Flag",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "背阔肌",
+      "股四头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1107,6 +1904,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Donkey Calf Raise",
     "equipment": "Machine",
     "muscle": "Calves",
+    "targets": [
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1115,6 +1916,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Donkey Kick",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1123,6 +1930,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Romanian Deadlift",
     "equipment": "Barbell",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1131,6 +1944,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cat-Cow Stretch",
     "equipment": "Bodyweight",
     "muscle": "Mobility",
+    "targets": [
+      "柔韧",
+      "背",
+      "核心"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1139,6 +1958,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Towel Hamstring Curl",
     "equipment": "Towel",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1147,6 +1972,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Towel Row",
     "equipment": "Towel",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "上背",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1155,6 +1987,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Towel Pull-up",
     "equipment": "Towel",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "前臂",
+      "上背"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1163,6 +2002,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Inchworm",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "腘绳肌",
+      "胸"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1171,6 +2017,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Meadows Row",
     "equipment": "Barbell",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1179,6 +2031,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Doorway Row",
     "equipment": "Doorway",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "上背",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1187,6 +2046,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Doorway Chest Stretch",
     "equipment": "Doorway",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1195,6 +2060,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Face Pull",
     "equipment": "Cable",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "肩后束",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1203,6 +2074,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Preacher Curl",
     "equipment": "Machine",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1211,6 +2087,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bird Dog",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "臀",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1219,6 +2101,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Farmer Carry",
     "equipment": "Dumbbell",
     "muscle": "Forearms",
+    "targets": [
+      "前臂",
+      "上背",
+      "核心"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -1227,6 +2115,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Stair Climber",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1235,6 +2128,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Pallof Press",
     "equipment": "Cable",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1243,6 +2141,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Push-up Shoulder Tap",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "胸",
+      "肩",
+      "三头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1251,6 +2156,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Pendlay Row",
     "equipment": "Barbell",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1259,6 +2170,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Crab Walk",
     "equipment": "Bodyweight",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "臀",
+      "核心",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1267,6 +2185,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Running",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -1275,6 +2198,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Heel Tap",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1283,6 +2210,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Toe Touch",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1291,6 +2222,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Archer Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1299,6 +2237,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Plank Jack",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1307,6 +2251,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Plank Shoulder Tap",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "胸"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1315,6 +2265,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Plank",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1323,6 +2278,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Treadmill Incline Walk",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "臀",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -1331,6 +2292,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Flutter Kick",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1339,6 +2305,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cycling",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -1347,6 +2318,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Forward Lunge",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1355,6 +2333,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Front-Foot Elevated Split Squat",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1363,6 +2347,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Front Raise",
     "equipment": "Dumbbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "胸"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1371,6 +2360,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wall Push-up",
     "equipment": "Wall",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1379,6 +2374,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "EZ-Bar Curl",
     "equipment": "Barbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1387,6 +2387,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Curtsy Lunge",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "股四头",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1395,6 +2402,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Arm Circles",
     "equipment": "Bodyweight",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "胸",
+      "上背",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1403,6 +2417,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Stability Ball Hamstring Curl",
     "equipment": "Stability Ball",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1411,6 +2431,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Back Extension",
     "equipment": "Bodyweight",
     "muscle": "Lower Back",
+    "targets": [
+      "下背",
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1419,6 +2445,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Incline Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1427,6 +2460,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Incline Cable Fly",
     "equipment": "Cable",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1435,6 +2473,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Incline Bench Press",
     "equipment": "Barbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1443,6 +2487,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Incline Dumbbell Curl",
     "equipment": "Dumbbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1451,6 +2500,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Incline Dumbbell Press",
     "equipment": "Dumbbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1459,6 +2514,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Squat",
     "equipment": "Barbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1467,6 +2528,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Lateral Raise",
     "equipment": "Cable",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1475,6 +2541,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Rope Hammer Curl",
     "equipment": "Cable",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1483,6 +2554,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Woodchop",
     "equipment": "Cable",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1491,6 +2567,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Pull-Through",
     "equipment": "Cable",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1499,6 +2581,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Rear Delt Fly",
     "equipment": "Cable",
     "muscle": "Rear Delts",
+    "targets": [
+      "肩后束",
+      "上背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1507,6 +2594,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Kickback",
     "equipment": "Cable",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1515,6 +2607,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Crunch",
     "equipment": "Cable",
     "muscle": "Core",
+    "targets": [
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1523,6 +2619,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Pallof Hold",
     "equipment": "Cable",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "臀",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1531,6 +2633,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Front Raise",
     "equipment": "Cable",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "胸"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1539,6 +2646,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Rope Tricep Pushdown",
     "equipment": "Cable",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1547,6 +2659,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Curl",
     "equipment": "Cable",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1555,6 +2672,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Tricep Pushdown",
     "equipment": "Cable",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1563,6 +2685,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Bulgarian Split Squat",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1571,6 +2699,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Split Squat",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1579,6 +2713,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Reverse Lunge",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1587,6 +2728,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Romanian Deadlift",
     "equipment": "Machine",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1595,6 +2742,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Squat",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1603,6 +2756,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Hip Thrust",
     "equipment": "Machine",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1611,6 +2770,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Smith Machine Bench Press",
     "equipment": "Machine",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1619,6 +2784,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "World's Greatest Stretch",
     "equipment": "Bodyweight",
     "muscle": "Mobility",
+    "targets": [
+      "柔韧",
+      "髋部",
+      "腘绳肌",
+      "上背"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1627,6 +2799,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dip",
     "equipment": "Bodyweight",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1635,6 +2813,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Two Dumbbell Skullcrusher",
     "equipment": "Dumbbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1643,6 +2826,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dead Bug",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1651,6 +2839,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Sprawl",
     "equipment": "Bodyweight",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "核心",
+      "肩",
+      "心肺"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1659,6 +2854,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Calf Raise",
     "equipment": "Bodyweight",
     "muscle": "Calves",
+    "targets": [
+      "小腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1667,6 +2866,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Jump Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "小腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1675,6 +2880,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Jump Rope",
     "equipment": "Cardio",
     "muscle": "Calves",
+    "targets": [
+      "小腿",
+      "心肺",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1683,6 +2894,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Commando Pull-up",
     "equipment": "Pull-up Bar",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "上背",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1691,6 +2909,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hiking",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "臀",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -1699,6 +2923,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bodyweight Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1707,6 +2938,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Leg Extension",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1715,6 +2950,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Leg Curl",
     "equipment": "Machine",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1723,6 +2963,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Negative Pull-up",
     "equipment": "Pull-up Bar",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "上背",
+      "前臂"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1731,6 +2978,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Machine Glute Kickback",
     "equipment": "Machine",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1739,6 +2991,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Glute Bridge",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1747,6 +3004,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Glute Bridge March",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1755,6 +3018,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hip Thrust",
     "equipment": "Barbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1763,6 +3031,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Glute-Focused Back Extension",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "下背"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1771,6 +3045,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Drag Curl",
     "equipment": "Barbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1779,6 +3058,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Elliptical",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "targets": [
+      "腿",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1787,6 +3071,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Frog Pump",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1795,6 +3084,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wrist Extension",
     "equipment": "Dumbbell",
     "muscle": "Forearms",
+    "targets": [
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1803,6 +3096,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Wrist Curl",
     "equipment": "Barbell",
     "muscle": "Forearms",
+    "targets": [
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1811,6 +3108,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bench Press",
     "equipment": "Barbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1819,6 +3122,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Sissy Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "核心",
+      "小腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1827,6 +3136,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Shrimp Squat",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1835,6 +3151,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Step-Down",
     "equipment": "Box",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌",
+      "小腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1843,6 +3166,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Decline Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "三头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1851,6 +3181,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Decline Sit-Up",
     "equipment": "Bench",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1859,6 +3194,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Decline Bench Press",
     "equipment": "Barbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1867,6 +3208,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Decline Dumbbell Press",
     "equipment": "Dumbbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1875,6 +3222,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Sumo Deadlift",
     "equipment": "Barbell",
     "muscle": "Posterior Chain",
+    "targets": [
+      "后链",
+      "臀",
+      "股四头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1883,6 +3236,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Fire Hydrant",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1891,6 +3249,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Superman",
     "equipment": "Bodyweight",
     "muscle": "Lower Back",
+    "targets": [
+      "下背",
+      "臀",
+      "上背",
+      "腘绳肌"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1899,6 +3264,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Chest Supported Row",
     "equipment": "Machine",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1907,6 +3278,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Walking Lunge",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1915,6 +3292,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Chest Dip",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1923,6 +3306,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bear Crawl",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "肩",
+      "股四头",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1931,6 +3321,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bear Plank",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1939,6 +3335,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Active Hang",
     "equipment": "Pull-up Bar",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "上背",
+      "前臂",
+      "核心"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1947,6 +3350,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hanging Leg Raise",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "握力"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1955,6 +3363,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hanging Knee Raise",
     "equipment": "Pull-up Bar",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "握力"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -1963,6 +3376,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dead Hang",
     "equipment": "Pull-up Bar",
     "muscle": "Forearms",
+    "targets": [
+      "前臂",
+      "背阔肌",
+      "肩",
+      "核心"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -1971,6 +3391,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Lateral Lunge",
     "equipment": "Dumbbell",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀",
+      "内收肌",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1979,6 +3406,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Fly",
     "equipment": "Dumbbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1987,6 +3419,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Bent Over Row",
     "equipment": "Dumbbell",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -1995,6 +3433,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Overhead Tricep Extension",
     "equipment": "Dumbbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2003,6 +3446,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Romanian Deadlift",
     "equipment": "Dumbbell",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2011,6 +3460,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Curtsy Lunge",
     "equipment": "Dumbbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "股四头",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2019,6 +3475,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Shrug",
     "equipment": "Dumbbell",
     "muscle": "Upper Back",
+    "targets": [
+      "上背",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2027,6 +3488,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Side Bend",
     "equipment": "Dumbbell",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "握力"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2035,6 +3501,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Glute Bridge",
     "equipment": "Dumbbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2043,6 +3515,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Hip Thrust",
     "equipment": "Dumbbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2051,6 +3528,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bicep Curl",
     "equipment": "Dumbbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2059,6 +3541,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Bench Press",
     "equipment": "Dumbbell",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2067,6 +3555,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Sumo Squat",
     "equipment": "Dumbbell",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "股四头",
+      "内收肌",
+      "腘绳肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2075,6 +3570,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Sumo Deadlift",
     "equipment": "Dumbbell",
     "muscle": "Posterior Chain",
+    "targets": [
+      "后链",
+      "臀",
+      "股四头",
+      "内收肌"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2083,6 +3585,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Skull Crusher",
     "equipment": "Barbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2091,6 +3598,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lying Hamstring Walkout",
     "equipment": "Bodyweight",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2099,6 +3612,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Lying Leg Raise",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2107,6 +3625,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Belt Squat",
     "equipment": "Machine",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "臀"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2115,6 +3638,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Chair Dip",
     "equipment": "Chair",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸",
+      "肩"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2123,6 +3652,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Pull-up",
     "equipment": "Bodyweight",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2131,6 +3666,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hindu Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "肩",
+      "三头",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2139,6 +3681,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Child's Pose",
     "equipment": "Bodyweight",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "肩",
+      "髋部",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2147,6 +3696,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Deadlift",
     "equipment": "Barbell",
     "muscle": "Posterior Chain",
+    "targets": [
+      "后链",
+      "背",
+      "握力"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2155,6 +3710,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Swimming",
     "equipment": "Cardio",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "肩",
+      "心肺"
+    ],
+    "kind": "距离·计时",
     "frames": 3
   },
   {
@@ -2163,6 +3724,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Good Morning",
     "equipment": "Barbell",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "臀",
+      "下背"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2171,6 +3738,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Close-Grip Lat Pulldown",
     "equipment": "Cable",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2179,6 +3751,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Close-Grip Bench Press",
     "equipment": "Barbell",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2187,6 +3765,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Battle Ropes",
     "equipment": "Cardio",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "核心",
+      "心肺"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2195,6 +3779,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Standing Quad Stretch",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "targets": [
+      "股四头",
+      "髋部",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2203,6 +3793,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Standing Hip Adduction",
     "equipment": "Cable",
     "muscle": "Adductors",
+    "targets": [
+      "内收肌",
+      "核心",
+      "臀"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2211,6 +3807,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Cable Standing Hip Abduction",
     "equipment": "Cable",
     "muscle": "Glutes",
+    "targets": [
+      "臀",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2219,6 +3820,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Standing Calf Raise",
     "equipment": "Machine",
     "muscle": "Calves",
+    "targets": [
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2227,6 +3832,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Overhead Press",
     "equipment": "Barbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2235,6 +3845,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Standing Dumbbell Press",
     "equipment": "Dumbbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2243,6 +3859,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Pike Push-up",
     "equipment": "Bodyweight",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头",
+      "胸",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2251,6 +3874,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Spider Curl",
     "equipment": "Dumbbell",
     "muscle": "Biceps",
+    "targets": [
+      "二头",
+      "前臂"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2259,6 +3887,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Straight-Arm Pulldown",
     "equipment": "Cable",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "核心"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2267,6 +3900,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Upright Row",
     "equipment": "Barbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "上背",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2275,6 +3914,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hollow Rock",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2283,6 +3927,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Hollow Body Hold",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2291,6 +3940,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Torso Twists",
     "equipment": "Bodyweight",
     "muscle": "Mobility",
+    "targets": [
+      "柔韧",
+      "核心",
+      "背"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2299,6 +3954,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Bicycle Crunch",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "腿"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2307,6 +3967,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Handstand Push-up",
     "equipment": "Bodyweight",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头",
+      "核心",
+      "胸"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2315,6 +3982,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Diamond Push-up",
     "equipment": "Bodyweight",
     "muscle": "Triceps",
+    "targets": [
+      "三头",
+      "胸",
+      "肩",
+      "核心"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2323,6 +3997,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Seated Cable Row",
     "equipment": "Cable",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2331,6 +4011,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Machine Row",
     "equipment": "Machine",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2339,6 +4024,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Seated Forward Fold",
     "equipment": "Bodyweight",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "背",
+      "小腿",
+      "柔韧"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2347,6 +4039,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Seated Knee Tuck",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2355,6 +4052,10 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Seated Calf Raise",
     "equipment": "Machine",
     "muscle": "Calves",
+    "targets": [
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2363,6 +4064,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Machine Shoulder Press",
     "equipment": "Machine",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2371,6 +4077,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Machine Chest Press",
     "equipment": "Machine",
     "muscle": "Chest",
+    "targets": [
+      "胸",
+      "三头",
+      "肩"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2379,6 +4091,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Seated Leg Curl",
     "equipment": "Machine",
     "muscle": "Hamstrings",
+    "targets": [
+      "腘绳肌",
+      "小腿"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2387,6 +4104,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Seated Shoulder Press",
     "equipment": "Dumbbell",
     "muscle": "Shoulders",
+    "targets": [
+      "肩",
+      "三头"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2395,6 +4117,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "L-Sit Pull-up",
     "equipment": "Pull-up Bar",
     "muscle": "Lats",
+    "targets": [
+      "背阔肌",
+      "二头",
+      "核心",
+      "前臂"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   },
   {
@@ -2403,6 +4132,13 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "L-Sit Hold",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "三头",
+      "股四头",
+      "肩"
+    ],
+    "kind": "计时",
     "frames": 3
   },
   {
@@ -2411,6 +4147,12 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "T-Bar Row",
     "equipment": "Machine",
     "muscle": "Back",
+    "targets": [
+      "背",
+      "二头",
+      "肩后束"
+    ],
+    "kind": "负重·组次",
     "frames": 3
   },
   {
@@ -2419,6 +4161,11 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "V-Up",
     "equipment": "Bodyweight",
     "muscle": "Core",
+    "targets": [
+      "核心",
+      "股四头"
+    ],
+    "kind": "自重·组次",
     "frames": 3
   }
 ]

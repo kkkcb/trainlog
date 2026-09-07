@@ -106,5 +106,9 @@ export interface ExerciseLibraryEntry {
   en: string
   equipment: string
   muscle: string
+  /** 练什么：主要+次要肌群（中文） */
+  targets?: string[]
+  /** 训练类型（负重·组次 / 自重·组次 / 计时…） */
+  kind?: string
   frames: number
 }

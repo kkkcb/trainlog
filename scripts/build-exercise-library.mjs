@@ -17,6 +17,42 @@ const manifest = JSON.parse(readFileSync(path.join(root, 'scripts/exercise-manif
 const zhMap = JSON.parse(readFileSync(path.join(root, 'scripts/exercise-zh.json'), 'utf8'))
 
 const bySlug = new Map(manifest.map((e) => [e.slug, e]))
+
+/** manifest 肌群英文 → 中文 */
+const MUSCLE_ZH = {
+  'Chest': '胸',
+  'Triceps': '三头',
+  'Shoulders': '肩',
+  'Core': '核心',
+  'Upper Back': '上背',
+  'Rear Delts': '肩后束',
+  'Biceps': '二头',
+  'Posterior Chain': '后链',
+  'Back': '背',
+  'Grip': '握力',
+  'Hamstrings': '腘绳肌',
+  'Glutes': '臀',
+  'Lower Back': '下背',
+  'Lats': '背阔肌',
+  'Forearms': '前臂',
+  'Quads': '股四头',
+  'Calves': '小腿',
+  'Legs': '腿',
+  'Cardio': '心肺',
+  'Adductors': '内收肌',
+  'Mobility': '柔韧',
+  'Hips': '髋部',
+  'Groin': '腹股沟'
+}
+
+/** 训练类型 → 中文 */
+const TYPE_ZH = {
+  'weight_reps': '负重·组次',
+  'bodyweight_reps': '自重·组次',
+  'assisted_bodyweight': '辅助·自重',
+  'duration': '计时',
+  'distance_duration': '距离·计时'
+}
 const outDir = path.join(root, 'src/assets/exercises')
 const cacheDir = path.join(root, 'scripts/.wg-assets')
 const dataDir = path.join(root, 'src/data')
@@ -82,6 +118,12 @@ for (const [slug, zh] of Object.entries(zhMap)) {
     en: e.name,
     equipment: e.equipment,
     muscle: e.primaryMuscle,
+    // 练什么: 主要+次要肌群(中文)
+    targets: [
+      MUSCLE_ZH[e.primaryMuscle] ?? e.primaryMuscle,
+      ...(e.secondaryMuscles ?? []).map((m) => MUSCLE_ZH[m] ?? m),
+    ],
+    kind: TYPE_ZH[e.exerciseType] ?? e.exerciseType,
     frames: 3,
   })
 }

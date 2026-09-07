@@ -222,3 +222,49 @@
   color: var(--color-text-inverse);
   background: var(--gradient-accent);
 }
+
+/* 练什么: 肌群 chips */
+.exlib__item-targets {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.exlib__item-targets b {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+}
+
+.exlib__target-chip {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  background: var(--color-accent-surface);
+  border: 1px solid rgba(255, 133, 82, 0.25);
+}
+
+.exlib__target-kind {
+  font-style: normal;
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-tertiary);
+  margin-left: var(--space-xs);
+}
+
+/* 素材来源标注 */
+.exlib__source {
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-sm);
+  text-align: center;
+  font-size: 10.5px;
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-tertiary);
+}
+
+.exlib__source a {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+}
