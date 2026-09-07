@@ -22,6 +22,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "explosive-push-up",
+    "zh": "爆发俯卧撑",
+    "en": "Explosive Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
     "slug": "burpee",
     "zh": "波比跳",
     "en": "Burpee",
@@ -46,6 +54,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "side-lying-leg-raise",
+    "zh": "侧卧举腿",
+    "en": "Side-Lying Leg Raise",
+    "equipment": "Bodyweight",
+    "muscle": "Glutes",
+    "frames": 3
+  },
+  {
     "slug": "hammer-curl",
     "zh": "锤式弯举",
     "en": "Hammer Curl",
@@ -54,11 +70,35 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "typewriter-push-up",
+    "zh": "打字机俯卧撑",
+    "en": "Typewriter Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
     "slug": "one-arm-dumbbell-row",
     "zh": "单臂哑铃划船",
     "en": "One-Arm Dumbbell Row",
     "equipment": "Dumbbell",
     "muscle": "Back",
+    "frames": 3
+  },
+  {
+    "slug": "single-leg-glute-bridge",
+    "zh": "单腿臀桥",
+    "en": "Single-Leg Glute Bridge",
+    "equipment": "Bodyweight",
+    "muscle": "Glutes",
+    "frames": 3
+  },
+  {
+    "slug": "single-leg-box-squat",
+    "zh": "单腿箱式深蹲",
+    "en": "Single-Leg Box Squat",
+    "equipment": "Box",
+    "muscle": "Quads",
     "frames": 3
   },
   {
@@ -86,6 +126,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "neutral-grip-pull-up",
+    "zh": "对握引体",
+    "en": "Neutral-Grip Pull-up",
+    "equipment": "Bodyweight",
+    "muscle": "Lats",
+    "frames": 3
+  },
+  {
     "slug": "russian-twist",
     "zh": "俄罗斯转体",
     "en": "Russian Twist",
@@ -110,6 +158,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "split-squat",
+    "zh": "分腿蹲",
+    "en": "Split Squat",
+    "equipment": "Dumbbell",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
     "slug": "tricep-kickback",
     "zh": "俯身臂屈伸",
     "en": "Tricep Kickback",
@@ -131,6 +187,38 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Push-up",
     "equipment": "Bodyweight",
     "muscle": "Chest",
+    "frames": 3
+  },
+  {
+    "slug": "assisted-pistol-squat",
+    "zh": "辅助单腿深蹲",
+    "en": "Assisted Pistol Squat",
+    "equipment": "Bodyweight",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
+    "slug": "assisted-pull-up",
+    "zh": "辅助引体",
+    "en": "Assisted Pull-up",
+    "equipment": "Machine",
+    "muscle": "Lats",
+    "frames": 3
+  },
+  {
+    "slug": "weighted-push-up",
+    "zh": "负重俯卧撑",
+    "en": "Weighted Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
+    "slug": "weighted-pull-up",
+    "zh": "负重引体",
+    "en": "Weighted Pull-up",
+    "equipment": "Bodyweight",
+    "muscle": "Lats",
     "frames": 3
   },
   {
@@ -166,6 +254,22 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "cossack-squat",
+    "zh": "哥萨克深蹲",
+    "en": "Cossack Squat",
+    "equipment": "Bodyweight",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
+    "slug": "knee-push-up",
+    "zh": "跪姿俯卧撑",
+    "en": "Knee Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
     "slug": "hack-squat",
     "zh": "哈克深蹲",
     "en": "Hack Squat",
@@ -178,6 +282,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "zh": "后撤弓步",
     "en": "Reverse Lunge",
     "equipment": "Dumbbell",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
+    "slug": "skater-squat",
+    "zh": "滑冰式深蹲",
+    "en": "Skater Squat",
+    "equipment": "Bodyweight",
     "muscle": "Quads",
     "frames": 3
   },
@@ -195,6 +307,22 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Concentration Curl",
     "equipment": "Dumbbell",
     "muscle": "Biceps",
+    "frames": 3
+  },
+  {
+    "slug": "scapular-push-up",
+    "zh": "肩胛俯卧撑",
+    "en": "Scapular Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Upper Back",
+    "frames": 3
+  },
+  {
+    "slug": "scapular-pull-up",
+    "zh": "肩胛引体",
+    "en": "Scapular Pull-up",
+    "equipment": "Pull-up Bar",
+    "muscle": "Lats",
     "frames": 3
   },
   {
@@ -230,11 +358,35 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "wall-handstand-push-up",
+    "zh": "靠墙倒立撑",
+    "en": "Wall Handstand Push-up",
+    "equipment": "Wall",
+    "muscle": "Shoulders",
+    "frames": 3
+  },
+  {
     "slug": "wall-sit",
     "zh": "靠墙静蹲",
     "en": "Wall Sit",
     "equipment": "Bodyweight",
     "muscle": "Quads",
+    "frames": 3
+  },
+  {
+    "slug": "wall-walk",
+    "zh": "靠墙走",
+    "en": "Wall Walk",
+    "equipment": "Wall",
+    "muscle": "Shoulders",
+    "frames": 3
+  },
+  {
+    "slug": "wide-push-up",
+    "zh": "宽距俯卧撑",
+    "en": "Wide Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
     "frames": 3
   },
   {
@@ -278,11 +430,27 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "push-up-shoulder-tap",
+    "zh": "拍肩俯卧撑",
+    "en": "Push-up Shoulder Tap",
+    "equipment": "Bodyweight",
+    "muscle": "Core",
+    "frames": 3
+  },
+  {
     "slug": "running",
     "zh": "跑步",
     "en": "Running",
     "equipment": "Cardio",
     "muscle": "Legs",
+    "frames": 3
+  },
+  {
+    "slug": "archer-push-up",
+    "zh": "偏重俯卧撑",
+    "en": "Archer Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
     "frames": 3
   },
   {
@@ -326,11 +494,27 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "wall-push-up",
+    "zh": "墙壁俯卧撑",
+    "en": "Wall Push-up",
+    "equipment": "Wall",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
     "slug": "ez-bar-curl",
     "zh": "曲杆弯举",
     "en": "EZ-Bar Curl",
     "equipment": "Barbell",
     "muscle": "Biceps",
+    "frames": 3
+  },
+  {
+    "slug": "incline-push-up",
+    "zh": "上斜俯卧撑",
+    "en": "Incline Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
     "frames": 3
   },
   {
@@ -398,6 +582,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "jump-squat",
+    "zh": "跳深蹲",
+    "en": "Jump Squat",
+    "equipment": "Bodyweight",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
     "slug": "jump-rope",
     "zh": "跳绳",
     "en": "Jump Rope",
@@ -430,9 +622,25 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "negative-pull-up",
+    "zh": "退让引体",
+    "en": "Negative Pull-up",
+    "equipment": "Pull-up Bar",
+    "muscle": "Lats",
+    "frames": 3
+  },
+  {
     "slug": "glute-bridge",
     "zh": "臀桥",
     "en": "Glute Bridge",
+    "equipment": "Bodyweight",
+    "muscle": "Glutes",
+    "frames": 3
+  },
+  {
+    "slug": "glute-bridge-march",
+    "zh": "臀桥行进",
+    "en": "Glute Bridge March",
     "equipment": "Bodyweight",
     "muscle": "Glutes",
     "frames": 3
@@ -458,6 +666,30 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "zh": "卧推",
     "en": "Bench Press",
     "equipment": "Barbell",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
+    "slug": "sissy-squat",
+    "zh": "西西深蹲",
+    "en": "Sissy Squat",
+    "equipment": "Bodyweight",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
+    "slug": "shrimp-squat",
+    "zh": "虾式深蹲",
+    "en": "Shrimp Squat",
+    "equipment": "Bodyweight",
+    "muscle": "Quads",
+    "frames": 3
+  },
+  {
+    "slug": "decline-push-up",
+    "zh": "下斜俯卧撑",
+    "en": "Decline Push-up",
+    "equipment": "Bodyweight",
     "muscle": "Chest",
     "frames": 3
   },
@@ -574,6 +806,14 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "hindu-push-up",
+    "zh": "印度俯卧撑",
+    "en": "Hindu Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Chest",
+    "frames": 3
+  },
+  {
     "slug": "deadlift",
     "zh": "硬拉",
     "en": "Deadlift",
@@ -622,6 +862,22 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "frames": 3
   },
   {
+    "slug": "handstand-push-up",
+    "zh": "自由倒立撑",
+    "en": "Handstand Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Shoulders",
+    "frames": 3
+  },
+  {
+    "slug": "diamond-push-up",
+    "zh": "钻石俯卧撑",
+    "en": "Diamond Push-up",
+    "equipment": "Bodyweight",
+    "muscle": "Triceps",
+    "frames": 3
+  },
+  {
     "slug": "seated-row",
     "zh": "坐姿划船",
     "en": "Seated Cable Row",
@@ -643,6 +899,22 @@ export const EXERCISE_LIBRARY: ExerciseLibraryEntry[] = [
     "en": "Dumbbell Seated Shoulder Press",
     "equipment": "Dumbbell",
     "muscle": "Shoulders",
+    "frames": 3
+  },
+  {
+    "slug": "l-sit-pull-up",
+    "zh": "L坐引体",
+    "en": "L-Sit Pull-up",
+    "equipment": "Pull-up Bar",
+    "muscle": "Lats",
+    "frames": 3
+  },
+  {
+    "slug": "l-sit-hold",
+    "zh": "L坐支撑",
+    "en": "L-Sit Hold",
+    "equipment": "Bodyweight",
+    "muscle": "Core",
     "frames": 3
   },
   {
