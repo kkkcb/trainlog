@@ -11,6 +11,7 @@ interface CalendarDayProps {
   hasPlan?: boolean
   onClick: (fullDate: string) => void
   onLongPress?: (fullDate: string) => void
+  style?: React.CSSProperties
 }
 
 export const CalendarDay = memo(function CalendarDay({
@@ -23,6 +24,7 @@ export const CalendarDay = memo(function CalendarDay({
   hasPlan,
   onClick,
   onLongPress,
+  style,
 }: CalendarDayProps) {
   let className = 'calendar-day'
   if (!isCurrentMonth) className += ' calendar-day--other'
@@ -77,6 +79,7 @@ export const CalendarDay = memo(function CalendarDay({
   return (
     <button
       className={className}
+      style={style}
       onClick={handleClick}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}

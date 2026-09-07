@@ -53,7 +53,7 @@ export function CalendarGrid({
         ))}
       </div>
       <div className="calendar__grid">
-        {calendar.calendarDays.map((day) => {
+        {calendar.calendarDays.map((day, i) => {
           const hasTraining = trainingDates.has(day.fullDate)
           return (
             <CalendarDay
@@ -67,6 +67,8 @@ export function CalendarGrid({
               hasPlan={planDates?.has(day.fullDate)}
               onClick={onSelectDate}
               onLongPress={onLongPressDate}
+              /* 显式定位：与宠物的显式格位互不挤占，避免自动流被顶乱整月错位 */
+              style={{ gridColumn: (i % 7) + 1, gridRow: Math.floor(i / 7) + 1 }}
             />
           )
         })}
