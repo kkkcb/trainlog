@@ -190,8 +190,10 @@
   flex-direction: column;
   align-items: center;
   padding: var(--space-2xl) 0 var(--space-md);
-  flex: 1;
-  justify-content: center;
+  /* 关键：margin:auto 居中——空间够时垂直居中，内容溢出时自动退化为顶部对齐。
+     原 flex:1 + justify-content:center 在内容超高时会双向溢出，滚动时与上下元素重叠 */
+  flex: 0 1 auto;
+  margin: auto 0;
 }
 
 .workout__ex-name {
