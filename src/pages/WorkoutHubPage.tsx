@@ -57,6 +57,7 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
   const [importError, setImportError] = useState<string | null>(null)
   // 自由训练：预选的动作集
   const [picked, setPicked] = useState<Set<string>>(new Set())
+  const [freeSets, setFreeSets] = useState(3)
 
   const handleImport = () => {
     const { exercises } = parsePlanText(importText)
@@ -96,6 +97,14 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
           {/* 自由训练：自定义 + 库内选动作（可多选），再点开始 */}
           <div className="workout-hub__pick">
             <p className="workout-hub__chooser-label">自由训练 · 勾选今天要练的动作</p>
+            <div className="workout-hub__sets-row">
+              <span>每个动作组数</span>
+              <span className="workout__add-sets workout-hub__sets-step">
+                <button onClick={() => { haptic.onTap(); setFreeSets((n) => Math.max(1, n - 1)) }} disabled={freeSets <= 1}>−</button>
+                <b>{freeSets} 组</b>
+                <button onClick={() => { haptic.onTap(); setFreeSets((n) => Math.min(20, n + 1)) }} disabled={freeSets >= 20}>＋</button>
+              </span>
+            </div>
             <ExercisePicker
               picked={picked}
               onToggle={(name) => {
@@ -123,7 +132,7 @@ export function WorkoutHubPage({ plans, onStartWorkout, onEditPlan, onImportPlan
                     const lib = findExerciseByName(name)
                     return {
                       name,
-                      sets: 3,
+                      sets: freeSets,
                       reps: '8-12',
                       weight: lib && BARBELL_DEFAULTS[name] ? BARBELL_DEFAULTS[name] : 20,
                     }

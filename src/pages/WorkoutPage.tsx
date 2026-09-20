@@ -127,6 +127,8 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   const [tags, setTags] = useState<string[]>([])
   const [adding, setAdding] = useState(false)
   const [newName, setNewName] = useState('')
+  // 现场加动作时的组数选择
+  const [newSets, setNewSets] = useState(3)
   const [confirmDiscard, setConfirmDiscard] = useState(false)
   // 已完成组调整：展开的行 / 两段确认撤销中的行
   const [armedIdx, setArmedIdx] = useState<number | null>(null)
@@ -297,13 +299,26 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
     haptic.onTap()
     setExs((prev) => [
       ...prev,
-      { name, targetSets: 3, targetReps: '8-12', targetWeight: 20, sets: [] },
+      { name, targetSets: newSets, targetReps: '8-12', targetWeight: weight, sets: [] },
     ])
     setCur(exs.length)
-    setWeight(20)
+    // 新动作重量默认沿用上一组的重量（用户约定），次数回到建议值
     setReps(10)
     setNewName('')
     setAdding(false)
+    setNewSets(3)
+  }
+
+  /** 训练中加减目标组数 */
+  const adjustTargetSets = (delta: number) => {
+    haptic.onTap()
+    setExs((prev) =>
+      prev.map((e, i) =>
+        i === cur
+          ? { ...e, targetSets: Math.min(20, Math.max(1, e.targetSets + delta)) }
+          : e
+      )
+    )
   }
 
   const fmtClock = (sec: number) =>
@@ -401,6 +416,11 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                 onChange={(e) => setNewName(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && addExercise()}
               />
+              <span className="workout__add-sets" aria-label="新动作组数">
+                <button onClick={() => { haptic.onTap(); setNewSets((n) => Math.max(1, n - 1)) }} disabled={newSets <= 1}>−</button>
+                <b>{newSets} 组</b>
+                <button onClick={() => { haptic.onTap(); setNewSets((n) => Math.min(20, n + 1)) }} disabled={newSets >= 20}>＋</button>
+              </span>
               <button onClick={addExercise} disabled={!newName.trim()}>加入</button>
             </div>
           )}
@@ -428,9 +448,21 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                   ) : (
                     <>
                       <span className="workout__count-num">第 {doneCount + 1}</span>
-                      <span className="workout__count-total">
-                        {mode === 'planned' ? `/ ${curEx.targetSets} 组` : '组'}
+                      <span className="workout__count-total">/</span>
+                      <span className="workout__sets-step">
+                        <button
+                          onClick={() => adjustTargetSets(-1)}
+                          disabled={curEx.targetSets <= 1}
+                          aria-label="减少组数"
+                        >−</button>
+                        <b>{curEx.targetSets}</b>
+                        <button
+                          onClick={() => adjustTargetSets(1)}
+                          disabled={curEx.targetSets >= 20}
+                          aria-label="增加组数"
+                        >＋</button>
                       </span>
+                      <span className="workout__count-total">组</span>
                     </>
                   )}
                 </div>

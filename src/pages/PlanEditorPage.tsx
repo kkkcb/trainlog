@@ -25,6 +25,7 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
     initial.length > 0 ? initial.map((e) => ({ ...e })) : [makeExercise({ name: '' })]
   )
   const [pickFor, setPickFor] = useState<number | null>(null)
+  const [newSets, setNewSets] = useState(3)
   const [shareCode, setShareCode] = useState<string | null>(null)
   const [pasteCode, setPasteCode] = useState('')
   const [pasteError, setPasteError] = useState<string | null>(null)
@@ -33,9 +34,9 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
     setExercises((prev) => prev.map((e, i) => (i === idx ? { ...e, ...part } : e)))
   }
 
-  const addExercise = (name = '') => {
+  const addExercise = (name = '', sets = 3) => {
     haptic.onTap()
-    setExercises((prev) => [...prev, makeExercise({ name })])
+    setExercises((prev) => [...prev, makeExercise({ name, sets })])
     setPickFor(null)
   }
 
@@ -213,7 +214,15 @@ export function PlanEditorPage({ date, initial, hasExisting, onSave, onDelete, o
 
         <div className="plan-page__add-zone">
           <p className="ex-picker__label">添加动作（可搜索动作库 / 自定义）</p>
-          <ExercisePicker picked={new Set()} onToggle={(name) => addExercise(name)} />
+          <div className="plan-page__add-row">
+            <span>新动作组数</span>
+            <span className="workout__add-sets plan-page__add-sets">
+              <button onClick={() => setNewSets((n) => Math.max(1, n - 1))} disabled={newSets <= 1}>−</button>
+              <b>{newSets} 组</b>
+              <button onClick={() => setNewSets((n) => Math.min(20, n + 1))} disabled={newSets >= 20}>＋</button>
+            </span>
+          </div>
+          <ExercisePicker picked={new Set()} onToggle={(name) => addExercise(name, newSets)} />
         </div>
 
         {hasExisting && (

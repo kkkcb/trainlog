@@ -310,3 +310,18 @@
 .workout-hub__pick-go:disabled {
   opacity: 0.5;
 }
+
+/* 自由训练组数选择 */
+.workout-hub__sets-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  padding: 2px 2px;
+}
+
+.workout-hub__sets-step b {
+  color: var(--color-text-secondary);
+}

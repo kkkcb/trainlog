@@ -51,7 +51,7 @@ describe('WorkoutPage 动作训练', () => {
     const stageName = () => container.querySelector('.workout__ex-name')?.textContent
     expect(stageName()).toBe('卧推')
     expect(screen.getByText('第 1')).toBeTruthy()
-    expect(screen.getByText('/ 2 组')).toBeTruthy()
+    expect(container.querySelector('.workout__sets-step b')?.textContent).toBe('2')
 
     completeSet()
     expect(screen.getByText('第 2')).toBeTruthy()
@@ -108,6 +108,42 @@ describe('WorkoutPage 动作训练', () => {
     const slider = screen.getByLabelText('重量滑块') as HTMLInputElement
     fireEvent.change(slider, { target: { value: '60' } })
     expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('60')
+  })
+
+  it('训练中可加减目标组数', () => {
+    const { container } = renderWorkout()
+    // 预设 2 组 → 加到 3
+    const plus = screen.getByRole('button', { name: '增加组数' })
+    fireEvent.click(plus)
+    expect(container.querySelector('.workout__sets-step b')?.textContent).toBe('3')
+    // 连做 3 组不自动切动作（未达 3 组前）
+    completeSet()
+    completeSet()
+    expect(container.querySelector('.workout__ex-name')?.textContent).toBe('卧推')
+    completeSet()
+    // 3 组做满 → 自动切深蹲
+    expect(container.querySelector('.workout__ex-name')?.textContent).toBe('深蹲')
+  })
+
+  it('训练中加动作：组数可选，重量沿用上一组', () => {
+    const { container } = renderWorkout()
+    completeSet() // 40kg×10
+    // 加动作: 组数调到 5
+    const addBtn = [...container.querySelectorAll('.workout__ex-chip')].find(b => b.textContent.includes('＋动作'))
+    fireEvent.click(addBtn!)
+    const setPlus = [...container.querySelectorAll('.workout__add-sets button')][1]
+    fireEvent.click(setPlus)
+    fireEvent.click(setPlus)
+    expect([...container.querySelectorAll('.workout__add-sets b')][0].textContent).toContain('5')
+    const input = container.querySelector('.workout__add input') as HTMLInputElement
+    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
+    setter?.call(input, '龙门架夹胸')
+    fireEvent(input, new Event('input', { bubbles: true }))
+    fireEvent.click([...container.querySelectorAll('.workout__add button')].find(b => b.textContent === '加入')!)
+    // 新动作目标组数 5，重量沿用 40
+    expect(container.querySelector('.workout__ex-name')?.textContent).toBe('龙门架夹胸')
+    expect(container.querySelector('.workout__count-num')?.textContent).toContain('第 1')
+    expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('40')
   })
 
   it('杠铃换算：卧推显示空杆/单边选择，总重联动', () => {

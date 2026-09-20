@@ -765,3 +765,69 @@
   font-size: var(--font-size-sm);
   color: var(--color-accent);
 }
+
+/* 目标组数步进器（第 N / [−] X [+] 组） */
+.workout__sets-step {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0 var(--space-xs);
+}
+
+.workout__sets-step button {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workout__sets-step button:disabled {
+  opacity: 0.3;
+}
+
+.workout__sets-step b {
+  font-family: var(--font-display-num);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  min-width: 30px;
+  text-align: center;
+}
+
+/* 加动作面板的组数选择 */
+.workout__add-sets {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0 var(--space-xs);
+}
+
+.workout__add-sets button {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workout__add-sets button:disabled {
+  opacity: 0.3;
+}
+
+.workout__add-sets b {
+  font-family: var(--font-display-num);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}

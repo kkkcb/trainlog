@@ -351,3 +351,17 @@
   gap: var(--space-sm);
   margin-top: var(--space-sm);
 }
+
+/* 添加区组数行 */
+.plan-page__add-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.plan-page__add-sets b {
+  color: var(--color-text-secondary);
+}
