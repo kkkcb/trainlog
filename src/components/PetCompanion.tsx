@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect -- 游戏式命令式动画逻辑(定时游走/冲刺/粒子) */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { TrainingRecord } from '../types'
 import { useHapticFeedback } from '../hooks/useHapticFeedback'
 import { getTodayString } from '../utils/date'
@@ -360,8 +361,8 @@ export function CalendarPet({
         ) : null
       )}
 
-      {/* 进化全屏过场 */}
-      {evolvingFrom && (
+      {/* 进化全屏过场：portal 到 body —— 日历卡/日历入场动画的 transform 残留会成为 fixed 后代的包含块，导致过场被卡裁切 */}
+      {evolvingFrom && createPortal(
         <div className="evolve-overlay" onClick={() => setEvolvingFrom(null)}>
           <div className="evolve-rays" />
           <div className="evolve-body">
@@ -375,7 +376,8 @@ export function CalendarPet({
             <span className="evolve-title">进化！{STAGE_NAME[stage]}</span>
             <span className="evolve-sub">累计训练 {totalWorkouts} 次</span>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   )

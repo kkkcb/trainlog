@@ -20,7 +20,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100dvh', color: '#f5f5f7', fontFamily: 'system-ui, sans-serif', gap: '12px', background: '#111114', padding: '24px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', color: '#f5f5f7', fontFamily: 'system-ui, sans-serif', gap: '12px', background: '#111114', padding: '24px' }}>
           <p style={{ fontSize: '17px', fontWeight: 600 }}>出了点问题</p>
           <pre style={{ color: '#f43f5e', fontSize: '12px', whiteSpace: 'pre-wrap', textAlign: 'center', maxWidth: '90%' }}>{this.state.msg}</pre>
           <button

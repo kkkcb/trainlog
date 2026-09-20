@@ -1,6 +1,6 @@
 .toast-container {
   position: fixed;
-  bottom: calc(var(--bottom-bar-height) + var(--safe-area-bottom) + var(--space-xl));
+  bottom: calc(104px + var(--safe-area-bottom));
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -74,4 +74,8 @@
 
 .toast__msg {
   letter-spacing: -0.005em;
+}
+
+.toast {
+  max-width: calc(100vw - 48px);
 }

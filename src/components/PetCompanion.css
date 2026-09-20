@@ -161,7 +161,7 @@
   bottom: calc(100% - 12%);
   left: 50%;
   transform: translateX(-50%);
-  max-width: 132px;
+  max-width: min(108px, calc(100vw - 48px));
   padding: 4px 9px;
   border-radius: 10px 10px 10px 2px;
   background: var(--color-bg-elevated);

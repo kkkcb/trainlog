@@ -748,10 +748,10 @@
 
 .workout__param-row {
   display: grid;
-  /* 固定列宽：两行(重量/次数)的 − 数值 ＋ 严格纵向对齐 */
-  grid-template-columns: 64px 56px minmax(72px, 1fr) 56px 36px;
+  /* 固定列宽：两行严格对齐；最小合计 ≤268px，360px 屏(内容区312px)不横向溢出 */
+  grid-template-columns: 52px 48px minmax(56px, 1fr) 48px 32px;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   min-height: 64px;
   padding: var(--space-xs) var(--space-md);
   background: var(--color-bg-card);
@@ -767,8 +767,8 @@
 }
 
 .workout__big-btn {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 52px;
   border-radius: var(--radius-md);
   font-size: 26px;
   line-height: 1;
@@ -788,7 +788,7 @@
 
 .workout__param-value {
   font-family: var(--font-display-num);
-  font-size: 30px;
+  font-size: 28px;
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   text-align: center;
@@ -904,4 +904,12 @@
 .workout__vp-chip--on {
   color: var(--color-text-inverse);
   background: var(--gradient-accent);
+}
+
+/* 极窄屏(≤360px)：页头进一步压缩防裁切 */
+@media (max-width: 360px) {
+  .workout__clock { font-size: 18px; }
+  .workout__mode-btn { padding: 5px 9px; }
+  .workout__finish { padding: 6px 10px; }
+  .workout__param-value { font-size: 24px; }
 }

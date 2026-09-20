@@ -16,6 +16,7 @@
   width: 100%;
   max-width: 360px;
   max-height: 80vh;
+  max-height: 80dvh;
   display: flex;
   flex-direction: column;
   background: var(--color-bg-secondary);

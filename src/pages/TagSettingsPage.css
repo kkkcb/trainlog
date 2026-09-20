@@ -460,3 +460,7 @@
   color: var(--color-text-tertiary);
   text-decoration: underline;
 }
+
+.tag-settings__body {
+  padding-bottom: calc(var(--space-2xl) + var(--safe-area-bottom));
+}

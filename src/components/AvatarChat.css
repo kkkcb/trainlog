@@ -15,6 +15,7 @@
 
 .life-sheet {
   width: min(100%, var(--max-content-width));
+  height: 78vh;
   height: 78dvh;
   display: flex;
   flex-direction: column;
