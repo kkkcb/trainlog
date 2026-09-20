@@ -21,6 +21,10 @@ interface WorkoutPageProps {
 
 const SESSION_KEY = 'trainlog_workout_session'
 
+/** 快捷选择：重量 0(徒手)~200 步进 2.5；次数 1~30 */
+const WEIGHT_CHOICES: number[] = [0, ...Array.from({ length: 80 }, (_, i) => (i + 1) * 2.5)]
+const REPS_CHOICES: number[] = Array.from({ length: 30 }, (_, i) => i + 1)
+
 /** 常见空杆重量 kg：奥杆 20 / 小孔曲杆 15 / W 杆 10-11 / 技术杆 5-8；0=无杆(纯器械数字) */
 const BAR_WEIGHTS = [0, 5, 10, 15, 20]
 
@@ -131,6 +135,8 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   const [newSets, setNewSets] = useState(3)
   // 杠铃片换算面板：默认折叠，省屏幕空间
   const [barOpen, setBarOpen] = useState(false)
+  // 数值快捷选择框
+  const [picker, setPicker] = useState<'weight' | 'reps' | null>(null)
   const [confirmDiscard, setConfirmDiscard] = useState(false)
   // 已完成组调整：展开的行 / 两段确认撤销中的行
   const [armedIdx, setArmedIdx] = useState<number | null>(null)
@@ -477,13 +483,17 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                       aria-label="重量减2.5"
                       onClick={() => { haptic.onTap(); setWeight((w) => Math.max(0, Math.round((w - 2.5) * 10) / 10)) }}
                     >−</button>
-                    <b className="workout__param-value">{weight === 0 ? '徒手' : weight}</b>
+                    <button
+                      className="workout__param-value workout__param-value--btn"
+                      aria-label="选择重量"
+                      onClick={() => { haptic.onTap(); setPicker('weight') }}
+                    >{weight === 0 ? '徒手' : weight}</button>
                     <button
                       className="workout__big-btn"
                       aria-label="重量加2.5"
                       onClick={() => { haptic.onTap(); setWeight((w) => Math.round((w + 2.5) * 10) / 10) }}
                     >＋</button>
-                    {isBarbell && (
+                    {isBarbell ? (
                       <button
                         className={`workout__bar-toggle ${barOpen ? 'workout__bar-toggle--on' : ''}`}
                         onClick={() => { haptic.onTap(); setBarOpen((v) => !v) }}
@@ -491,6 +501,8 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                       >
                         片
                       </button>
+                    ) : (
+                      <span className="workout__param-tail" />
                     )}
                   </div>
 
@@ -539,12 +551,17 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                       aria-label="次数减1"
                       onClick={() => { haptic.onTap(); setReps((r) => Math.max(1, r - 1)) }}
                     >−</button>
-                    <b className="workout__param-value">{reps}</b>
+                    <button
+                      className="workout__param-value workout__param-value--btn"
+                      aria-label="选择次数"
+                      onClick={() => { haptic.onTap(); setPicker('reps') }}
+                    >{reps}</button>
                     <button
                       className="workout__big-btn"
                       aria-label="次数加1"
                       onClick={() => { haptic.onTap(); setReps((r) => r + 1) }}
                     >＋</button>
+                    <span className="workout__param-tail" />
                   </div>
                 </div>
 
@@ -715,6 +732,41 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
             <button className="workout__sum-resume" onClick={() => setPhase('run')}>继续训练</button>
           </div>
         </main>
+      )}
+
+      {/* 数值快捷选择框：点数值弹出，单击即选 */}
+      {picker && (
+        <div className="workout__vp-overlay" onClick={() => setPicker(null)}>
+          <div className="workout__vp" onClick={(e) => e.stopPropagation()}>
+            <div className="workout__vp-handle" />
+            <p className="workout__vp-title">
+              {picker === 'weight' ? '选择重量 kg' : '选择次数'}
+            </p>
+            <div className="workout__vp-grid">
+              {(picker === 'weight'
+                ? WEIGHT_CHOICES
+                : REPS_CHOICES
+              ).map((v) => {
+                const cur = picker === 'weight' ? weight : reps
+                const on = cur === v
+                return (
+                  <button
+                    key={v}
+                    className={`workout__vp-chip ${on ? 'workout__vp-chip--on' : ''}`}
+                    onClick={() => {
+                      haptic.onTap()
+                      if (picker === 'weight') setWeight(v)
+                      else setReps(v)
+                      setPicker(null)
+                    }}
+                  >
+                    {picker === 'weight' && v === 0 ? '徒手' : v}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
       )}
 
       <BottomSheet

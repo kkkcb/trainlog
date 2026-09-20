@@ -748,7 +748,8 @@
 
 .workout__param-row {
   display: grid;
-  grid-template-columns: auto 1fr auto auto auto;
+  /* 固定列宽：两行(重量/次数)的 − 数值 ＋ 严格纵向对齐 */
+  grid-template-columns: 64px 56px minmax(72px, 1fr) 56px 36px;
   align-items: center;
   gap: var(--space-md);
   min-height: 64px;
@@ -810,4 +811,97 @@
 .workout__bar-toggle--on {
   color: var(--color-accent);
   background: var(--color-accent-surface);
+}
+
+/* 数值按钮(可点击弹选择框) */
+.workout__param-value--btn {
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout__param-value--btn:active {
+  background: var(--color-accent-surface);
+}
+
+/* 参数行尾占位(保持两行按钮对齐) */
+.workout__param-tail {
+  width: 36px;
+  flex-shrink: 0;
+}
+
+/* 数值快捷选择框 */
+.workout__vp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1150;
+  background: var(--color-bg-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: overlay-in var(--duration-fast) ease both;
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.workout__vp {
+  width: 100%;
+  max-width: var(--max-content-width);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  border-top: 1px solid var(--color-border);
+  padding-bottom: var(--safe-area-bottom);
+  animation: sheet-in var(--duration-normal) var(--ease-out-expo) forwards;
+}
+
+.workout__vp-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+  margin: var(--space-md) auto 0;
+}
+
+.workout__vp-title {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) 0 var(--space-sm);
+}
+
+.workout__vp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: var(--space-sm);
+  padding: 0 var(--space-lg) var(--space-lg);
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+.workout__vp-chip {
+  min-height: 48px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display-num);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast) var(--ease-out-expo);
+}
+
+.workout__vp-chip:active {
+  transform: scale(0.94);
+}
+
+.workout__vp-chip--on {
+  color: var(--color-text-inverse);
+  background: var(--gradient-accent);
 }

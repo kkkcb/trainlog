@@ -115,6 +115,19 @@ describe('WorkoutPage 动作训练', () => {
     expect([...container.querySelectorAll('.workout__param-value')][1].textContent).toBe('9')
   })
 
+  it('点数值弹出快捷选择框，单击即选', () => {
+    const { container } = renderWorkout()
+    fireEvent.click(screen.getByRole('button', { name: '选择重量' }))
+    expect(container.querySelector('.workout__vp')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: '60' }))
+    expect(container.querySelector('.workout__param-value')?.textContent).toBe('60')
+    expect(container.querySelector('.workout__vp')).toBeNull()
+    // 次数同理
+    fireEvent.click(screen.getByRole('button', { name: '选择次数' }))
+    fireEvent.click(screen.getByRole('button', { name: '15' }))
+    expect([...container.querySelectorAll('.workout__param-value')][1].textContent).toBe('15')
+  })
+
   it('训练中可加减目标组数', () => {
     const { container } = renderWorkout()
     // 预设 2 组 → 加到 3
