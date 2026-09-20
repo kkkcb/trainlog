@@ -90,7 +90,9 @@ describe('WorkoutPage 动作训练', () => {
   it('组顺序可挪动（滑条改重量后挪动可见）', () => {
     const { container } = renderWorkout()
     completeSet() // 40kg×10
-    fireEvent.change(screen.getByLabelText('重量滑块'), { target: { value: '60' } })
+    // 重量 +2.5 连按 8 次: 40 → 60
+    const wPlus = screen.getByRole('button', { name: '重量加2.5' })
+    for (let i = 0; i < 8; i++) fireEvent.click(wPlus)
     completeSet() // 60kg×10，计划模式做满自动切到深蹲
     // 切回卧推查看已完成的两组
     fireEvent.click(container.querySelectorAll('.workout__ex-chip')[0])
@@ -103,11 +105,14 @@ describe('WorkoutPage 动作训练', () => {
     expect(vals()).toEqual(['60kg×10 ✓', '40kg×10 ✓'])
   })
 
-  it('重量滑条可调', () => {
+  it('重量/次数大按钮可调，无滑条', () => {
     const { container } = renderWorkout()
-    const slider = screen.getByLabelText('重量滑块') as HTMLInputElement
-    fireEvent.change(slider, { target: { value: '60' } })
-    expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('60')
+    expect(container.querySelector('.workout__slider')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: '重量加2.5' }))
+    fireEvent.click(screen.getByRole('button', { name: '重量加2.5' }))
+    expect(container.querySelector('.workout__param-value')?.textContent).toBe('45')
+    fireEvent.click(screen.getByRole('button', { name: '次数减1' }))
+    expect([...container.querySelectorAll('.workout__param-value')][1].textContent).toBe('9')
   })
 
   it('训练中可加减目标组数', () => {
@@ -143,13 +148,15 @@ describe('WorkoutPage 动作训练', () => {
     // 新动作目标组数 5，重量沿用 40
     expect(container.querySelector('.workout__ex-name')?.textContent).toBe('龙门架夹胸')
     expect(container.querySelector('.workout__count-num')?.textContent).toContain('第 1')
-    expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('40')
+    expect(container.querySelector('.workout__param-value')?.textContent).toBe('40')
   })
 
   it('杠铃换算：卧推显示空杆/单边选择，总重联动', () => {
     const { container } = renderWorkout()
-    // 卧推在杠铃名单里 → 出现换算区
-    expect(container.querySelector('.workout__barbell')).toBeTruthy()
+    // 卧推在杠铃名单里 → 参数行有「片」开关,展开出现换算区
+    const barToggle = container.querySelector('.workout__bar-toggle')
+    expect(!!barToggle).toBe(true)
+    fireEvent.click(barToggle!)
     // 空杆20+单边10 → 总重 40(计划预设)
     const sum = container.querySelector('.workout__barbell-sum')?.textContent ?? ''
     expect(sum).toContain('＝')
@@ -157,7 +164,7 @@ describe('WorkoutPage 动作训练', () => {
     const chips = [...container.querySelectorAll('.workout__barbell-chip')]
     const plus15 = chips.find(c => c.textContent === '+15')
     fireEvent.click(plus15!)
-    expect([...container.querySelectorAll('.workout__stepper b')][0].textContent).toBe('50')
+    expect(container.querySelector('.workout__param-value')?.textContent).toBe('50')
   })
 
   it('没做满预设也能「结束此动作」切下一个，已练组保留', () => {

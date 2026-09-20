@@ -129,6 +129,8 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
   const [newName, setNewName] = useState('')
   // 现场加动作时的组数选择
   const [newSets, setNewSets] = useState(3)
+  // 杠铃片换算面板：默认折叠，省屏幕空间
+  const [barOpen, setBarOpen] = useState(false)
   const [confirmDiscard, setConfirmDiscard] = useState(false)
   // 已完成组调整：展开的行 / 两段确认撤销中的行
   const [armedIdx, setArmedIdx] = useState<number | null>(null)
@@ -433,7 +435,7 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                 {resting ? ' · 组间休息中' : ` · 第 ${doneCount + 1} 组 ${weight === 0 ? '徒手' : `${weight}kg`}×${reps}`}
               </p>
               <div className="workout__stage">
-                {illustrations && <ExerciseIllustration name={curEx.name} size={150} />}
+                {illustrations && <ExerciseIllustration name={curEx.name} size={118} />}
                 <h2 className="workout__ex-name">{curEx.name}</h2>
                 <div className="workout__count" key={`${cur}-${doneCount}-${resting ? 'r' : ''}`}>
                   {resting ? (
@@ -467,77 +469,82 @@ export function WorkoutPage({ date, plan, tagNames, onDirtyChange, onSave, onExi
                   )}
                 </div>
                 <div className="workout__params">
-                  <div className="workout__param">
+                  {/* 重量：整行大步进器（无滑条，杜绝拖动误触） */}
+                  <div className="workout__param-row">
                     <span className="workout__param-label">重量 kg</span>
-                    <div className="workout__stepper">
-                      <button onClick={() => { haptic.onTap(); setWeight((w) => Math.max(0, Math.round((w - 2.5) * 10) / 10)) }}>−</button>
-                      <b>{weight === 0 ? '徒手' : weight}</b>
-                      <button onClick={() => { haptic.onTap(); setWeight((w) => Math.round((w + 2.5) * 10) / 10) }}>＋</button>
-                    </div>
-                    <input
-                      type="range"
-                      className="workout__slider"
-                      min={0}
-                      max={200}
-                      step={2.5}
-                      value={Math.min(weight, 200)}
-                      onChange={(e) => setWeight(Number(e.target.value))}
-                      aria-label="重量滑块"
-                    />
-                    {/* 杠铃动作：空杆重量 + 单边片重↔总重换算 */}
+                    <button
+                      className="workout__big-btn"
+                      aria-label="重量减2.5"
+                      onClick={() => { haptic.onTap(); setWeight((w) => Math.max(0, Math.round((w - 2.5) * 10) / 10)) }}
+                    >−</button>
+                    <b className="workout__param-value">{weight === 0 ? '徒手' : weight}</b>
+                    <button
+                      className="workout__big-btn"
+                      aria-label="重量加2.5"
+                      onClick={() => { haptic.onTap(); setWeight((w) => Math.round((w + 2.5) * 10) / 10) }}
+                    >＋</button>
                     {isBarbell && (
-                      <div className="workout__barbell">
-                        <div className="workout__barbell-row">
-                          <span className="workout__barbell-label">空杆</span>
-                          <div className="workout__barbell-opts">
-                            {BAR_WEIGHTS.map((b) => (
-                              <button
-                                key={b}
-                                className={`workout__barbell-chip ${barWeight === b ? 'workout__barbell-chip--on' : ''}`}
-                                onClick={() => { haptic.onTap(); applyBarWeight(b, perSide) }}
-                              >
-                                {b === 0 ? '无' : `${b}`}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="workout__barbell-row">
-                          <span className="workout__barbell-label">单边</span>
-                          <div className="workout__barbell-opts">
-                            {[0, 5, 10, 15, 20, 25].map((p) => (
-                              <button
-                                key={p}
-                                className={`workout__barbell-chip ${perSide === p ? 'workout__barbell-chip--on' : ''}`}
-                                onClick={() => { haptic.onTap(); applyBarWeight(barWeight, p) }}
-                              >
-                                {p === 0 ? '空杆' : `+${p}`}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <p className="workout__barbell-sum">
-                          单边 {perSide}kg×2 + 杆 {barWeight}kg ＝ <b>{barWeight + perSide * 2}</b>kg 总重
-                        </p>
-                      </div>
+                      <button
+                        className={`workout__bar-toggle ${barOpen ? 'workout__bar-toggle--on' : ''}`}
+                        onClick={() => { haptic.onTap(); setBarOpen((v) => !v) }}
+                        aria-expanded={barOpen}
+                      >
+                        片
+                      </button>
                     )}
                   </div>
-                  <div className="workout__param">
-                    <span className="workout__param-label">次数</span>
-                    <div className="workout__stepper">
-                      <button onClick={() => { haptic.onTap(); setReps((r) => Math.max(1, r - 1)) }}>−</button>
-                      <b>{reps}</b>
-                      <button onClick={() => { haptic.onTap(); setReps((r) => r + 1) }}>＋</button>
+
+                  {/* 杠铃片换算：默认折叠，按需展开 */}
+                  {isBarbell && barOpen && (
+                    <div className="workout__barbell">
+                      <div className="workout__barbell-row">
+                        <span className="workout__barbell-label">空杆</span>
+                        <div className="workout__barbell-opts">
+                          {BAR_WEIGHTS.map((b) => (
+                            <button
+                              key={b}
+                              className={`workout__barbell-chip ${barWeight === b ? 'workout__barbell-chip--on' : ''}`}
+                              onClick={() => { haptic.onTap(); applyBarWeight(b, perSide) }}
+                            >
+                              {b === 0 ? '无' : `${b}`}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="workout__barbell-row">
+                        <span className="workout__barbell-label">单边</span>
+                        <div className="workout__barbell-opts">
+                          {[0, 5, 10, 15, 20, 25].map((p) => (
+                            <button
+                              key={p}
+                              className={`workout__barbell-chip ${perSide === p ? 'workout__barbell-chip--on' : ''}`}
+                              onClick={() => { haptic.onTap(); applyBarWeight(barWeight, p) }}
+                            >
+                              {p === 0 ? '空杆' : `+${p}`}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="workout__barbell-sum">
+                        单边 {perSide}kg×2 + 杆 {barWeight}kg ＝ <b>{barWeight + perSide * 2}</b>kg 总重
+                      </p>
                     </div>
-                    <input
-                      type="range"
-                      className="workout__slider"
-                      min={1}
-                      max={30}
-                      step={1}
-                      value={Math.min(reps, 30)}
-                      onChange={(e) => setReps(Number(e.target.value))}
-                      aria-label="次数滑块"
-                    />
+                  )}
+
+                  {/* 次数：整行大步进器 */}
+                  <div className="workout__param-row">
+                    <span className="workout__param-label">次数</span>
+                    <button
+                      className="workout__big-btn"
+                      aria-label="次数减1"
+                      onClick={() => { haptic.onTap(); setReps((r) => Math.max(1, r - 1)) }}
+                    >−</button>
+                    <b className="workout__param-value">{reps}</b>
+                    <button
+                      className="workout__big-btn"
+                      aria-label="次数加1"
+                      onClick={() => { haptic.onTap(); setReps((r) => r + 1) }}
+                    >＋</button>
                   </div>
                 </div>
 
